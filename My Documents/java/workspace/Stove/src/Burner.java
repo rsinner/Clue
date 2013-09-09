@@ -69,7 +69,6 @@ public class Burner {
 	}
 	
 	public void displayStatus() {
-		System.out.println("Stove -----------------");
 		String disp;
 		if (setting == Settings.Setting.HIGH)
 			disp = "HOT SURFACE! DON'T TOUCH";
@@ -77,7 +76,7 @@ public class Burner {
 			disp = "CAREFUL";
 		else
 			disp = "cooool";
-		System.out.println("[" + setting + "]....." + disp);
+		System.out.println("[" + setting.toString() + "]....." + disp);
 	}
 
 	
