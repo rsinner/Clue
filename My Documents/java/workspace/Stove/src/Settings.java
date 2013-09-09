@@ -7,7 +7,7 @@ public class Settings {
 			this.s = s;
 		}
 		public String toString() {
-			return "Settings [set=" + s + "]";
+			return s;
 		}
 	}
 }
