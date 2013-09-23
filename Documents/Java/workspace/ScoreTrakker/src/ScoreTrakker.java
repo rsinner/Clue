@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 public class ScoreTrakker {
 	private ArrayList<Student> students;
+	private String[] files = {"scores.txt", "badscore.txt", "nofile.txt"};
 
 	public ScoreTrakker() {
 		super();
@@ -17,12 +18,20 @@ public class ScoreTrakker {
 		FileReader reader = new FileReader(filename);
 		Scanner in = new Scanner(reader);
 		while (in.hasNextLine()) {
-			String name = in.nextLine();
-			int score = in.nextInt();
-			if (in.hasNextLine())
-				in.nextLine();
-			Student s = new Student(name,score);
-			students.add(s);
+			String name = "";
+			String score_string = "";
+			int score = 0;
+			try {
+				name = in.nextLine();
+				score_string = in.nextLine();
+				//if (in.hasNextLine())
+				//in.nextLine();
+				score = Integer.parseInt(score_string);
+				Student s = new Student(name,score);
+				students.add(s);
+			} catch (NumberFormatException e) {
+				System.out.println("Incorrect format for " + name + " not a valid score: " + score_string + "\n");
+			}
 		}
 		in.close();
 	}
@@ -35,8 +44,15 @@ public class ScoreTrakker {
 	}
 
 	void processFile(String filename) throws FileNotFoundException{
-		loadDataFromFile(filename);
-		printInOrder();
+		for (String f : files) {
+			try {
+				loadDataFromFile(f);
+				printInOrder();
+			} catch (FileNotFoundException e) {
+				System.out.println("Can't open file: " + f);
+			}
+			System.out.print("\n");
+		}
 	}
 
 	public static void main(String[] args) throws FileNotFoundException {
