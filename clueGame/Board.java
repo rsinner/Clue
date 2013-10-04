@@ -51,21 +51,40 @@ public class Board {
 			rooms.put(c, s);
 		}
 	}
-	public void loadLayoutFile() throws FileNotFoundException {
+	public void loadLayoutFile() throws FileNotFoundException, BadConfigFormatException {
 		String layout = getLayoutFile();
 		FileReader layRead = new FileReader(layout);
 		Scanner layIn = new Scanner(layRead);
 		String line;
 		int row = 0;
+		int prevCol = -1;
 		while (layIn.hasNextLine()) {
+			int col = 0;
 			line = layIn.nextLine();
-			for (int col =  0; col < line.length(); col++) {
-				char c = line.charAt(col);
+			for (int i =  0; i < line.length(); i++) {
+				char c = line.charAt(i);
 				if (c == ',')
 					continue;
-				String s = line.charAt(col)+"";
+				String s = line.charAt(i)+"";
+				if (i+1 < line.length() && line.charAt(i+1) != ',') {
+					if (line.charAt(i+1) != 'U' || line.charAt(i+1) != 'R' || line.charAt(i+1) != 'D' || line.charAt(i+1) != 'L')
+						throw new BadConfigFormatException("Error in the layout file.");
+					s += line.charAt(i+1);
+					i++;
+				}
+				cells.add(createBoardCell(row,col,s));
+				col++;
 			}
+			if (prevCol >= 0 && prevCol != col)
+				throw new BadConfigFormatException("Error in the layout file.");
+			prevCol = col;
+			row++;
 		}
+		numRows = row+1;
+		numColumns = prevCol+1;
+	}
+	public BoardCell createBoardCell(int row, int col, String s) {
+		return null;
 	}
 	public static int calcIndex(int row, int column) {
 		int i = 0;
