@@ -13,4 +13,10 @@ public class RoomCell extends BoardCell {
 	public boolean isRoom() {
 		return true;
 	}
+
+	public Object getInitial() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
