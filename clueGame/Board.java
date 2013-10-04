@@ -20,10 +20,9 @@ public class Board {
 		rooms = new HashMap<Character, String>();
 		
 	}
-	
-	public void loadConfigFiles() throws FileNotFoundException {
-		
-		//numRows = layIn.
+	public void loadConfigFiles() throws BadConfigFormatException, FileNotFoundException {
+		loadLegendFile();
+		loadLayoutFile();
 	}
 	public String getLegendFile() {
 		Scanner scan = new Scanner(System.in);
@@ -84,23 +83,23 @@ public class Board {
 		numColumns = prevCol+1;
 	}
 	public BoardCell createBoardCell(int row, int col, String s) {
-		return null;
+		if (s.charAt(0) == 'W')
+			return new WalkwayCell(row, col);
+		return new RoomCell(row, col, s);
 	}
-	public static int calcIndex(int row, int column) {
-		int i = 0;
-		return i;
+	public int calcIndex(int row, int column) {
+		return numColumns*row + column;
 	}
-	
 	public RoomCell getRoomCellAt(int row, int col) {
-		RoomCell whichCell = new RoomCell();
-		return whichCell;
+		int index = calcIndex(row, col);
+		if (cells.get(index) instanceof WalkwayCell)
+			return null;
+		return (RoomCell) cells.get(index);
 	}
-	
 	public ArrayList<BoardCell> getCells() {
 		return cells;
 	}
 	public Map<Character, String> getRooms() {
-		HashMap<Character, String> rooms = new HashMap<Character, String>();
 		return rooms;
 	}
 	public int getNumRows() {
@@ -110,7 +109,6 @@ public class Board {
 		return numColumns;
 	}
 	public BoardCell getCellAt(int i) {
-		// TODO Auto-generated method stub
-		return null;
+		return cells.get(i);
 	}
 }

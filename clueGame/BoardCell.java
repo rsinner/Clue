@@ -16,4 +16,10 @@ public abstract class BoardCell {
 		return false;
 	}
 
+	public BoardCell(int row, int column) {
+		super();
+		this.row = row;
+		this.column = column;
+	}
+
 }

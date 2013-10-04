@@ -5,8 +5,19 @@ public class RoomCell extends BoardCell {
 	private DoorDirection doorDirection;
 	private char roomInitial;
 
-	public RoomCell() {
-		// TODO Auto-generated constructor stub
+	public RoomCell(int row, int col, String s) {
+		super(row,col);
+		roomInitial = s.charAt(0);	
+		if (s.length() == 2) {
+			if (s.charAt(1) == 'U')
+				doorDirection = DoorDirection.UP;
+			if (s.charAt(1) == 'D')
+				doorDirection = DoorDirection.DOWN;
+			if (s.charAt(1) == 'R')
+				doorDirection = DoorDirection.RIGHT;
+			if (s.charAt(1) == 'L')
+				doorDirection = DoorDirection.LEFT;
+		}
 	}
 	
 	@Override
@@ -14,9 +25,8 @@ public class RoomCell extends BoardCell {
 		return true;
 	}
 
-	public Object getInitial() {
-		// TODO Auto-generated method stub
-		return null;
+	public char getInitial() {
+		return roomInitial;
 	}
 
 }
