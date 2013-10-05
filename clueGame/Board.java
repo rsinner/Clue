@@ -5,8 +5,11 @@ import java.io.FileReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 import clueGame.RoomCell.DoorDirection;
 
@@ -141,5 +144,19 @@ public class Board {
 	}
 	public BoardCell getCellAt(int i) {
 		return cells.get(i);
+	}
+	public void calcAdjacencies() {
+		
+	}
+	public static LinkedList<Integer> getAdjList(int cell) {
+		LinkedList<Integer> list = new LinkedList<Integer>();
+		return list;
+	}
+	public Set<BoardCell> getTargets() {
+		HashSet<BoardCell> set = new HashSet<BoardCell>();
+		return set;
+	}
+	public void calcTargets(int row, int column, int numSteps) {
+		
 	}
 }
