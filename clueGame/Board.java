@@ -2,6 +2,7 @@ package clueGame;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,18 +17,29 @@ public class Board {
 	private int numColumns;
 	private String legend;
 	private String layout;
+	private PrintWriter logger;
 	
 	public Board() {
 		cells = new ArrayList<BoardCell>();
 		rooms = new HashMap<Character, String>();
 		this.legend = getLegendFile();
 		this.layout = getLayoutFile();
+		try {
+			logger = new PrintWriter("errorLog.txt");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 	public Board(String layout, String legend) {
 		cells = new ArrayList<BoardCell>();
 		rooms = new HashMap<Character, String>();
 		this.legend = legend;
 		this.layout = layout;
+		try {
+			logger = new PrintWriter("errorLog.txt");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 	public void loadConfigFiles() {
 		try {
@@ -59,8 +71,10 @@ public class Board {
 			line = legIn.nextLine();
 			char c = line.charAt(0);
 			String s = line.substring(3);
-			if (!(Character.isLetter(c) && line.charAt(1) == ',' && line.charAt(2) == ' ') || s.indexOf(',') >= 0)
-				throw new BadConfigFormatException("Error in the legend file."+line);
+			if (!(Character.isLetter(c) && line.charAt(1) == ',' && line.charAt(2) == ' ') || s.indexOf(',') >= 0) {
+				logger.write("Error in the legend file.");
+				throw new BadConfigFormatException("Error in the legend file.");
+			}
 			rooms.put(c, s);
 		}
 	}
@@ -78,8 +92,10 @@ public class Board {
 				if (c == ',')
 					continue;
 				String s = line.charAt(i)+"";
-				if (rooms.get(line.charAt(i)) == null)
+				if (rooms.get(line.charAt(i)) == null) {
+					logger.write("Error in the legend file.");
 					throw new BadConfigFormatException("Error in the layout file.");
+				}
 				if (i+1 < line.length() && line.charAt(i+1) != ',') {
 					s += line.charAt(i+1);
 					i++;
@@ -87,8 +103,10 @@ public class Board {
 				cells.add(createBoardCell(row,col,s));
 				col++;
 			}
-			if (prevCol >= 0 && prevCol != col)
+			if (prevCol >= 0 && prevCol != col) {
+				logger.write("Error in the legend file.");
 				throw new BadConfigFormatException("Error in the layout file.");
+			}
 			prevCol = col;
 			row++;
 		}

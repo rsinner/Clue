@@ -23,7 +23,7 @@ public class BoardTests {
 	
 	@BeforeClass
 	public static void setUp() throws FileNotFoundException, BadConfigFormatException {
-		board = new Board();
+		board = new Board("Clue_Layout.csv", "legend.txt");
 		board.loadConfigFiles();
 	}
 	@Test
@@ -43,12 +43,10 @@ public class BoardTests {
 	
 	@Test
 	public void FourDoorDirections() {
-		// Test one each RIGHT/LEFT/UP/DOWN
-		RoomCell room = board.getRoomCellAt(5, 2);
-		assertTrue(room.isDoorway());
-		room = board.getRoomCellAt(10, 11);
-		assertFalse(room.isDoorway());	
-
+		assertEquals(board.getRoomCellAt(1,6).getDoorDirection(),RoomCell.DoorDirection.LEFT);
+		assertEquals(board.getRoomCellAt(4,2).getDoorDirection(),RoomCell.DoorDirection.DOWN);
+		assertEquals(board.getRoomCellAt(12,3).getDoorDirection(),RoomCell.DoorDirection.UP);
+		assertEquals(board.getRoomCellAt(13,11).getDoorDirection(),RoomCell.DoorDirection.RIGHT);
 	}
 	
 	@Test
@@ -63,7 +61,7 @@ public class BoardTests {
 			if (cell.isDoorway())
 				numDoors++;
 		}
-		Assert.assertEquals(10, numDoors);
+		Assert.assertEquals(14, numDoors);
 	}
 	
 	@Test
@@ -80,7 +78,7 @@ public class BoardTests {
 		assertEquals('H', board.getRoomCellAt(2, 11).getInitial());
 		assertEquals('A', board.getRoomCellAt(14, 2).getInitial());
 	}
-	
+	/*
 	@Test (expected = FileNotFoundException.class)
 	public void testBadRooms() throws FileNotFoundException {
 		Board b = new Board();
@@ -91,5 +89,5 @@ public class BoardTests {
 	public void testBadRoom() throws BadConfigFormatException, FileNotFoundException {
 		Board b = new Board();
 		b.getLayoutFile();
-	}
+	}*/
 }
