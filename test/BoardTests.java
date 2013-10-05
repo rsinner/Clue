@@ -22,8 +22,8 @@ public class BoardTests {
 	public static final int NUM_COLUMNS = 19;
 	
 	@BeforeClass
-	public static void setUp() throws FileNotFoundException {
-		board = new Board("file.txt");
+	public static void setUp() throws FileNotFoundException, BadConfigFormatException {
+		board = new Board();
 		board.loadConfigFiles();
 	}
 	@Test
@@ -81,15 +81,15 @@ public class BoardTests {
 		assertEquals('A', board.getRoomCellAt(14, 2).getInitial());
 	}
 	
-	@Test (expected = BadConfigFormatException.class)
-	public void testBadRooms() throws BadConfigFormatException, FileNotFoundException {
-		Board b = new Board("file.txt");
+	@Test (expected = FileNotFoundException.class)
+	public void testBadRooms() throws FileNotFoundException {
+		Board b = new Board();
 		b.getLegendFile();
 	}
 	
 	@Test (expected = BadConfigFormatException.class)
 	public void testBadRoom() throws BadConfigFormatException, FileNotFoundException {
-		Board b = new Board("file.txt");
+		Board b = new Board();
 		b.getLayoutFile();
 	}
 }

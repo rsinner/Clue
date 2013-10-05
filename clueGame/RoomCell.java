@@ -11,22 +11,38 @@ public class RoomCell extends BoardCell {
 		if (s.length() == 2) {
 			if (s.charAt(1) == 'U')
 				doorDirection = DoorDirection.UP;
-			if (s.charAt(1) == 'D')
+			else if (s.charAt(1) == 'D')
 				doorDirection = DoorDirection.DOWN;
-			if (s.charAt(1) == 'R')
+			else if (s.charAt(1) == 'R')
 				doorDirection = DoorDirection.RIGHT;
-			if (s.charAt(1) == 'L')
+			else if (s.charAt(1) == 'L')
 				doorDirection = DoorDirection.LEFT;
+			else
+				doorDirection = DoorDirection.NONE;
 		}
+		else
+			doorDirection = DoorDirection.NONE;
 	}
 	
 	@Override
 	public boolean isRoom() {
 		return true;
 	}
+	
+	@Override
+	public boolean isDoorway() {
+		if (doorDirection == DoorDirection.NONE)
+			return false;
+		else
+			return true;
+	}
 
 	public char getInitial() {
 		return roomInitial;
+	}
+
+	public DoorDirection getDoorDirection() {
+		return doorDirection;
 	}
 
 }

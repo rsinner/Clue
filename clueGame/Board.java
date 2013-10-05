@@ -14,15 +14,30 @@ public class Board {
 	private Map<Character, String> rooms;
 	private int numRows;
 	private int numColumns;
+	private String legend;
+	private String layout;
 	
-	public Board(String file) {
+	public Board() {
 		cells = new ArrayList<BoardCell>();
 		rooms = new HashMap<Character, String>();
-		
+		this.legend = getLegendFile();
+		this.layout = getLayoutFile();
 	}
-	public void loadConfigFiles() throws BadConfigFormatException, FileNotFoundException {
-		loadLegendFile();
-		loadLayoutFile();
+	public Board(String layout, String legend) {
+		cells = new ArrayList<BoardCell>();
+		rooms = new HashMap<Character, String>();
+		this.legend = legend;
+		this.layout = layout;
+	}
+	public void loadConfigFiles() {
+		try {
+			loadRoomConfig();
+			loadBoardConfig();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (BadConfigFormatException e) {
+			e.printStackTrace();
+		}
 	}
 	public String getLegendFile() {
 		Scanner scan = new Scanner(System.in);
@@ -36,8 +51,7 @@ public class Board {
 		String layout = scan.nextLine();
 		return layout;
 	}
-	public void loadLegendFile() throws FileNotFoundException, BadConfigFormatException {
-		String legend = getLegendFile();
+	public void loadRoomConfig() throws FileNotFoundException, BadConfigFormatException {
 		FileReader legRead = new FileReader(legend);
 		Scanner legIn = new Scanner(legRead);
 		String line;
@@ -46,12 +60,11 @@ public class Board {
 			char c = line.charAt(0);
 			String s = line.substring(3);
 			if (!(Character.isLetter(c) && line.charAt(1) == ',' && line.charAt(2) == ' ') || s.indexOf(',') >= 0)
-				throw new BadConfigFormatException("Error in the legend file.");
+				throw new BadConfigFormatException("Error in the legend file."+line);
 			rooms.put(c, s);
 		}
 	}
-	public void loadLayoutFile() throws FileNotFoundException, BadConfigFormatException {
-		String layout = getLayoutFile();
+	public void loadBoardConfig() throws FileNotFoundException, BadConfigFormatException {
 		FileReader layRead = new FileReader(layout);
 		Scanner layIn = new Scanner(layRead);
 		String line;
@@ -65,9 +78,9 @@ public class Board {
 				if (c == ',')
 					continue;
 				String s = line.charAt(i)+"";
+				if (rooms.get(line.charAt(i)) == null)
+					throw new BadConfigFormatException("Error in the layout file.");
 				if (i+1 < line.length() && line.charAt(i+1) != ',') {
-					if (line.charAt(i+1) != 'U' || line.charAt(i+1) != 'R' || line.charAt(i+1) != 'D' || line.charAt(i+1) != 'L')
-						throw new BadConfigFormatException("Error in the layout file.");
 					s += line.charAt(i+1);
 					i++;
 				}
@@ -79,8 +92,8 @@ public class Board {
 			prevCol = col;
 			row++;
 		}
-		numRows = row+1;
-		numColumns = prevCol+1;
+		numRows = row;
+		numColumns = prevCol;
 	}
 	public BoardCell createBoardCell(int row, int col, String s) {
 		if (s.charAt(0) == 'W')
