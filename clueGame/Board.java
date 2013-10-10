@@ -14,19 +14,23 @@ import java.util.Set;
 import clueGame.RoomCell.DoorDirection;
 
 public class Board {
-	private ArrayList<BoardCell> cells;
+	public ArrayList<BoardCell> cells;
 	private Map<Character, String> rooms;
+	private Map<Integer, LinkedList<Integer>> adjLists;
+	private Set<BoardCell> targets;
+	private boolean visited[];
 	private int numRows;
 	private int numColumns;
 	private String legend;
 	private String layout;
 	private PrintWriter logger;
-	
+
 	public Board() {
 		cells = new ArrayList<BoardCell>();
 		rooms = new HashMap<Character, String>();
 		this.legend = getLegendFile();
 		this.layout = getLayoutFile();
+		adjLists = new HashMap<Integer, LinkedList<Integer>>();
 		try {
 			logger = new PrintWriter("errorLog.txt");
 		} catch (FileNotFoundException e) {
@@ -38,6 +42,7 @@ public class Board {
 		rooms = new HashMap<Character, String>();
 		this.legend = legend;
 		this.layout = layout;
+		adjLists = new HashMap<Integer, LinkedList<Integer>>();
 		try {
 			logger = new PrintWriter("errorLog.txt");
 		} catch (FileNotFoundException e) {
@@ -145,18 +150,92 @@ public class Board {
 	public BoardCell getCellAt(int i) {
 		return cells.get(i);
 	}
-	public void calcAdjacencies() {
-		
+	//Returns true when the cell at (row2, col2) is a valid adjacent cell to the cell at (row1, col1)
+	private boolean adjacencyLogic(int row1, int col1, int row2, int col2) {
+		if(calcIndex(row2,col2) >= 0 && calcIndex(row2,col2) < cells.size() && row2 >= 0 && row2 < numRows && col2 >= 0 && col2 < numColumns) {
+			if(cells.get(calcIndex(row2,col2)).isDoorway()) {
+				RoomCell thisRoom = (RoomCell) cells.get(calcIndex(row2,col2));
+				if(row2 + thisRoom.getDoorDirection().getRow() == row1 && col2 + thisRoom.getDoorDirection().getCol() == col1) 
+					return true;
+				else
+					return false;
+			}
+			else {
+				return !cells.get(calcIndex(row2,col2)).isRoom();
+			}
+		}
+		return false;
 	}
-	public static LinkedList<Integer> getAdjList(int cell) {
-		LinkedList<Integer> list = new LinkedList<Integer>();
-		return list;
+	public void calcAdjacencies() {
+		LinkedList<Integer> adj = new LinkedList<Integer>();
+		for (int i = 0; i < numRows; ++i) {
+			for (int j = 0; j < numColumns; ++j) {
+				adj = getAdjList(calcIndex(i,j));
+				adjLists.put(calcIndex(i, j), adj);
+			}
+		}
+	}
+	public LinkedList<Integer> getAdjList(int cell) {
+		LinkedList<Integer>	adj = new LinkedList<Integer>();
+		int row = calcRow(cell);
+		int col = calcCol(cell);
+		if(cell < 0 || cell >= cells.size())
+			return adj;
+		if(cells.get(cell).isDoorway()) {
+			RoomCell thisCell = (RoomCell) cells.get(cell);
+			adj.add(calcIndex(row + thisCell.getDoorDirection().getRow(), col + thisCell.getDoorDirection().getCol()));
+			return adj;
+		}
+		else if(!cells.get(cell).isRoom()) {
+			if(adjacencyLogic(row, col, row, col + 1))
+				adj.add(calcIndex(row, col + 1));
+			if(adjacencyLogic(row, col, row, col - 1))
+				adj.add(calcIndex(row, col - 1));
+			if(adjacencyLogic(row, col, row + 1, col))
+				adj.add(calcIndex(row + 1, col));
+			if(adjacencyLogic(row, col, row - 1, col))
+				adj.add(calcIndex(row - 1, col));
+		}
+		return adj;
+	}
+	public void startTargets(int row, int column, int steps) {
+		visited = new boolean[numRows*numColumns];
+		targets = new HashSet<BoardCell>();
+		for(int i = 0; i < visited.length; i++)
+			visited[i] = false;
+		visited[calcIndex(row, column)] = true;
+	}
+	public void calcTargets(int row, int column, int steps) {
+		startTargets(row, column, steps);
+		calcTargets(row, column, steps, targets);
+	}
+	private void calcTargets(int row, int column, int steps, Set<BoardCell> targ) {
+		LinkedList<Integer> adjCells = getAdjList(calcIndex(row, column));
+		for(int n = 0; n < adjCells.size(); n++) {
+			if(visited[adjCells.get(n)]) {
+				adjCells.remove(n);
+				n--;
+			}
+		}
+		for(Integer a : adjCells) {
+			visited[a] = true;
+			BoardCell thisCell = cells.get(a);
+			if(steps == 1 || thisCell.isDoorway()) {
+				targ.add(thisCell);
+			}
+			else {
+				calcTargets(calcRow(a), calcCol(a), steps - 1, targ);
+			}
+			visited[a] = false;
+		}
 	}
 	public Set<BoardCell> getTargets() {
-		HashSet<BoardCell> set = new HashSet<BoardCell>();
-		return set;
+		return targets;
 	}
-	public void calcTargets(int row, int column, int numSteps) {
-		
+	public int calcRow(int cell) {
+		return cell / numColumns;
+	}
+	public int calcCol(int cell) {
+		return cell % numColumns;
 	}
 }
