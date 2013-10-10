@@ -1,0 +1,11 @@
+P, Indoor Pool
+K, Kitchen
+H, Hall
+C, Laundry Room
+L, Lounge
+A, Dance Floor
+D, Dining Room
+V, Video Game Room
+B, Billiard Room
+X, Closet
+W, Walkway
