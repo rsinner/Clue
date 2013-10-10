@@ -34,7 +34,7 @@ public class Board {
 		try {
 			logger = new PrintWriter("errorLog.txt");
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 	}
 	public Board(String layout, String legend) {
@@ -46,7 +46,7 @@ public class Board {
 		try {
 			logger = new PrintWriter("errorLog.txt");
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 	}
 	public void loadConfigFiles() {
@@ -54,9 +54,9 @@ public class Board {
 			loadRoomConfig();
 			loadBoardConfig();
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		} catch (BadConfigFormatException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 	}
 	public String getLegendFile() {
@@ -152,9 +152,12 @@ public class Board {
 	}
 	//Returns true when the cell at (row2, col2) is a valid adjacent cell to the cell at (row1, col1)
 	private boolean adjacencyLogic(int row1, int col1, int row2, int col2) {
-		if(calcIndex(row2,col2) >= 0 && calcIndex(row2,col2) < cells.size() && row2 >= 0 && row2 < numRows && col2 >= 0 && col2 < numColumns) {
-			if(cells.get(calcIndex(row2,col2)).isDoorway()) {
-				RoomCell thisRoom = (RoomCell) cells.get(calcIndex(row2,col2));
+		
+		int adjacentIndex = calcIndex(row2,col2);
+		if(adjacentIndex >= 0 && adjacentIndex < cells.size() && row2 >= 0 && row2 < numRows && col2 >= 0 && col2 < numColumns) {
+			BoardCell adjacentCell = cells.get(adjacentIndex);
+			if(adjacentCell.isDoorway()) {
+				RoomCell thisRoom = (RoomCell) adjacentCell;
 				if(row2 + thisRoom.getDoorDirection().getRow() == row1 && col2 + thisRoom.getDoorDirection().getCol() == col1) 
 					return true;
 				else
