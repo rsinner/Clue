@@ -8,3 +8,4 @@ D, Dining Room
 V, Video Game Room
 B, Billiard Room
 X, Closet
+W, Walkway
