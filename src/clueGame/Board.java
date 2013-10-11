@@ -164,7 +164,7 @@ public class Board {
 					return false;
 			}
 			else {
-				return !cells.get(calcIndex(row2,col2)).isRoom();
+				return !cells.get(adjacentIndex).isRoom();
 			}
 		}
 		return false;
