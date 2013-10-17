@@ -1,0 +1,16 @@
+Finished all of part 2
+
+All of the tests pass. 
+Working on AdjTests now.
+
+Got CR test to all pass. Now need to get Paulo's to pass
+
+Finished implementing everything. Testing now...
+
+Completed loadLayoutFile
+
+Working on Board class
+
+Commiting final IntBoard and Tests
+
+Adding original files
