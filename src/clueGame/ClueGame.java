@@ -8,4 +8,18 @@ public class ClueGame {
 	private HumanPlayer human;
 	private int currentPlayer = 0;
 	
+	
+	public void loadPlayers(String string) {
+		// TODO Auto-generated method stub
+		
+	}
+	public ArrayList<ComputerPlayer> getComputerPlayers(){
+		return computerPlayers;
+	}
+	public HumanPlayer getHuman() {
+		return human;
+	}
+	
+	
+	
 }
