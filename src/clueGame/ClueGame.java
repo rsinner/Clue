@@ -38,7 +38,10 @@ public class ClueGame {
 			System.out.println(e.getMessage());
 		}
 	}
-	
+
+// Annie, please remove this when you write the real function.
+// Also, fix the method call to this in the tests to your proper load function,
+// or load deck in the @Before method.
 	public void fakeLoadCards(){
 		deck = new ArrayList<Card>();
 		Card c1 = new Card();
@@ -70,7 +73,36 @@ public class ClueGame {
 	}
 	
 	public void dealCards(){
-		
+		// For every deck in the card, deal it to somebody depending on who the current player is.
+		Iterator<Card> it = deck.iterator();
+		while(it.hasNext()){
+			switch(currentPlayer){
+			case 0: computerPlayers.get(0).getCards().add(it.next());
+					it.remove();
+					currentPlayer++;
+					break;
+			case 1: computerPlayers.get(1).getCards().add(it.next());
+					it.remove();
+					currentPlayer++;
+					break;
+			case 2: computerPlayers.get(2).getCards().add(it.next());
+					it.remove();
+					currentPlayer++;
+					break;
+			case 3: computerPlayers.get(3).getCards().add(it.next());
+					it.remove();
+					currentPlayer++;
+					break;
+			case 4: computerPlayers.get(4).getCards().add(it.next());
+					it.remove();
+					currentPlayer++;
+					break;
+			case 5: human.getCards().add(it.next());
+					it.remove();
+					currentPlayer = 0;
+					break;
+			}
+		}
 	}
 	
 	public ArrayList<ComputerPlayer> getComputerPlayers(){

@@ -92,5 +92,16 @@ public class GameSetupTests {
 		ArrayList<clueGame.Card> deck = cg.getDeck();
 		Assert.assertEquals(0, deck.size());
 	}
+	
+	@Test
+	public void testNumberOfPlayerCards(){
+		ArrayList<ComputerPlayer> cpuPlayers = cg.getComputerPlayers();
+		// Check that all computer players have 4 cards, +- 1 since 21/ 5 = 4 with 1 left over
+		for(ComputerPlayer cp : cpuPlayers){
+			Assert.assertEquals(4, cp.getCards().size(), 1);
+		}
+		// Check to make sure human has 4 +- 1 cards.
+		Assert.assertEquals(4, cg.getHuman().getCards().size(), 1);
+	}
 
 }
