@@ -95,6 +95,8 @@ public class GameSetupTests {
 	
 	@Test
 	public void testNumberOfPlayerCards(){
+		cg.fakeLoadCards();
+		cg.dealCards();
 		ArrayList<ComputerPlayer> cpuPlayers = cg.getComputerPlayers();
 		// Check that all computer players have 4 cards, +- 1 since 21/ 5 = 4 with 1 left over
 		for(ComputerPlayer cp : cpuPlayers){

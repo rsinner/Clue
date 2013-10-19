@@ -44,30 +44,13 @@ public class ClueGame {
 // or load deck in the @Before method.
 	public void fakeLoadCards(){
 		deck = new ArrayList<Card>();
-		Card c1 = new Card();
-		c1.setName("TestCard1");
-		c1.setType(Card.CardType.WEAPON);
-		deck.add(c1);
-		Card c2 = new Card();
-		c2.setName("TestCard2");
-		c2.setType(Card.CardType.WEAPON);
-		deck.add(c2);
-		Card c3 = new Card();
-		c3.setName("TestCard2");
-		c3.setType(Card.CardType.WEAPON);
-		deck.add(c3);
-		Card c4 = new Card();
-		c4.setName("TestCard2");
-		c4.setType(Card.CardType.WEAPON);
-		deck.add(c4);
-		Card c5 = new Card();
-		c5.setName("TestCard2");
-		c5.setType(Card.CardType.WEAPON);
-		deck.add(c5);
-//		Card c4 = new Card();
-//		c4.setName("TestCard2");
-//		c4.setType(Card.CardType.WEAPON);
-//		deck.add(c4);
+		for(int i = 0; i < 21; i++){
+			Card c1 = new Card();
+			c1.setName("TestCard1");
+			c1.setType(Card.CardType.WEAPON);
+			deck.add(c1);
+		}
+		
 		
 		
 	}
