@@ -6,6 +6,12 @@ public class Player {
 	private String name;
 	private ArrayList<Card> cards;
 
+	public Player() {
+		super();
+		cards = new ArrayList<Card>();
+		
+	}
+	
 	public void disproveSuggestion() {
 		
 	}
@@ -22,6 +28,8 @@ public class Player {
 	public ArrayList<Card> getCards() {
 		return cards;
 	}
+
+	
 	
 	
 	

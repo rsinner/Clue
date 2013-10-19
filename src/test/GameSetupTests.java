@@ -22,7 +22,9 @@ public class GameSetupTests {
 		cg = new ClueGame();
 		cg.loadPlayers("players.txt");
 	}
-
+	
+	
+//testNumPCPlayers, testPCPlayerAttributes, and testHumanPlayerAttributes are all designed to test loadPlayers.
 	@Test
 	public void testNumberPCPlayers() {
 		ArrayList<ComputerPlayer> forTesting = cg.getComputerPlayers();
