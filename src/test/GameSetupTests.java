@@ -3,6 +3,8 @@ package test;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.smartcardio.Card;
 
@@ -104,6 +106,22 @@ public class GameSetupTests {
 		}
 		// Check to make sure human has 4 +- 1 cards.
 		Assert.assertEquals(4, cg.getHuman().getCards().size(), 1);
+	}
+	
+	@Test
+	public void testForDuplicateDeals(){
+		cg.fakeLoadCards();
+		cg.dealCards();
+		ComputerPlayer p1 = cg.getComputerPlayers().get(0);
+		Set<clueGame.Card> dealtCards = new HashSet<clueGame.Card>();
+		for(clueGame.Card c : p1.getCards()){
+			dealtCards.add(c);
+		}
+		for(int i = 1; i < cg.getComputerPlayers().size(); i++){
+			for(int j = 0; j < cg.getComputerPlayers().get(i).getCards().size(); j++){
+				Assert.assertTrue(!dealtCards.contains(cg.getComputerPlayers().get(i).getCards().get(j)));
+			}
+		}
 	}
 
 }

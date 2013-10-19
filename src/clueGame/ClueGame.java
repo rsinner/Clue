@@ -46,13 +46,10 @@ public class ClueGame {
 		deck = new ArrayList<Card>();
 		for(int i = 0; i < 21; i++){
 			Card c1 = new Card();
-			c1.setName("TestCard1");
+			c1.setName("TestCard" + String.valueOf(i));
 			c1.setType(Card.CardType.WEAPON);
 			deck.add(c1);
 		}
-		
-		
-		
 	}
 	
 	public void dealCards(){
