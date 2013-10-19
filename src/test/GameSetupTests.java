@@ -29,11 +29,13 @@ public class GameSetupTests {
 	public void testNumberPCPlayers() {
 		ArrayList<ComputerPlayer> forTesting = cg.getComputerPlayers();
 		// Make sure all 3 players are loaded into the array
-		Assert.assertEquals(3, forTesting.size());
+		Assert.assertEquals(5, forTesting.size());
 		// Make sure the correct 3 PC players are in the array
 		Assert.assertEquals("Colonel Mustard", forTesting.get(0).getName());
 		Assert.assertEquals("Professor Plum", forTesting.get(1).getName());
 		Assert.assertEquals("Violet", forTesting.get(2).getName());
+		Assert.assertEquals("Miss Scarlett", forTesting.get(3).getName());
+		Assert.assertEquals("Mr. Green", forTesting.get(4).getName());
 		
 	}
 	
@@ -66,10 +68,14 @@ public class GameSetupTests {
 		ArrayList<ComputerPlayer> forTesting = cg.getComputerPlayers();
 		// Make sure colonel mustard's start pos is 5
 		Assert.assertEquals(5, forTesting.get(0).getStartingLocation());
-		// Make sure prof plum's start pos is 10
-		Assert.assertEquals(90, forTesting.get(1).getStartingLocation());
-		// Make sure violet's start pos is 313
-		Assert.assertEquals(313, forTesting.get(2).getStartingLocation());
+		// Make sure prof plum's start pos is 114
+		Assert.assertEquals(114, forTesting.get(1).getStartingLocation());
+		// Make sure violet's start pos is 355
+		Assert.assertEquals(355, forTesting.get(2).getStartingLocation());
+		// Make sure scarlett's starting pos is 13
+		Assert.assertEquals(13, forTesting.get(3).getStartingLocation());
+		// Make sure mr green's starting pos is 349
+		Assert.assertEquals(349, forTesting.get(4).getStartingLocation());
 		// Make sure human's starting position is 10
 		HumanPlayer hp = cg.getHuman();
 		Assert.assertEquals(10, hp.getStartingLocation());

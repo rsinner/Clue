@@ -1,4 +1,6 @@
 Colonel Mustard,5
-Professor Plum,90
-Violet,313
+Professor Plum,114
+Violet,355
+Miss Scarlett,13
+Mr. Green,349
 Human,10
