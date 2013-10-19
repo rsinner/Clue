@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
+import javax.smartcardio.Card;
+
 import junit.framework.Assert;
 
 import org.junit.Before;
@@ -24,7 +26,7 @@ public class GameSetupTests {
 	}
 	
 	
-//testNumPCPlayers, testPCPlayerAttributes, and testHumanPlayerAttributes are all designed to test loadPlayers.
+//testNumPCPlayers, testPCPlayerAttributes, testStartingLocations, and testHumanPlayerAttributes are all designed to test loadPlayers.
 	@Test
 	public void testNumberPCPlayers() {
 		ArrayList<ComputerPlayer> forTesting = cg.getComputerPlayers();
@@ -80,6 +82,15 @@ public class GameSetupTests {
 		HumanPlayer hp = cg.getHuman();
 		Assert.assertEquals(10, hp.getStartingLocation());
 		
+	}
+	
+	@Test
+	public void testDeckAfterDeal(){
+		cg.fakeLoadCards();
+		cg.dealCards();
+		// After all cards have been dealt, the deck should be empty.
+		ArrayList<clueGame.Card> deck = cg.getDeck();
+		Assert.assertEquals(0, deck.size());
 	}
 
 }
