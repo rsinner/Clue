@@ -100,12 +100,12 @@ public class GameSetupTests {
 		cg.fakeLoadCards();
 		cg.dealCards();
 		ArrayList<ComputerPlayer> cpuPlayers = cg.getComputerPlayers();
-		// Check that all computer players have 4 cards, +- 1 since 21/ 5 = 4 with 1 left over
+		// Check that all computer players have 3 cards, +- 2 since 18/ 5 = 3 with 3 left over
 		for(ComputerPlayer cp : cpuPlayers){
-			Assert.assertEquals(4, cp.getCards().size(), 1);
+			Assert.assertEquals(3, cp.getCards().size(), 2);
 		}
-		// Check to make sure human has 4 +- 1 cards.
-		Assert.assertEquals(4, cg.getHuman().getCards().size(), 1);
+		// Check to make sure human has 3 +- 2 cards.
+		Assert.assertEquals(3, cg.getHuman().getCards().size(), 2);
 	}
 	
 	@Test

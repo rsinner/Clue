@@ -44,7 +44,7 @@ public class ClueGame {
 // or load deck in the @Before method.
 	public void fakeLoadCards(){
 		deck = new ArrayList<Card>();
-		for(int i = 0; i < 21; i++){
+		for(int i = 0; i < 18; i++){
 			Card c1 = new Card();
 			c1.setName("TestCard" + String.valueOf(i));
 			c1.setType(Card.CardType.WEAPON);
@@ -54,6 +54,7 @@ public class ClueGame {
 	
 	public void dealCards(){
 		// For every deck in the card, deal it to somebody depending on who the current player is.
+		// Created an iterator so we can modify deck WHILE we're iterating through it.
 		Iterator<Card> it = deck.iterator();
 		while(it.hasNext()){
 			switch(currentPlayer){
