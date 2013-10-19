@@ -19,14 +19,17 @@ public class ClueGame {
 			Scanner scan = new Scanner(reader);
 			while(scan.hasNextLine()) {
 				String temp = scan.nextLine();
+				String[] rows = temp.split(",");
 				//Human player is at the bottom of the text file. If no next line, human
 				if(!scan.hasNextLine()) {
 					human = new HumanPlayer();
-					human.setName(temp);
+					human.setName(rows[0]);
+					human.setStartingLocation(Integer.parseInt(rows[1]));
 				}
 				else {
 					ComputerPlayer cp = new ComputerPlayer();
-					cp.setName(temp);
+					cp.setName(rows[0]);
+					cp.setStartingLocation(Integer.parseInt(rows[1]));
 					computerPlayers.add(cp);
 				}
 			}

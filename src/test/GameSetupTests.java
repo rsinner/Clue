@@ -60,5 +60,20 @@ public class GameSetupTests {
 		// Make sure the human's name has been set
 		Assert.assertTrue(hp.getName() != null);
 	}
+	
+	@Test 
+	public void testStartingLocations(){
+		ArrayList<ComputerPlayer> forTesting = cg.getComputerPlayers();
+		// Make sure colonel mustard's start pos is 5
+		Assert.assertEquals(5, forTesting.get(0).getStartingLocation());
+		// Make sure prof plum's start pos is 10
+		Assert.assertEquals(90, forTesting.get(1).getStartingLocation());
+		// Make sure violet's start pos is 313
+		Assert.assertEquals(313, forTesting.get(2).getStartingLocation());
+		// Make sure human's starting position is 10
+		HumanPlayer hp = cg.getHuman();
+		Assert.assertEquals(10, hp.getStartingLocation());
+		
+	}
 
 }

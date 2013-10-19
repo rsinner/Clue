@@ -1,4 +1,4 @@
-Colonel Mustard
-Professor Plum
-Violet
-Human
+Colonel Mustard,5
+Professor Plum,90
+Violet,313
+Human,10

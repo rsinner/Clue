@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Player {
 	private String name;
 	private ArrayList<Card> cards;
+	private int startingLocation;
 
 	public Player() {
 		super();
@@ -29,6 +30,14 @@ public class Player {
 		return cards;
 	}
 
+	
+	public void setStartingLocation(int start){
+		this.startingLocation = start;
+	}
+	
+	public int getStartingLocation(){
+		return startingLocation;
+	}
 	
 	
 	
