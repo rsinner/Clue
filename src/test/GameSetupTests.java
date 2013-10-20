@@ -129,5 +129,22 @@ public class GameSetupTests {
 			}
 		}
 	}
+	
+	@Test
+	public void testRandom(){
+		int zeros = 0;
+		int ones = 0;
+		for(int i = 0; i < 100; i++){
+			if(cg.generateRandomNumber(2) == 0){
+				zeros++;
+			}
+			else{
+				ones++;
+			}
+		}
+		
+		Assert.assertTrue(zeros >= 20);
+		Assert.assertTrue(ones >= 20);
+	}
 
 }

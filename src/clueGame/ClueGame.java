@@ -68,11 +68,9 @@ public class ClueGame {
 		deck = (ArrayList<Card>) shuffledDeck.clone();
 	}
 	
-	private int generateRandomNumber(int i) {
-		Date dateForSeed = new Date();
-		Random generator = new Random(dateForSeed.getTime());
-		int randomNumber = generator.nextInt(i);
-		return randomNumber;
+	public int generateRandomNumber(int i) {
+		Random generator = new Random();
+		return generator.nextInt(i);
 	}
 
 	public void dealCards(){
