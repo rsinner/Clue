@@ -150,8 +150,14 @@ public class ClueGame {
 	}
 
 	public boolean checkAccusation(ArrayList<Card> accusation) {
-		// TODO Auto-generated method stub
-		return false;
+		for(Card acc : accusation){
+			for(Card soln : solution){
+				if(acc.getType() == soln.getType() && !acc.equals(soln)){
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 
 	
