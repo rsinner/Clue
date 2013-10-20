@@ -1,0 +1,21 @@
+Colonel Mustard,PLAYER
+Professor Plum,PLAYER
+Mr. Green,PLAYER
+Violet,PLAYER
+Miss Scarlett,PLAYER
+Human,PLAYER
+Conservatory,ROOM
+Kitchen,ROOM
+Ballroom,ROOM
+Billiard Room,ROOM
+Library,ROOM
+Study,ROOM
+Dining Room,ROOM
+Lounge,ROOM
+Hall,ROOM
+Knife,WEAPON
+Crowbar,WEAPON
+Candlestick,WEAPON
+Mace,WEAPON
+Pistol,WEAPON
+Rope,WEAPON
