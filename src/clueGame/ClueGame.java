@@ -155,20 +155,20 @@ public class ClueGame {
 			if(temp.getType()== Card.CardType.WEAPON && !haveWeapon){
 				solution.add(temp);
 				haveWeapon = true;
-				buffer.remove(temp);
+				deck.remove(temp);
 			}
 			else if(temp.getType()== Card.CardType.PERSON && !havePerson){
 				solution.add(temp);
 				havePerson = true;
-				buffer.remove(temp);
+				deck.remove(temp);
 			}
 			else if(temp.getType()== Card.CardType.ROOM && !haveRoom){
 				solution.add(temp);
 				haveRoom = true;
-				buffer.remove(temp);
+				deck.remove(temp);
 			}
 		}
-		deck = (ArrayList<Card>) buffer.clone();
+		//deck = (ArrayList<Card>) buffer.clone();
 	}
 
 	public ArrayList<ComputerPlayer> getComputerPlayers(){
