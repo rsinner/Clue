@@ -113,13 +113,19 @@ public class GameSetupTests {
 		cg.fakeLoadCards();		
 		cg.dealCards();
 		ComputerPlayer p1 = cg.getComputerPlayers().get(0);
+		// Make a hash set to contain the cards from player 1
 		Set<clueGame.Card> dealtCards = new HashSet<clueGame.Card>();
 		for(clueGame.Card c : p1.getCards()){
 			dealtCards.add(c);
 		}
+		// Compare the rest of the players' cards to the dealtCards set
 		for(int i = 1; i < cg.getComputerPlayers().size(); i++){
 			for(int j = 0; j < cg.getComputerPlayers().get(i).getCards().size(); j++){
+				// Basically if the current card in from the current player isn't in dealtCards
+				// the test will pass, and that card will be added to dealtCards for comparison
+				// with future players' card.
 				Assert.assertTrue(!dealtCards.contains(cg.getComputerPlayers().get(i).getCards().get(j)));
+				dealtCards.add(cg.getComputerPlayers().get(i).getCards().get(j));
 			}
 		}
 	}
