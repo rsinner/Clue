@@ -3,7 +3,9 @@ package clueGame;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
+import java.util.Random;
 import java.util.Scanner;
 
 public class ClueGame {
@@ -11,6 +13,7 @@ public class ClueGame {
 	private ArrayList<ComputerPlayer> computerPlayers;
 	private HumanPlayer human;
 	private int currentPlayer = 0;
+	private static final int NUM_CARDS = 21;
 	
 	
 	public void loadPlayers(String fileName) {
@@ -52,6 +55,25 @@ public class ClueGame {
 		}
 	}
 	
+	public void shuffleCards(){
+		ArrayList<Card> tempDeck = (ArrayList<Card>) deck.clone();
+		ArrayList<Card> shuffledDeck = new ArrayList<Card>();
+		int arraySize = tempDeck.size();
+		for(int i = 0; i<arraySize; i++){
+			int randomIndex = generateRandomNumber(tempDeck.size());
+			shuffledDeck.add(tempDeck.get(randomIndex));
+			tempDeck.remove(randomIndex);
+		}
+		deck = (ArrayList<Card>) shuffledDeck.clone();
+	}
+	
+	private int generateRandomNumber(int i) {
+		Date dateForSeed = new Date();
+		Random generator = new Random(dateForSeed.getTime());
+		int randomNumber = generator.nextInt(i);
+		return randomNumber;
+	}
+
 	public void dealCards(){
 		// For every deck in the card, deal it to somebody depending on who the current player is.
 		// Created an iterator so we can modify deck WHILE we're iterating through it.

@@ -110,7 +110,7 @@ public class GameSetupTests {
 	
 	@Test
 	public void testForDuplicateDeals(){
-		cg.fakeLoadCards();
+		cg.fakeLoadCards();		
 		cg.dealCards();
 		ComputerPlayer p1 = cg.getComputerPlayers().get(0);
 		Set<clueGame.Card> dealtCards = new HashSet<clueGame.Card>();
