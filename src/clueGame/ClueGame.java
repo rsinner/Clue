@@ -148,6 +148,17 @@ public class ClueGame {
 	public ArrayList<Card> getDeck(){
 		return deck;
 	}
+
+	public boolean checkAccusation(ArrayList<Card> accusation) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	
+	// setter for testing purposes
+	public void setSolution(ArrayList<Card> solution) {
+		this.solution = solution;
+	}
 	
 	
 }
