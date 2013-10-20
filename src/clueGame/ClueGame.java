@@ -48,7 +48,7 @@ public class ClueGame {
 // or load deck in the @Before method.
 	public void fakeLoadCards(){
 		deck = new ArrayList<Card>();
-		for(int i = 0; i < 18; i++){
+		for(int i = 0; i < NUM_CARDS; i++){
 			Card c1 = new Card();
 			c1.setName("TestCard" + String.valueOf(i));
 			c1.setType(Card.CardType.WEAPON);
