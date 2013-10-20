@@ -14,6 +14,7 @@ public class ClueGame {
 	private HumanPlayer human;
 	private int currentPlayer = 0;
 	private static final int NUM_CARDS = 21;
+	private ArrayList<Card> solution;
 	
 	
 	public void loadPlayers(String fileName) {
@@ -75,12 +76,17 @@ public class ClueGame {
 	}
 
 	public void dealCards(){
+		
+		// Deal the 3 solution cards first
+		dealSolution();
+	
 		// For every deck in the card, deal it to somebody depending on who the current player is.
 		// Created an iterator so we can modify deck WHILE we're iterating through it.
 		Iterator<Card> it = deck.iterator();
 		while(it.hasNext()){
 			switch(currentPlayer){
-			case 0: computerPlayers.get(0).getCards().add(it.next());
+			case 0: 
+					computerPlayers.get(0).getCards().add(it.next());
 					it.remove();
 					currentPlayer++;
 					break;
@@ -108,6 +114,32 @@ public class ClueGame {
 		}
 	}
 	
+	private void dealSolution() {
+		solution = new ArrayList<Card>();
+		// Need to clone the array so that we can have 2 iterators working on the same data,
+		// but in a different stream.
+		ArrayList<Card>	buffer = (ArrayList<Card>) deck.clone();
+		Iterator<Card> i = buffer.iterator();
+		while(i.hasNext()){
+			boolean haveWeapon = false;
+			boolean havePerson = false;
+			boolean haveRoom = false;
+			Card temp = i.next();
+			if(temp.getType()== Card.CardType.WEAPON && !haveWeapon){
+				solution.add(temp);
+				haveWeapon = true;
+			}
+			else if(temp.getType()== Card.CardType.PERSON && !havePerson){
+				solution.add(temp);
+				havePerson = true;
+			}
+			else if(temp.getType()== Card.CardType.ROOM && !haveRoom){
+				solution.add(temp);
+				haveRoom = true;
+			}
+		}		
+	}
+
 	public ArrayList<ComputerPlayer> getComputerPlayers(){
 		return computerPlayers;
 	}
