@@ -25,6 +25,7 @@ public class GameSetupTests {
 	public void setup(){
 		cg = new ClueGame();
 		cg.loadPlayers("players.txt");
+		cg.loadCards("cards.txt");
 	}
 	
 	
@@ -88,7 +89,6 @@ public class GameSetupTests {
 	
 	@Test
 	public void testDeckAfterDeal(){
-		cg.fakeLoadCards();
 		cg.dealCards();
 		// After all cards have been dealt, the deck should be empty.
 		ArrayList<clueGame.Card> deck = cg.getDeck();
@@ -97,7 +97,6 @@ public class GameSetupTests {
 	
 	@Test
 	public void testNumberOfPlayerCards(){
-		cg.fakeLoadCards();
 		cg.dealCards();
 		ArrayList<ComputerPlayer> cpuPlayers = cg.getComputerPlayers();
 		// Check that all computer players have 3 cards, +- 2 since 18/ 5 = 3 with 3 left over
@@ -109,8 +108,7 @@ public class GameSetupTests {
 	}
 	
 	@Test
-	public void testForDuplicateDeals(){
-		cg.fakeLoadCards();		
+	public void testForDuplicateDeals(){	
 		cg.dealCards();
 		ComputerPlayer p1 = cg.getComputerPlayers().get(0);
 		// Make a hash set to contain the cards from player 1

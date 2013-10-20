@@ -8,6 +8,8 @@ import java.util.Iterator;
 import java.util.Random;
 import java.util.Scanner;
 
+import clueGame.Card.CardType;
+
 public class ClueGame {
 	private ArrayList<Card> deck;
 	private ArrayList<ComputerPlayer> computerPlayers;
@@ -46,14 +48,41 @@ public class ClueGame {
 // Annie, please remove this when you write the real function.
 // Also, fix the method call to this in the tests to your proper load function,
 // or load deck in the @Before method.
-	public void fakeLoadCards(){
+//	public void fakeLoadCards(){
+//		deck = new ArrayList<Card>();
+//		for(int i = 0; i < NUM_CARDS; i++){
+//			Card c1 = new Card();
+//			c1.setName("TestCard" + String.valueOf(i));
+//			c1.setType(Card.CardType.WEAPON);
+//			deck.add(c1);
+//		}
+//	}
+	
+	public void loadCards(String fileName) {
 		deck = new ArrayList<Card>();
-		for(int i = 0; i < NUM_CARDS; i++){
-			Card c1 = new Card();
-			c1.setName("TestCard" + String.valueOf(i));
-			c1.setType(Card.CardType.WEAPON);
-			deck.add(c1);
+		try {
+			FileReader reader = new FileReader(fileName);
+			Scanner scan = new Scanner(reader);
+			while(scan.hasNextLine()) {
+				String temp = scan.nextLine();
+				String[] rows = temp.split(",");
+				//Human player is at the bottom of the text file. If no next line, human
+					Card card = new Card();
+					card.setName(rows[0]);
+					String type = rows[1];
+					if(type.equals("PLAYER")) {
+						card.setType(CardType.PERSON);
+					} else if(type.equals("ROOM")) {
+						card.setType(CardType.ROOM);
+					} else if(type.equals("WEAPON")) {
+						card.setType(CardType.WEAPON);
+					}
+				deck.add(card);
+				}
+		} catch (FileNotFoundException e) {
+			System.out.println(e.getMessage());
 		}
+		
 	}
 	
 	public void shuffleCards(){
