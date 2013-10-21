@@ -109,7 +109,9 @@ public class GameSetupTests {
 	
 	@Test
 	public void testSolutionsSize(){
+		// Deal the solution. 
 		cg.dealSolution();
+		// Solution contains only 3 cards
 		Assert.assertEquals(3, cg.getSolution().size());
 	}
 	
@@ -136,8 +138,10 @@ public class GameSetupTests {
 	
 	@Test
 	public void testRandom(){
+		// Tests to see if RNG is truly random.
 		int zeros = 0;
 		int ones = 0;
+		// RNG runs 100 times. 
 		for(int i = 0; i < 100; i++){
 			if(cg.generateRandomNumber(2) == 0){
 				zeros++;
@@ -146,7 +150,8 @@ public class GameSetupTests {
 				ones++;
 			}
 		}
-		
+		// If each category has greater than or equal to 20 occurances,
+		// it's sufficiently random.
 		Assert.assertTrue(zeros >= 20);
 		Assert.assertTrue(ones >= 20);
 	}

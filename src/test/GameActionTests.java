@@ -85,7 +85,7 @@ public class GameActionTests {
 		// Set the clue game's solution to the simple solution constructed in setup.
 		cg.setSolution(solution);
 
-		// Construct an array with the correct weapon, person, and room
+		// Construct an array with the incorrect room
 		ArrayList<clueGame.Card> correctAccusation = new ArrayList<clueGame.Card>();
 		clueGame.Card room2 = new clueGame.Card();
 		room2.setName("Bowling");
@@ -93,7 +93,7 @@ public class GameActionTests {
 		correctAccusation.add(weapon);
 		correctAccusation.add(person);
 		correctAccusation.add(room2);
-		// Correct solution should yield a true return
+		
 		Assert.assertFalse(cg.checkAccusation(correctAccusation));
 
 
@@ -104,7 +104,7 @@ public class GameActionTests {
 		// Set the clue game's solution to the simple solution constructed in setup.
 		cg.setSolution(solution);
 
-		// Construct an array with the correct weapon, person, and room
+		// Construct an array with incorrect weapon
 		ArrayList<clueGame.Card> correctAccusation = new ArrayList<clueGame.Card>();
 		clueGame.Card weapon2 = new clueGame.Card();
 		weapon2.setName("Wrong");
@@ -112,7 +112,7 @@ public class GameActionTests {
 		correctAccusation.add(weapon2);
 		correctAccusation.add(person);
 		correctAccusation.add(room);
-		// Correct solution should yield a true return
+		
 		Assert.assertFalse(cg.checkAccusation(correctAccusation));
 
 
@@ -123,7 +123,7 @@ public class GameActionTests {
 		// Set the clue game's solution to the simple solution constructed in setup.
 		cg.setSolution(solution);
 
-		// Construct an array with the correct weapon, person, and room
+		// Construct an array with incorrect person
 		ArrayList<clueGame.Card> correctAccusation = new ArrayList<clueGame.Card>();
 		clueGame.Card person2 = new clueGame.Card();
 		person2.setName("Wrong");
@@ -131,7 +131,7 @@ public class GameActionTests {
 		correctAccusation.add(weapon);
 		correctAccusation.add(person2);
 		correctAccusation.add(room);
-		// Correct solution should yield a true return
+		
 		Assert.assertFalse(cg.checkAccusation(correctAccusation));
 
 
