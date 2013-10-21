@@ -98,7 +98,6 @@ public class GameSetupTests {
 	@Test
 	public void testNumberOfPlayerCards(){
 		cg.dealCards();
-		ArrayList<clueGame.Card>  temp = cg.getDeck();
 		ArrayList<ComputerPlayer> cpuPlayers = cg.getComputerPlayers();
 		// Check that all computer players have 3 cards, +- 2 since 18/ 5 = 3 with 3 left over
 		for(ComputerPlayer cp : cpuPlayers){
@@ -106,6 +105,12 @@ public class GameSetupTests {
 		}
 		// Check to make sure human has 3 +- 2 cards.
 		Assert.assertEquals(3, cg.getHuman().getCards().size(), 2);
+	}
+	
+	@Test
+	public void testSolutionsSize(){
+		cg.dealSolution();
+		Assert.assertEquals(3, cg.getSolution().size());
 	}
 	
 	@Test

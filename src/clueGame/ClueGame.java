@@ -141,16 +141,19 @@ public class ClueGame {
 		}
 	}
 	
-	private void dealSolution() {
+	
+
+	public void dealSolution() {
 		solution = new ArrayList<Card>();
 		// Need to clone the array so that we can have 2 iterators working on the same data,
 		// but in a different stream.
 		ArrayList<Card>	buffer = (ArrayList<Card>) deck.clone();
 		Iterator<Card> i = buffer.iterator();
+		boolean haveWeapon = false;
+		boolean havePerson = false;
+		boolean haveRoom = false;
 		while(i.hasNext()){
-			boolean haveWeapon = false;
-			boolean havePerson = false;
-			boolean haveRoom = false;
+			
 			Card temp = i.next();
 			if(temp.getType()== Card.CardType.WEAPON && !haveWeapon){
 				solution.add(temp);
@@ -168,7 +171,6 @@ public class ClueGame {
 				deck.remove(temp);
 			}
 		}
-		//deck = (ArrayList<Card>) buffer.clone();
 	}
 
 	public ArrayList<ComputerPlayer> getComputerPlayers(){
@@ -198,6 +200,9 @@ public class ClueGame {
 	public void setSolution(ArrayList<Card> solution) {
 		this.solution = solution;
 	}
-	
+	// for testing
+	public ArrayList<Card> getSolution() {
+		return solution;
+	}
 	
 }
