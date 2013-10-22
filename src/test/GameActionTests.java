@@ -39,6 +39,9 @@ public class GameActionTests {
 		room.setName("Ballroom");
 		room.setType(clueGame.Card.CardType.ROOM);
 		solution.add(room);
+		
+		cg.loadPlayers("players.txt");
+		cg.loadCards("cards.txt");
 	}
 
 	@Test
@@ -150,7 +153,7 @@ public class GameActionTests {
 	
 	@Test
 	public void testCreateSuggestion(){
-		ArrayList<clueGame.Card> sugg = cg.createSuggestion();
+		ArrayList<clueGame.Card> sugg = cg.createSuggestion(weapon, person);
 		// Make sure the suggestion has 3 cards
 		Assert.assertEquals(3, sugg.size());
 		

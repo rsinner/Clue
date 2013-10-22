@@ -10,6 +10,8 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
 
+import org.junit.runner.Computer;
+
 import clueGame.Card.CardType;
 
 public class ClueGame {
@@ -221,9 +223,29 @@ public class ClueGame {
 		return seenCards;
 	}
 
-	public ArrayList<Card> createSuggestion() {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Card> createSuggestion(Card weaponCard, Card personCard) {
+		ArrayList<Card> suggestion = new ArrayList<Card>();
+		if(currentPlayer < 5){
+			ComputerPlayer cp = computerPlayers.get(currentPlayer);
+			String room = cp.getCurrentRoom();
+			Card roomCard = new Card();
+			roomCard.setName(room);
+			roomCard.setType(clueGame.Card.CardType.ROOM);
+			suggestion.add(roomCard);
+		}
+		else{
+			HumanPlayer hp = human;
+			String room = human.getCurrentRoom();
+			Card roomCard = new Card();
+			roomCard.setName(room);
+			roomCard.setType(clueGame.Card.CardType.ROOM);
+			suggestion.add(roomCard);
+		}
+		
+		suggestion.add(weaponCard);
+		suggestion.add(personCard);
+		
+		return suggestion;
 	}
 	
 	
