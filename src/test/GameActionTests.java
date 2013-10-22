@@ -137,4 +137,14 @@ public class GameActionTests {
 
 	}
 
+	
+	@Test
+	public void testAddCardToSeen(){
+		cg.addCardToSeen(weapon);
+		// Test to make sure the data structure contains the 'seen' card.
+		Assert.assertTrue(cg.getSeenCards().contains(weapon));
+		// Test to make sure the card is only added once
+		cg.addCardToSeen(weapon);
+		Assert.assertEquals(1, cg.getSeenCards().size());
+	}
 }

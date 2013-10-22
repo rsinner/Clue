@@ -4,9 +4,11 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.Set;
 
 import clueGame.Card.CardType;
 
@@ -17,8 +19,15 @@ public class ClueGame {
 	private int currentPlayer = 0;
 	private static final int NUM_CARDS = 21;
 	private ArrayList<Card> solution;
+	private Set<Card> seenCards;
 	
 	
+	
+	public ClueGame() {
+		super();
+		this.seenCards = new HashSet<Card>();
+	}
+
 	public void loadPlayers(String fileName) {
 		computerPlayers = new ArrayList<ComputerPlayer>();
 		try {
@@ -195,6 +204,9 @@ public class ClueGame {
 		return true;
 	}
 
+	public void addCardToSeen(Card seenCard){
+		
+	}
 	
 	// setter for testing purposes
 	public void setSolution(ArrayList<Card> solution) {
@@ -204,5 +216,12 @@ public class ClueGame {
 	public ArrayList<Card> getSolution() {
 		return solution;
 	}
+	// for testing
+	public Set<Card> getSeenCards() {
+		return seenCards;
+	}
+	
+	
+	
 	
 }
