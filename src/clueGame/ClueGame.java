@@ -205,7 +205,7 @@ public class ClueGame {
 	}
 
 	public void addCardToSeen(Card seenCard){
-		
+		seenCards.add(seenCard);
 	}
 	
 	// setter for testing purposes
