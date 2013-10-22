@@ -220,6 +220,11 @@ public class ClueGame {
 	public Set<Card> getSeenCards() {
 		return seenCards;
 	}
+
+	public ArrayList<Card> createSuggestion() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 	

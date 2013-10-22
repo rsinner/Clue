@@ -147,4 +147,19 @@ public class GameActionTests {
 		cg.addCardToSeen(weapon);
 		Assert.assertEquals(1, cg.getSeenCards().size());
 	}
+	
+	@Test
+	public void testCreateSuggestion(){
+		ArrayList<clueGame.Card> sugg = cg.createSuggestion();
+		// Make sure the suggestion has 3 cards
+		Assert.assertEquals(3, sugg.size());
+		
+		// Make sure there's a room, person, and weapon. Thus also testing for uniqueness.
+		clueGame.Card  temp = sugg.get(0);
+		Assert.assertTrue(temp.getType() == clueGame.Card.CardType.ROOM);
+		temp = sugg.get(1);
+		Assert.assertTrue(temp.getType() == clueGame.Card.CardType.WEAPON);
+		temp = sugg.get(2);
+		Assert.assertTrue(temp.getType() == clueGame.Card.CardType.PERSON);
+	}
 }
