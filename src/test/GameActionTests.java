@@ -175,4 +175,5 @@ public class GameActionTests {
 			Assert.assertFalse(cg.getSeenCards().contains(c));
 		}
 	}
+	
 }
