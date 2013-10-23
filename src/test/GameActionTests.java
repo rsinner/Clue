@@ -39,7 +39,7 @@ public class GameActionTests {
 		room.setName("Ballroom");
 		room.setType(clueGame.Card.CardType.ROOM);
 		solution.add(room);
-		
+
 		cg.loadPlayers("players.txt");
 		cg.loadCards("cards.txt");
 	}
@@ -82,7 +82,7 @@ public class GameActionTests {
 		Assert.assertFalse(cg.checkAccusation(falseAccusation));		
 
 	}
-	
+
 	@Test
 	public void testAccusationBadRoom(){
 		// Set the clue game's solution to the simple solution constructed in setup.
@@ -96,12 +96,12 @@ public class GameActionTests {
 		correctAccusation.add(weapon);
 		correctAccusation.add(person);
 		correctAccusation.add(room2);
-		
+
 		Assert.assertFalse(cg.checkAccusation(correctAccusation));
 
 
 	}
-	
+
 	@Test
 	public void testAccusationBadWeapon(){
 		// Set the clue game's solution to the simple solution constructed in setup.
@@ -115,12 +115,12 @@ public class GameActionTests {
 		correctAccusation.add(weapon2);
 		correctAccusation.add(person);
 		correctAccusation.add(room);
-		
+
 		Assert.assertFalse(cg.checkAccusation(correctAccusation));
 
 
 	}
-	
+
 	@Test
 	public void testAccusationBadPerson(){
 		// Set the clue game's solution to the simple solution constructed in setup.
@@ -134,13 +134,13 @@ public class GameActionTests {
 		correctAccusation.add(weapon);
 		correctAccusation.add(person2);
 		correctAccusation.add(room);
-		
+
 		Assert.assertFalse(cg.checkAccusation(correctAccusation));
 
 
 	}
 
-	
+
 	@Test
 	public void testAddCardToSeen(){
 		cg.addCardToSeen(weapon);
@@ -150,13 +150,13 @@ public class GameActionTests {
 		cg.addCardToSeen(weapon);
 		Assert.assertEquals(1, cg.getSeenCards().size());
 	}
-	
+
 	@Test
 	public void testCreateSuggestion(){
 		ArrayList<clueGame.Card> sugg = cg.createSuggestion(weapon, person);
 		// Make sure the suggestion has 3 cards
 		Assert.assertEquals(3, sugg.size());
-		
+
 		// Make sure there's a room, person, and weapon. Thus also testing for uniqueness.
 		clueGame.Card  temp = sugg.get(0);
 		Assert.assertTrue(temp.getType() == clueGame.Card.CardType.ROOM);
@@ -165,7 +165,7 @@ public class GameActionTests {
 		temp = sugg.get(2);
 		Assert.assertTrue(temp.getType() == clueGame.Card.CardType.PERSON);
 	}
-	
+
 	@Test
 	public void testBadSuggestion(){
 		// add Person to seen cards.
@@ -177,6 +177,15 @@ public class GameActionTests {
 		sugg.add(person);
 		Assert.assertEquals(clueGame.Card.CardType.PERSON, sugg.get(2).getType());
 		// Make check to see if suggestion is informative. Check should fail.
+		for(clueGame.Card c : sugg){
+			Assert.assertFalse(cg.getSeenCards().contains(c));
+		}
+	}
+	@Test
+	public void testGoodSuggestion(){
+		// Make a suggestion
+		ArrayList<clueGame.Card> sugg = cg.cpuMakeSuggestion();
+		// Make check to see if suggestion is informative. Check should pass.
 		for(clueGame.Card c : sugg){
 			Assert.assertFalse(cg.getSeenCards().contains(c));
 		}
