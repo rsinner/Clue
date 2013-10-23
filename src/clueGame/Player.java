@@ -6,6 +6,7 @@ public class Player {
 	private String name;
 	private ArrayList<Card> cards;
 	private int startingLocation;
+	private String color;
 	private String previousRoom;
 	private String currentRoom;
 
@@ -55,6 +56,14 @@ public class Player {
 
 	public void setCurrentRoom(String currentRoom) {
 		this.currentRoom = currentRoom;
+	}
+	
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
 	}
 	
 	

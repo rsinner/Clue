@@ -44,11 +44,13 @@ public class ClueGame {
 					human = new HumanPlayer();
 					human.setName(rows[0]);
 					human.setStartingLocation(Integer.parseInt(rows[1]));
+					human.setColor(rows[2]);
 				}
 				else {
 					ComputerPlayer cp = new ComputerPlayer();
 					cp.setName(rows[0]);
 					cp.setStartingLocation(Integer.parseInt(rows[1]));
+					cp.setColor(rows[2]);
 					computerPlayers.add(cp);
 				}
 			}

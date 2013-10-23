@@ -168,6 +168,8 @@ public class GameActionTests {
 
 	@Test
 	public void testGoodSuggestion(){
+		//cg.updateSeenCards();
+		
 		// Make a suggestion
 		ArrayList<clueGame.Card> sugg = cg.cpuMakeSuggestion();
 		// Make check to see if suggestion is informative. Check should pass.
