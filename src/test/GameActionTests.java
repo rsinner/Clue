@@ -3,13 +3,16 @@ package test;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 import junit.framework.Assert;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import clueGame.BoardCell;
 import clueGame.Card.CardType;
+import clueGame.Board;
 import clueGame.ClueGame;
 import clueGame.ComputerPlayer;
 
@@ -178,4 +181,47 @@ public class GameActionTests {
 		}
 	}
 	
+	@Test
+	public void testPickLocationWithRoom(){
+		Board board = new Board("Clue_Layout.csv", "legend.txt");
+		// The room is immediately adjacent here.
+		board.calcTargets(15, 6, 2);
+		Set<BoardCell> targets = board.getTargets();
+		Assert.assertEquals(board.getCellAt(board.calcIndex(15, 6)), cg.pickLocation(targets));
+	}
+	
+	@Test
+	public void testPickLocationNoRoom(){
+		Board board = new Board("Clue_Layout.csv", "legend.txt");
+		// Walkway cell surrounded by walkways. Now selection should be random
+		board.calcTargets(10, 10, 1);
+		Set<BoardCell> targets = board.getTargets();
+		int chooseUp = 0;
+		int chooseDown = 0;
+		int chooseLeft = 0;
+		int chooseRight = 0;
+		
+		for(int i = 0; i < 100; i++){
+			BoardCell locationPicked = cg.pickLocation(targets);
+			// Count the number of times each cell is chosen
+			if(locationPicked.equals(board.getCellAt(board.calcIndex(9, 10)))){
+				chooseUp++;
+			}
+			else if(locationPicked.equals(board.getCellAt(board.calcIndex(11, 10)))){
+				chooseDown++;
+			}
+			else if(locationPicked.equals(board.getCellAt(board.calcIndex(10, 9)))){
+				chooseLeft++;
+			}
+			else if(locationPicked.equals(board.getCellAt(board.calcIndex(10, 11)))){
+				chooseRight++;
+			}
+		}
+		// If each cell has been chosen 15 or more times, that's sufficiently random.
+		Assert.assertTrue(chooseUp >= 15);
+		Assert.assertTrue(chooseDown >= 15);
+		Assert.assertTrue(chooseLeft >= 15);
+		Assert.assertTrue(chooseRight >= 15);
+		
+	}
 }

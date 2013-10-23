@@ -26,6 +26,11 @@ public class ClueGame {
 	
 	
 	
+	// WE NEED A WAY TO INCREMENT CURRENT PLAYER, CONSISTENTLY, AFTER EACH TURN. Specifically for
+	// createSuggestion to function.
+	// I'm hoping that during the progression of programming this, we'll be forced to write a 
+	// take turn function or something.
+	
 	public ClueGame() {
 		super();
 		this.seenCards = new HashSet<Card>();
@@ -217,18 +222,7 @@ public class ClueGame {
 		seenCards.add(seenCard);
 	}
 	
-	// setter for testing purposes
-	public void setSolution(ArrayList<Card> solution) {
-		this.solution = solution;
-	}
-	// for testing
-	public ArrayList<Card> getSolution() {
-		return solution;
-	}
-	// for testing
-	public Set<Card> getSeenCards() {
-		return seenCards;
-	}
+
 
 	public ArrayList<Card> createSuggestion(Card weaponCard, Card personCard) {
 		ArrayList<Card> suggestion = new ArrayList<Card>();
@@ -270,12 +264,27 @@ public class ClueGame {
 				}
 			}
 		}
-		
 		return createSuggestion(weapon, person);
 		
 	}
 	
-	
+	// setter for testing purposes
+	public void setSolution(ArrayList<Card> solution) {
+		this.solution = solution;
+	}
+	// for testing
+	public ArrayList<Card> getSolution() {
+		return solution;
+	}
+	// for testing
+	public Set<Card> getSeenCards() {
+		return seenCards;
+	}
+
+	public BoardCell pickLocation(Set<BoardCell> targets) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 }
