@@ -203,6 +203,9 @@ public class GameActionTests {
 		if(currentPlayer<5){
 			cg.getComputerPlayers().get(currentPlayer).setPreviousRoom('A');
 		}
+		else{
+			cg.getHuman().setPreviousRoom('A');
+		}
 		
 		board.calcTargets(15, 6, 1);
 		Set<BoardCell> targets = board.getTargets();
