@@ -72,6 +72,7 @@ public class ClueGame {
 	
 	public void loadCards(String fileName) {
 		deck = new ArrayList<Card>();
+		listOfCards = new ArrayList<Card>();
 		try {
 			FileReader reader = new FileReader(fileName);
 			Scanner scan = new Scanner(reader);
@@ -91,6 +92,7 @@ public class ClueGame {
 					}
 				deck.add(card);
 				}
+			shuffleCards();
 		} catch (FileNotFoundException e) {
 			System.out.println(e.getMessage());
 		}
@@ -100,6 +102,7 @@ public class ClueGame {
 	public void shuffleCards(){
 		ArrayList<Card> tempDeck = (ArrayList<Card>) deck.clone();
 		ArrayList<Card> shuffledDeck = new ArrayList<Card>();
+		
 		int arraySize = tempDeck.size();
 		for(int i = 0; i<arraySize; i++){
 			int randomIndex = generateRandomNumber(tempDeck.size());
@@ -251,8 +254,23 @@ public class ClueGame {
 	}
 
 	public ArrayList<Card> cpuMakeSuggestion() {
-		// TODO Auto-generated method stub
-		return null;
+		Card weapon = new Card();
+		Card person = new Card();
+		for(Card c : listOfCards){
+			if(c.getType() == clueGame.Card.CardType.WEAPON){
+				if(!seenCards.contains(c)){
+					weapon = c;
+				}
+			}
+			else if(c.getType() == clueGame.Card.CardType.PERSON){
+				if(!seenCards.contains(c)){
+					person = c;
+				}
+			}
+		}
+		
+		return createSuggestion(weapon, person);
+		
 	}
 	
 	

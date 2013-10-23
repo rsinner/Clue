@@ -167,21 +167,6 @@ public class GameActionTests {
 	}
 
 	@Test
-	public void testBadSuggestion(){
-		// add Person to seen cards.
-		cg.getSeenCards().add(person);
-		// Make a suggestion
-		ArrayList<clueGame.Card> sugg = cg.cpuMakeSuggestion();
-		// Remove added person, and Add Violet to suggestion, ensuring this test fails.
-		sugg.remove(2);
-		sugg.add(person);
-		Assert.assertEquals(clueGame.Card.CardType.PERSON, sugg.get(2).getType());
-		// Make check to see if suggestion is informative. Check should fail.
-		for(clueGame.Card c : sugg){
-			Assert.assertFalse(cg.getSeenCards().contains(c));
-		}
-	}
-	@Test
 	public void testGoodSuggestion(){
 		// Make a suggestion
 		ArrayList<clueGame.Card> sugg = cg.cpuMakeSuggestion();
