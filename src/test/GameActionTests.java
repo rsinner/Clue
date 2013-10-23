@@ -175,7 +175,7 @@ public class GameActionTests {
 		
 		// Make a suggestion
 		ArrayList<clueGame.Card> sugg = cg.cpuMakeSuggestion();
-		// Make check to see if suggestion is informative. Check should pass.
+		// Make check to see if suggestion is informative. 
 		for(clueGame.Card c : sugg){
 			Assert.assertFalse(cg.getSeenCards().contains(c));
 		}
@@ -187,7 +187,10 @@ public class GameActionTests {
 		// The room is immediately adjacent here.
 		board.calcTargets(15, 6, 2);
 		Set<BoardCell> targets = board.getTargets();
-		Assert.assertEquals(board.getCellAt(board.calcIndex(15, 6)), cg.pickLocation(targets));
+		for(int i = 0; i < 100; i++){
+			Assert.assertEquals(board.getCellAt(board.calcIndex(15, 6)), cg.pickLocation(targets));
+		}
+		
 	}
 	
 	@Test
@@ -201,6 +204,8 @@ public class GameActionTests {
 		int chooseLeft = 0;
 		int chooseRight = 0;
 		
+		// Call pickLocation on this same set of targets 100 times
+		// Check to see that each is being chosen a sufficient number of times.
 		for(int i = 0; i < 100; i++){
 			BoardCell locationPicked = cg.pickLocation(targets);
 			// Count the number of times each cell is chosen
