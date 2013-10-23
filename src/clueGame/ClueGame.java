@@ -16,6 +16,7 @@ import clueGame.Card.CardType;
 
 public class ClueGame {
 	private ArrayList<Card> deck;
+	private ArrayList<Card> listOfCards;
 	private ArrayList<ComputerPlayer> computerPlayers;
 	private HumanPlayer human;
 	private int currentPlayer = 0;
@@ -106,6 +107,7 @@ public class ClueGame {
 			tempDeck.remove(randomIndex);
 		}
 		deck = (ArrayList<Card>) shuffledDeck.clone();
+		listOfCards = (ArrayList<Card>) shuffledDeck.clone();
 	}
 	
 	public int generateRandomNumber(int i) {
@@ -246,6 +248,11 @@ public class ClueGame {
 		suggestion.add(personCard);
 		
 		return suggestion;
+	}
+
+	public ArrayList<Card> cpuMakeSuggestion() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	
