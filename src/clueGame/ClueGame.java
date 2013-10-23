@@ -23,6 +23,7 @@ public class ClueGame {
 	private static final int NUM_CARDS = 21;
 	private ArrayList<Card> solution;
 	private Set<Card> seenCards;
+	private Board board;
 	
 	
 	
@@ -34,6 +35,8 @@ public class ClueGame {
 	public ClueGame() {
 		super();
 		this.seenCards = new HashSet<Card>();
+		board = new Board("Clue_Layout.csv", "legend.txt");
+		board.loadConfigFiles();
 	}
 
 	public void loadPlayers(String fileName) {
@@ -228,7 +231,7 @@ public class ClueGame {
 		ArrayList<Card> suggestion = new ArrayList<Card>();
 		if(currentPlayer < 5){
 			ComputerPlayer cp = computerPlayers.get(currentPlayer);
-			String room = cp.getCurrentRoom();
+			String room = board.getRooms().get(cp.getCurrentRoom());
 			Card roomCard = new Card();
 			roomCard.setName(room);
 			roomCard.setType(clueGame.Card.CardType.ROOM);
@@ -236,7 +239,7 @@ public class ClueGame {
 		}
 		else{
 			HumanPlayer hp = human;
-			String room = human.getCurrentRoom();
+			String room = board.getRooms().get(human.getCurrentRoom());
 			Card roomCard = new Card();
 			roomCard.setName(room);
 			roomCard.setType(clueGame.Card.CardType.ROOM);
@@ -268,6 +271,11 @@ public class ClueGame {
 		
 	}
 	
+	public BoardCell pickLocation(Set<BoardCell> targets) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	// setter for testing purposes
 	public void setSolution(ArrayList<Card> solution) {
 		this.solution = solution;
@@ -281,9 +289,11 @@ public class ClueGame {
 		return seenCards;
 	}
 
-	public BoardCell pickLocation(Set<BoardCell> targets) {
-		// TODO Auto-generated method stub
-		return null;
+	
+	
+	// For Testing
+	public int getCurrentPlayer() {
+		return currentPlayer;
 	}
 	
 	

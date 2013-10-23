@@ -7,13 +7,13 @@ public class Player {
 	private ArrayList<Card> cards;
 	private int startingLocation;
 	private String color;
-	private String previousRoom;
-	private String currentRoom;
+	private char previousRoom;
+	private char currentRoom;
 
 	public Player() {
 		super();
 		cards = new ArrayList<Card>();	
-		previousRoom = currentRoom = "Walkway";
+		previousRoom = currentRoom = 'W';
 	}
 
 	public void disproveSuggestion() {
@@ -42,19 +42,19 @@ public class Player {
 		return startingLocation;
 	}
 	
-	public String getPreviousRoom() {
+	public char getPreviousRoom() {
 		return previousRoom;
 	}
 
-	public void setPreviousRoom(String previousRoom) {
+	public void setPreviousRoom(char previousRoom) {
 		this.previousRoom = previousRoom;
 	}
 
-	public String getCurrentRoom() {
+	public char getCurrentRoom() {
 		return currentRoom;
 	}
 
-	public void setCurrentRoom(String currentRoom) {
+	public void setCurrentRoom(char currentRoom) {
 		this.currentRoom = currentRoom;
 	}
 	
