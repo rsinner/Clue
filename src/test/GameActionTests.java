@@ -189,7 +189,9 @@ public class GameActionTests {
 		board.calcTargets(15, 6, 1);
 		Set<BoardCell> targets = board.getTargets();
 		for(int i = 0; i < 100; i++){
-			Assert.assertEquals(board.getCellAt(board.calcIndex(15, 6)), cg.pickLocation(targets));
+			BoardCell expected = board.getCellAt(board.calcIndex(15, 5));
+			BoardCell actual = cg.pickLocation(targets);
+			Assert.assertEquals(expected, actual);
 		}
 		
 	}
@@ -232,21 +234,20 @@ public class GameActionTests {
 				chooseRight++;
 			}
 		}
-		// If each cell has been chosen 15 or more times, that's sufficiently random.
-		Assert.assertTrue(chooseUp >= 15);
-		Assert.assertTrue(chooseDown >= 15);
-		Assert.assertTrue(chooseRoom >= 15);
-		Assert.assertTrue(chooseRight >= 15);
+		// If each cell has been chosen 10 or more times, that's sufficiently random.
+		Assert.assertTrue(chooseUp >= 10);
+		Assert.assertTrue(chooseDown >= 10);
+		Assert.assertTrue(chooseRoom >= 10);
+		Assert.assertTrue(chooseRight >= 10);
 	}
 	
 	@Test
 	public void testPickLocationNoRoom(){
 		Board board = new Board("Clue_Layout.csv", "legend.txt");
 		board.loadConfigFiles();
-		// Walkway cell surrounded by walkways. Now selection should be random
+		// Walkway cell surrounded by walkways, and a the closet. Now selection should be random
 		board.calcTargets(10, 10, 1);
 		Set<BoardCell> targets = board.getTargets();
-		int chooseUp = 0;
 		int chooseDown = 0;
 		int chooseLeft = 0;
 		int chooseRight = 0;
@@ -256,10 +257,7 @@ public class GameActionTests {
 		for(int i = 0; i < 100; i++){
 			BoardCell locationPicked = cg.pickLocation(targets);
 			// Count the number of times each cell is chosen
-			if(locationPicked.equals(board.getCellAt(board.calcIndex(9, 10)))){
-				chooseUp++;
-			}
-			else if(locationPicked.equals(board.getCellAt(board.calcIndex(11, 10)))){
+			if(locationPicked.equals(board.getCellAt(board.calcIndex(11, 10)))){
 				chooseDown++;
 			}
 			else if(locationPicked.equals(board.getCellAt(board.calcIndex(10, 9)))){
@@ -269,11 +267,10 @@ public class GameActionTests {
 				chooseRight++;
 			}
 		}
-		// If each cell has been chosen 15 or more times, that's sufficiently random.
-		Assert.assertTrue(chooseUp >= 15);
-		Assert.assertTrue(chooseDown >= 15);
-		Assert.assertTrue(chooseLeft >= 15);
-		Assert.assertTrue(chooseRight >= 15);
+		// If each cell has been chosen 10 or more times, that's sufficiently random.
+		Assert.assertTrue(chooseDown >= 10);
+		Assert.assertTrue(chooseLeft >= 10);
+		Assert.assertTrue(chooseRight >= 10);
 		
 	}
 }
