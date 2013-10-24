@@ -29,15 +29,29 @@ public class GameActionTests {
 	private static final Card MUSTARD_CARD = new Card("Colonel Mustard", Card.CardType.PERSON);
 	private static final Card GREEN_CARD = new Card("Mr. Green", Card.CardType.PERSON);
 	private static final Card VIOLET_CARD = new Card("Violet", Card.CardType.PERSON);
+	private static final Card PLUM_CARD = new Card("Plum", Card.CardType.PERSON);
+	private static final Card SCARLETT_CARD = new Card("Miss Scarlett", Card.CardType.PERSON);
+	private static final Card HUMAN_CARD = new Card("Human", Card.CardType.PERSON);
 	
 	private static final Card KITCHEN_CARD = new Card("Kitchen", Card.CardType.ROOM);
 	private static final Card BALLROOM_CARD = new Card("Ballroom", Card.CardType.ROOM);
 	private static final Card WALKWAY_CARD = new Card("Walkway", Card.CardType.ROOM);
+	private static final Card CONSERVATORY_CARD = new Card("Conservatory", Card.CardType.ROOM);
+	private static final Card BILLIARD_CARD = new Card("Billiard Room", Card.CardType.ROOM);
+	private static final Card LIBRARY_CARD = new Card("Library", Card.CardType.ROOM);
+	private static final Card STUDY_CARD = new Card("Study", Card.CardType.ROOM);
+	private static final Card DINING_CARD = new Card("Dining Room", Card.CardType.ROOM);
+	private static final Card LOUNGE_CARD = new Card("Lounge", Card.CardType.ROOM);
+	private static final Card HALL_CARD = new Card("Hall", Card.CardType.ROOM);
 	
+	private static final Card KNIFE_CARD = new Card("Knife", Card.CardType.WEAPON);
 	private static final Card CROWBAR_CARD = new Card("Crowbar", Card.CardType.WEAPON);
 	private static final Card ROPE_CARD = new Card("Rope", Card.CardType.WEAPON);
 	private static final Card CANDLE_CARD = new Card("Candlestick", Card.CardType.WEAPON);
-
+	private static final Card PISTOL_CARD = new Card("Pistol", Card.CardType.WEAPON);
+	private static final Card MACE_CARD = new Card("Mace", Card.CardType.WEAPON);
+	
+	
 	@Before
 	public void setUp(){
 		// Set up a clue game to run
@@ -206,13 +220,6 @@ public class GameActionTests {
 		}
 	}
 	
-//	Disprove a suggestion. Tests include: (2 pts) tests that one player 
-//	returns the only possible card (one room, one person, one weapon), 
-//	(2 pts) a test that one player randomly chooses between two possible cards, 
-//	(4 pts) a test that players are queried in order, (2 pts) tests involving 
-//	the human player, and (2 pts) a test that the player whose turn it is 
-//	does not return a card. Also correct implementation of all tests (5 pts).
-	
 	@Test
 	public void testDisproveSuggestionOneCard(){
 		ComputerPlayer cp = cg.getComputerPlayers().get(0);
@@ -231,7 +238,7 @@ public class GameActionTests {
 		sugg = cg.createSuggestion(CANDLE_CARD, VIOLET_CARD);
 		result = cg.setupDisproveSuggestion(sugg, null);
 		Assert.assertEquals(null, result);
-		//Correct room is returned
+		//Correct room is returned, since it is the only option that is the same.
 		cp.setCards(new ArrayList<Card>() {{
 			add(WALKWAY_CARD);
 			add(CANDLE_CARD);
@@ -240,7 +247,6 @@ public class GameActionTests {
 		sugg = cg.createSuggestion(CROWBAR_CARD, VIOLET_CARD);
 		result = cg.setupDisproveSuggestion(sugg, null);
 		Assert.assertEquals(WALKWAY_CARD, result);
-		
 		
 	}
 	
@@ -273,17 +279,91 @@ public class GameActionTests {
 	
 	@Test
 	public void testPlayersQueriedInOrder() {
+		//SOLUTION: CANDLE, GREEN, WALKWAY for testing purposes only
+		ArrayList<Card> sugg;
+		ComputerPlayer cp1 = cg.getComputerPlayers().get(0);
+		cp1.setCards(new ArrayList<Card>() {{
+			add(BILLIARD_CARD);
+			add(MACE_CARD);
+			add(SCARLETT_CARD);
+		}});
+		ComputerPlayer cp2 = cg.getComputerPlayers().get(1);
+		cp2.setCards(new ArrayList<Card>() {{
+			add(LIBRARY_CARD);
+			add(MACE_CARD);
+			add(VIOLET_CARD);
+		}});
+		ComputerPlayer cp3 = cg.getComputerPlayers().get(2);
+		cp3.setCards(new ArrayList<Card>() {{
+			add(KITCHEN_CARD);
+			add(ROPE_CARD);
+			add(MUSTARD_CARD);
+		}});
+		ComputerPlayer cp4 = cg.getComputerPlayers().get(3);
+		cp4.setCards(new ArrayList<Card>() {{
+			add(HUMAN_CARD);
+			add(CROWBAR_CARD);
+			add(DINING_CARD);
+		}});
+		ComputerPlayer cp5 = cg.getComputerPlayers().get(4);
+		cp5.setCards(new ArrayList<Card>() {{
+			add(PLUM_CARD);
+			add(CONSERVATORY_CARD);
+			add(BALLROOM_CARD);
+		}});
+		HumanPlayer h = cg.getHuman();
+		h.setCards(new ArrayList<Card>() {{
+			add(PISTOL_CARD);
+			add(STUDY_CARD);
+			add(KNIFE_CARD);
+		}});
+		sugg = cg.createSuggestion(CANDLE_CARD, GREEN_CARD);
+		//ok to put null to check to make sure no one returns anything
+		Card result = cg.setupDisproveSuggestion(sugg, null);
+		Assert.assertEquals(null, result);
+		//only human could disprove
+		sugg = cg.createSuggestion(PISTOL_CARD, GREEN_CARD);
+		result = cg.setupDisproveSuggestion(sugg, null);
+		Assert.assertEquals(PISTOL_CARD, result);
+		//Make sure user cannot give result
+		sugg = cg.createSuggestion(PISTOL_CARD, GREEN_CARD);
+		result = cg.setupDisproveSuggestion(sugg, h);
+		Assert.assertEquals(null, result);
+		//more than one person can disprove
+		//Mace should be returned since it is the first one that can disprove
+		sugg = cg.createSuggestion(MACE_CARD, PLUM_CARD);
+		result = cg.setupDisproveSuggestion(sugg, cp1);
+		Assert.assertEquals(MACE_CARD, result);
+		//person furthest from the user - human disproves c1
+		sugg = cg.createSuggestion(PISTOL_CARD, GREEN_CARD);
+		result = cg.setupDisproveSuggestion(sugg, cp1);
+		Assert.assertEquals(PISTOL_CARD, result);
 		
 	}
 	
 	@Test
 	public void testHumanDisprove() {
-
+		//Make sure humans can disprove
+		HumanPlayer h = cg.getHuman();
+		h.setCards(premadeCards);
+		ArrayList<Card> sugg = cg.createSuggestion(CROWBAR_CARD, VIOLET_CARD);
+		Card result = cg.setupDisproveSuggestion(sugg, null);
+		Assert.assertEquals(CROWBAR_CARD, result);
 	}
 	
 	@Test
 	public void testCurrentPlayerNoCardReturn() {
 		//set so player has specific card. Should return null
+		ComputerPlayer cp = cg.getComputerPlayers().get(0);
+		cp.setCards(new ArrayList<Card>() {{
+			add(WALKWAY_CARD);
+			add(CANDLE_CARD);
+			add(GREEN_CARD);
+		}});
+		ArrayList<Card> sugg = cg.createSuggestion(CANDLE_CARD, GREEN_CARD);
+		Card result = cg.setupDisproveSuggestion(sugg, cp);
+		Assert.assertTrue(result == null);
+		
 	}
 	
 	@Test
