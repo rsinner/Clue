@@ -196,8 +196,7 @@ public class GameActionTests {
 		ArrayList<ComputerPlayer> cps = cg.getComputerPlayers();
 		ComputerPlayer testPlayer = cps.get(0);
 		testPlayer.setCards(new ArrayList<clueGame.Card>(){{add(weapon);}});
-		ArrayList<clueGame.Card> result = cg.disproveSuggestion(sugg);
-		Assert.assertEquals(result.size(), 1);
+		clueGame.Card result = cg.disproveSuggestion(sugg, testPlayer);
 		Assert.assertTrue(result.contains(weapon));
 	}
 	
@@ -207,8 +206,7 @@ public class GameActionTests {
 		ArrayList<ComputerPlayer> cps = cg.getComputerPlayers();
 		ComputerPlayer testPlayer = cps.get(0);
 		testPlayer.setCards(new ArrayList<clueGame.Card>(){{add(weapon); add(person);}});
-		ArrayList<clueGame.Card> result = cg.disproveSuggestion(sugg);
-		Assert.assertEquals(result.size(), 1);
+		clueGame.Card result = cg.disproveSuggestion(sugg, testPlayer);
 		Assert.assertTrue(result.contains(weapon));
 	}
 	
@@ -226,7 +224,7 @@ public class GameActionTests {
 	
 	@Test
 	public void testCurrentPlayerNoCardReturn() {
-	
+		Assert.assertEquals(null, actual)
 	}
 	
 	@Test

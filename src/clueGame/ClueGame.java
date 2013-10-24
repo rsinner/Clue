@@ -3,13 +3,13 @@ package clueGame;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
-
 import org.junit.runner.Computer;
 
 import clueGame.Card.CardType;
@@ -258,9 +258,20 @@ public class ClueGame {
 		
 	}
 	
-	public ArrayList<Card> disproveSuggestion(ArrayList<Card> suggestion) {
+	public Card disproveSuggestion(ArrayList<Card> suggestion, Player accusor) {
 		ArrayList<Card> result = new ArrayList<Card>();
-		return result;
+		for(ComputerPlayer c : computerPlayers) {
+			if(result.size() > 0)
+				break;
+			ArrayList<Card> compCards = c.getCards();
+			for(Card card : compCards) {
+				if(suggestion.contains(card))
+					result.add(card);
+			}
+		}
+		if(result.size() > 0) {
+				return result.get(generateRandomNumber(result.size()));
+		} else return null;
 	}
 	
 	public BoardCell pickLocation(Set<BoardCell> targets) {
