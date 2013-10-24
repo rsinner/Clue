@@ -66,19 +66,6 @@ public class ClueGame {
 			System.out.println(e.getMessage());
 		}
 	}
-
-// Annie, please remove this when you write the real function.
-// Also, fix the method call to this in the tests to your proper load function,
-// or load deck in the @Before method.
-//	public void fakeLoadCards(){
-//		deck = new ArrayList<Card>();
-//		for(int i = 0; i < NUM_CARDS; i++){
-//			Card c1 = new Card();
-//			c1.setName("TestCard" + String.valueOf(i));
-//			c1.setType(Card.CardType.WEAPON);
-//			deck.add(c1);
-//		}
-//	}
 	
 	public void loadCards(String fileName) {
 		deck = new ArrayList<Card>();
@@ -271,6 +258,11 @@ public class ClueGame {
 		
 	}
 	
+	public ArrayList<Card> disproveSuggestion(ArrayList<Card> suggestion) {
+		ArrayList<Card> result = new ArrayList<Card>();
+		return result;
+	}
+	
 	public BoardCell pickLocation(Set<BoardCell> targets) {
 		for(BoardCell bc : targets){
 			// If it's a room cell, check to see if it was most recently visited
@@ -306,7 +298,9 @@ public class ClueGame {
 		return seenCards;
 	}
 
-	
+	public void setCurrentPlayer(int currentPlayer) {
+		this.currentPlayer = currentPlayer;
+	}
 	
 	// For Testing
 	public int getCurrentPlayer() {

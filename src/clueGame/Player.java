@@ -32,7 +32,10 @@ public class Player {
 	public ArrayList<Card> getCards() {
 		return cards;
 	}
-
+	
+	public void setCards(ArrayList<Card> cards) {
+		this.cards = cards;
+	}
 	
 	public void setStartingLocation(int start){
 		this.startingLocation = start;

@@ -15,6 +15,7 @@ import clueGame.Card.CardType;
 import clueGame.Board;
 import clueGame.ClueGame;
 import clueGame.ComputerPlayer;
+import clueGame.HumanPlayer;
 
 public class GameActionTests {
 	private ArrayList<clueGame.Card> solution;
@@ -179,6 +180,53 @@ public class GameActionTests {
 		for(clueGame.Card c : sugg){
 			Assert.assertFalse(cg.getSeenCards().contains(c));
 		}
+	}
+	
+//	Disprove a suggestion. Tests include: (2 pts) tests that one player 
+//	returns the only possible card (one room, one person, one weapon), 
+//	(2 pts) a test that one player randomly chooses between two possible cards, 
+//	(4 pts) a test that players are queried in order, (2 pts) tests involving 
+//	the human player, and (2 pts) a test that the player whose turn it is 
+//	does not return a card. Also correct implementation of all tests (5 pts).
+	
+	@Test
+	public void testDisproveSuggestionOneCard(){
+		weapon.setName("Mace");
+		ArrayList<clueGame.Card> sugg = cg.createSuggestion(weapon, person);
+		ArrayList<ComputerPlayer> cps = cg.getComputerPlayers();
+		ComputerPlayer testPlayer = cps.get(0);
+		testPlayer.setCards(new ArrayList<clueGame.Card>(){{add(weapon);}});
+		ArrayList<clueGame.Card> result = cg.disproveSuggestion(sugg);
+		Assert.assertEquals(result.size(), 1);
+		Assert.assertTrue(result.contains(weapon));
+	}
+	
+	@Test
+	public void testDisproveSuggestionTwoCards(){
+		ArrayList<clueGame.Card> sugg = cg.createSuggestion(weapon, person);
+		ArrayList<ComputerPlayer> cps = cg.getComputerPlayers();
+		ComputerPlayer testPlayer = cps.get(0);
+		testPlayer.setCards(new ArrayList<clueGame.Card>(){{add(weapon); add(person);}});
+		ArrayList<clueGame.Card> result = cg.disproveSuggestion(sugg);
+		Assert.assertEquals(result.size(), 1);
+		Assert.assertTrue(result.contains(weapon));
+	}
+	
+	@Test
+	public void testPlayersQueriedInOrder() {
+		
+	}
+	
+	@Test
+	public void testHumanDisprove() {
+		cg.setCurrentPlayer(0);
+		ArrayList<clueGame.Card> sugg = cg.createSuggestion(weapon, person);
+		Assert.assertEquals(3, sugg.size());
+	}
+	
+	@Test
+	public void testCurrentPlayerNoCardReturn() {
+	
 	}
 	
 	@Test
