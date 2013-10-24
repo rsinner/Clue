@@ -258,20 +258,19 @@ public class ClueGame {
 		
 	}
 	
-	public Card disproveSuggestion(ArrayList<Card> suggestion, Player accusor) {
-		ArrayList<Card> result = new ArrayList<Card>();
-		for(ComputerPlayer c : computerPlayers) {
-			if(result.size() > 0)
+	public Card setupDisproveSuggestion(ArrayList<Card> suggestion, Player currentPlayer) {
+		//make a list of all players. remove current player. Iterate
+		ArrayList<Player> allPlayers = (ArrayList<Player>) computerPlayers.clone();
+		allPlayers.add(human);
+		allPlayers.remove(currentPlayer);
+		Card result = null;
+		for(Player p : allPlayers) {
+			//Only returns one card, handles in disproveSuggestion
+			result = p.disproveSuggestion(suggestion);
+			if(result != null)
 				break;
-			ArrayList<Card> compCards = c.getCards();
-			for(Card card : compCards) {
-				if(suggestion.contains(card))
-					result.add(card);
-			}
 		}
-		if(result.size() > 0) {
-				return result.get(generateRandomNumber(result.size()));
-		} else return null;
+		return result;
 	}
 	
 	public BoardCell pickLocation(Set<BoardCell> targets) {

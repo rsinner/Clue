@@ -12,6 +12,16 @@ public class Card {
 	public String getName() {
 		return name;
 	}
+	public Card(String name, CardType type) {
+		super();
+		this.name = name;
+		this.type = type;
+	}
+	
+	public Card() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	public void setName(String name) {
 		this.name = name;
 	}

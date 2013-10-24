@@ -1,6 +1,7 @@
 package clueGame;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Player {
 	private String name;
@@ -15,9 +16,22 @@ public class Player {
 		cards = new ArrayList<Card>();	
 		previousRoom = currentRoom = 'W';
 	}
+	
+	public int generateRandomNumber(int i) {
+		Random generator = new Random();
+		return generator.nextInt(i);
+	}
 
-	public void disproveSuggestion() {
+	public Card disproveSuggestion(ArrayList<Card> suggestion) {
+		ArrayList<Card> result = new ArrayList<Card>();
+			for(Card card : cards) {
+				if(suggestion.contains(card))
+					result.add(card);
+			}
 		
+		if(result.size() > 0) {
+				return result.get(generateRandomNumber(result.size()));
+		} else return null;
 	}
 
 	// For Testing purposes

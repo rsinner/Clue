@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import clueGame.BoardCell;
+import clueGame.Card;
 import clueGame.Card.CardType;
 import clueGame.Board;
 import clueGame.ClueGame;
@@ -23,7 +24,19 @@ public class GameActionTests {
 	private clueGame.Card weapon;
 	private clueGame.Card person;
 	private clueGame.Card room;
-
+	private ArrayList<Card> premadeCards;
+	
+	private static final Card MUSTARD_CARD = new Card("Colonel Mustard", Card.CardType.PERSON);
+	private static final Card GREEN_CARD = new Card("Mr. Green", Card.CardType.PERSON);
+	private static final Card VIOLET_CARD = new Card("Violet", Card.CardType.PERSON);
+	
+	private static final Card KITCHEN_CARD = new Card("Kitchen", Card.CardType.ROOM);
+	private static final Card BALLROOM_CARD = new Card("Ballroom", Card.CardType.ROOM);
+	private static final Card WALKWAY_CARD = new Card("Walkway", Card.CardType.ROOM);
+	
+	private static final Card CROWBAR_CARD = new Card("Crowbar", Card.CardType.WEAPON);
+	private static final Card ROPE_CARD = new Card("Rope", Card.CardType.WEAPON);
+	private static final Card CANDLE_CARD = new Card("Candlestick", Card.CardType.WEAPON);
 
 	@Before
 	public void setUp(){
@@ -46,6 +59,17 @@ public class GameActionTests {
 
 		cg.loadPlayers("players.txt");
 		cg.loadCards("cards.txt");
+		
+		premadeCards = new ArrayList<Card>() {{
+			add(MUSTARD_CARD);
+			add(GREEN_CARD);
+			add(BALLROOM_CARD);
+			add(KITCHEN_CARD);
+			add(CROWBAR_CARD);
+			add(ROPE_CARD);
+		}};
+		
+		
 	}
 
 	@Test
@@ -191,23 +215,53 @@ public class GameActionTests {
 	
 	@Test
 	public void testDisproveSuggestionOneCard(){
-		weapon.setName("Mace");
-		ArrayList<clueGame.Card> sugg = cg.createSuggestion(weapon, person);
-		ArrayList<ComputerPlayer> cps = cg.getComputerPlayers();
-		ComputerPlayer testPlayer = cps.get(0);
-		testPlayer.setCards(new ArrayList<clueGame.Card>(){{add(weapon);}});
-		clueGame.Card result = cg.disproveSuggestion(sugg, testPlayer);
-		Assert.assertTrue(result.contains(weapon));
+		ComputerPlayer cp = cg.getComputerPlayers().get(0);
+		cp.setCards(premadeCards);
+		ArrayList<Card> sugg;
+		Card result;
+		//correct person is returned
+		sugg = cg.createSuggestion(CANDLE_CARD, GREEN_CARD);
+		result = cg.setupDisproveSuggestion(sugg, null);
+		Assert.assertEquals(GREEN_CARD, result);
+		//Correct weapon is returned
+		sugg = cg.createSuggestion(CROWBAR_CARD, VIOLET_CARD);
+		result = cg.setupDisproveSuggestion(sugg, null);
+		Assert.assertEquals(CROWBAR_CARD, result);
+		//Correct room is returned
+		cp.setCurrentRoom('K');
+		//Returns null
+		sugg = cg.createSuggestion(CANDLE_CARD, VIOLET_CARD);
+		result = cg.setupDisproveSuggestion(sugg, null);
+		Assert.assertEquals(null, result);
+		
+		
 	}
 	
 	@Test
 	public void testDisproveSuggestionTwoCards(){
-		ArrayList<clueGame.Card> sugg = cg.createSuggestion(weapon, person);
-		ArrayList<ComputerPlayer> cps = cg.getComputerPlayers();
-		ComputerPlayer testPlayer = cps.get(0);
-		testPlayer.setCards(new ArrayList<clueGame.Card>(){{add(weapon); add(person);}});
-		clueGame.Card result = cg.disproveSuggestion(sugg, testPlayer);
-		Assert.assertTrue(result.contains(weapon));
+		ComputerPlayer cp = cg.getComputerPlayers().get(0);
+		cp.setCards(new ArrayList<Card>() {{
+			add(WALKWAY_CARD);
+			add(CANDLE_CARD);
+			add(GREEN_CARD);
+		}});
+		
+		ArrayList<Card> sugg;
+		Card result;
+		int candleCounter = 0, greenCounter = 0, walkwayCounter = 0;
+		sugg = cg.createSuggestion(CANDLE_CARD, GREEN_CARD);
+		for(int i = 0; i<50; i++) {
+			result = cg.setupDisproveSuggestion(sugg, null);
+			if(result.equals(CANDLE_CARD))
+				candleCounter++;
+			else if(result.equals(GREEN_CARD))
+				greenCounter++;
+			else if(result.equals(WALKWAY_CARD))
+				walkwayCounter++;
+		}
+		Assert.assertTrue(candleCounter>0);
+		Assert.assertTrue(greenCounter>0);
+		Assert.assertTrue(walkwayCounter>0);
 	}
 	
 	@Test
@@ -217,16 +271,12 @@ public class GameActionTests {
 	
 	@Test
 	public void testHumanDisprove() {
-		cg.setCurrentPlayer(0);
-		ArrayList<clueGame.Card> sugg = cg.createSuggestion(weapon, person);
-		Assert.assertEquals(3, sugg.size());
+
 	}
 	
 	@Test
 	public void testCurrentPlayerNoCardReturn() {
-		HumanPlayer testPlayer = new HumanPlayer();
-		testPlayer.setCards(cards)
-		Assert.assertEquals(null, actual);
+		//set so player has specific card. Should return null
 	}
 	
 	@Test
