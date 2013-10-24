@@ -228,11 +228,18 @@ public class GameActionTests {
 		result = cg.setupDisproveSuggestion(sugg, null);
 		Assert.assertEquals(CROWBAR_CARD, result);
 		//Correct room is returned
-		cp.setCurrentRoom('K');
-		//Returns null
 		sugg = cg.createSuggestion(CANDLE_CARD, VIOLET_CARD);
 		result = cg.setupDisproveSuggestion(sugg, null);
 		Assert.assertEquals(null, result);
+		//Correct room is returned
+		cp.setCards(new ArrayList<Card>() {{
+			add(WALKWAY_CARD);
+			add(CANDLE_CARD);
+			add(GREEN_CARD);
+		}});
+		sugg = cg.createSuggestion(CROWBAR_CARD, VIOLET_CARD);
+		result = cg.setupDisproveSuggestion(sugg, null);
+		Assert.assertEquals(WALKWAY_CARD, result);
 		
 		
 	}
