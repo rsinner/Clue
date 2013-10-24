@@ -224,7 +224,9 @@ public class GameActionTests {
 	
 	@Test
 	public void testCurrentPlayerNoCardReturn() {
-		Assert.assertEquals(null, actual)
+		HumanPlayer testPlayer = new HumanPlayer();
+		testPlayer.setCards(cards)
+		Assert.assertEquals(null, actual);
 	}
 	
 	@Test
