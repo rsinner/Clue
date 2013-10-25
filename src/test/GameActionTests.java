@@ -263,6 +263,7 @@ public class GameActionTests {
 		Card result;
 		int candleCounter = 0, greenCounter = 0, walkwayCounter = 0;
 		sugg = cg.createSuggestion(CANDLE_CARD, GREEN_CARD);
+		//make sure that each result comes up more than once so it really is random
 		for(int i = 0; i<50; i++) {
 			result = cg.setupDisproveSuggestion(sugg, null);
 			if(result.equals(CANDLE_CARD))
