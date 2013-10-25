@@ -1,0 +1,472 @@
+commit 25419253a5b3fcf55147cf9788c8b9bbbdbd62f2
+Author: Annie Halbert <annie.halbert@gmail.com>
+Date:   Thu Oct 24 22:41:52 2013 -0600
+
+    Commented, all tests complete.
+
+commit a3711c8e39c89edee4628e1ceba98889d6672eae
+Author: Annie Halbert <annie.halbert@gmail.com>
+Date:   Thu Oct 24 14:24:26 2013 -0600
+
+    All disprove suggestion tests pass
+
+commit 413087dfe9c84a1d3b221322cbc00319f37cca1c
+Author: Annie Halbert <annie.halbert@gmail.com>
+Date:   Thu Oct 24 12:10:31 2013 -0600
+
+    testDisproveSuggestionOneCard  implemented correctly
+
+commit 9623398fd92b0a499303486aa8583d18abebcf27
+Author: Annie Halbert <annie.halbert@gmail.com>
+Date:   Thu Oct 24 12:07:18 2013 -0600
+
+    testDisprovesSuggestionTwoCards implemented
+
+commit 843d1aa980964a90a222147fb3c53d4150002fcf
+Author: Annie Halbert <annie.halbert@gmail.com>
+Date:   Wed Oct 23 22:31:32 2013 -0600
+
+    Stopping for the night.
+
+commit cce530e34fb5806a9e9658e823fd2ec48faad5c9
+Author: Annie Halbert <annie.halbert@gmail.com>
+Date:   Wed Oct 23 22:28:06 2013 -0600
+
+    disprove suggestion tests partially implemented.
+
+commit d3b75c9ae2ff43a455a247a5df1fa75894cc54a9
+Author: Annie Halbert <annie.halbert@gmail.com>
+Date:   Wed Oct 23 20:48:31 2013 -0600
+
+    Failing Disprove Suggestion Tests implemented.
+
+commit 3ee3e53adb46798507cde6bb7f68a93ee6f64002
+Author: Marcus Bermel <mbermel7@gmail.com>
+Date:   Wed Oct 23 15:32:03 2013 -0600
+
+    pickLocation tests all passing
+
+commit 6d4833a3506f77eb2c7729188bb584a44d97b788
+Author: Marcus Bermel <mbermel7@gmail.com>
+Date:   Wed Oct 23 11:05:23 2013 -0600
+
+    Finished writing failing tests for pickLocation
+
+commit 1c61886ab0b6539a4d921c99176e9ffb7485be66
+Author: Marcus Bermel <mbermel7@gmail.com>
+Date:   Wed Oct 23 11:01:41 2013 -0600
+
+    Changed previousRoom and currentRoom Player instance variables to chars. Updated code in createSuggestion to reflect that
+
+commit bd1886c9e1a554955dd55a32e6ffe1c5a3c8c5b5
+Author: Marcus Bermel <mbermel7@gmail.com>
+Date:   Wed Oct 23 10:43:35 2013 -0600
+
+    Failing tests for pickLocation tweaked.
+
+commit 273245cbf353b0ef0d99d3a1ff55fdd4f8eca51a
+Author: Marcus Bermel <mbermel7@gmail.com>
+Date:   Wed Oct 23 10:38:10 2013 -0600
+
+    Failing test written for pickLocation with a room in targets and without a room in targets
+
+commit d1ee1c25d84649e6f3711f7dd52601aedf1117f6
+Author: Marcus Bermel <mbermel7@gmail.com>
+Date:   Wed Oct 23 10:01:42 2013 -0600
+
+    Added color property to Player. Updated loadPlayers to reflect the change, as well as players.txt
+
+commit e2008281ca6a9442877f61374de32b740cde109e
+Author: Marcus Bermel <mbermel7@gmail.com>
+Date:   Tue Oct 22 18:25:01 2013 -0600
+
+    All tests passing
+
+commit fc64488a69a5b42efa5c8da2b237e991b6a2afc6
+Author: Marcus Bermel <mbermel7@gmail.com>
+Date:   Tue Oct 22 18:24:08 2013 -0600
+
+    Deleted nonsensical test (testBadSuggestion)
+
+commit efe8bf23f0752e8b8f91721b6d898de5c9cb421a
+Author: Marcus Bermel <mbermel7@gmail.com>
+Date:   Tue Oct 22 18:08:16 2013 -0600
+
+    Wrote failing test for good cpu suggestion
+
+commit d565c4cf69e199d9eb8ce62c79689c9811c6c2c3
+Author: Marcus Bermel <mbermel7@gmail.com>
+Date:   Tue Oct 22 18:06:27 2013 -0600
+
+    Failing test written for a non informative suggestion
+
+commit 2247a3f9c2ab50f51beec1d393f15d0b5e64f09d
+Author: Marcus Bermel <mbermel7@gmail.com>
+Date:   Tue Oct 22 17:27:09 2013 -0600
+
+    Tests pass for createSuggestion
+
+commit ba2aeb506ad9acf904b5f6367929fc2c76e99308
+Author: Marcus Bermel <mbermel7@gmail.com>
+Date:   Tue Oct 22 17:05:04 2013 -0600
+
+    Wrote failing test for createSuggestion
+
+commit b6d3be9ecf8108f784675aca6a6320e26d61ee2d
+Author: Marcus Bermel <mbermel7@gmail.com>
+Date:   Tue Oct 22 16:47:06 2013 -0600
+
+    Test for add seen card passing (only 1 line of code needed)
+
+commit 46e598b67b48bfe74cbc9e99c55f8b304101b0ab
+Author: Marcus Bermel <mbermel7@gmail.com>
+Date:   Tue Oct 22 16:46:20 2013 -0600
+
+    Failing test for adding 'seen' cards written
+
+commit 24351915871119d426e6ec2d3c02ec7dd9210983
+Author: Marcus Bermel <mbermel7@gmail.com>
+Date:   Sun Oct 20 18:21:41 2013 -0600
+
+    Commented on tests
+
+commit cdc8d0d40f1dab35e8591da90956a127d9950dd5
+Author: Marcus Bermel <mbermel7@gmail.com>
+Date:   Sun Oct 20 18:13:29 2013 -0600
+
+    Tweaks to accusation code
+
+commit a288a48a2b64f360288ee46bb84745637a9b1056
+Author: Marcus Bermel <mbermel7@gmail.com>
+Date:   Sun Oct 20 18:05:50 2013 -0600
+
+    Bad code now works. Solution is the correct size, and proper number of cards are dealt out
+
+commit 6deb75f85b3f027f2f161d6084577f2b85d47237
+Author: Marcus Bermel <mbermel7@gmail.com>
+Date:   Sun Oct 20 17:48:44 2013 -0600
+
+    Tweaked failing code for review
+
+commit 4f9c6b9f5c29a91ac120057d6168ffecced7427d
+Author: Marcus Bermel <mbermel7@gmail.com>
+Date:   Sun Oct 20 17:42:08 2013 -0600
+
+    Pushed broken dealSolution for review
+
+commit e1e14983c29f6cf76d60ff2e59ec8100e68d90b2
+Author: Annie Halbert <annie.halbert@gmail.com>
+Date:   Sun Oct 20 17:17:44 2013 -0600
+
+    Loads cards properly now
+
+commit 6d0a28dee4a1c3c3e11ccaf981d6bb6b73badb79
+Author: Annie Halbert <annie.halbert@gmail.com>
+Date:   Sun Oct 20 16:22:48 2013 -0600
+
+    made cards.txt file
+
+commit ae026f42f5ae0722fb7f09900b75164d1f2e8e83
+Author: Marcus Bermel <mbermel7@gmail.com>
+Date:   Sun Oct 20 13:34:28 2013 -0600
+
+    Forgot to add new class file
+
+commit 74e8fc0007ea78ec0765f770e04cc682db061d8c
+Author: Marcus Bermel <mbermel7@gmail.com>
+Date:   Sun Oct 20 13:32:58 2013 -0600
+
+    testAccusation now passes
+
+commit 6711571a2dd9a6dc31253832094fc1d410e6ccdd
+Author: Marcus Bermel <mbermel7@gmail.com>
+Date:   Sun Oct 20 13:19:59 2013 -0600
+
+    Check accusation tests written
+
+commit 22adb73c0eea2735ae154efb58c7f8185ba986d5
+Author: Marcus Bermel <mbermel7@gmail.com>
+Date:   Sun Oct 20 12:47:08 2013 -0600
+
+    Wrote test for random generator. Then re-wrote random generator
+
+commit ca4423dd9e64a7443167468963be2da69754693a
+Author: Marcus Bermel <mbermel7@gmail.com>
+Date:   Sun Oct 20 12:36:45 2013 -0600
+
+    Fixed duplicate checking test
+
+commit 1bcfa3bac427b4a69be88e01b726c1995f068b0c
+Author: Marcus Bermel <mbermel7@gmail.com>
+Date:   Sun Oct 20 10:11:47 2013 -0600
+
+    Small change to fakeLoadCards for testing purposes
+
+commit f8774358a459d3ab116a3d9df5a6c18ddb9c82cd
+Author: Marcus Bermel <mbermel7@gmail.com>
+Date:   Sun Oct 20 10:10:05 2013 -0600
+
+    Waiting on load cards to be written before more can be done. Lost track of everything I've changed. Working on dealSolution and dealCards
+
+commit a5d7371813a60e04a724b02127033e7b506c1b82
+Author: Marcus Bermel <mbermel7@gmail.com>
+Date:   Sun Oct 20 09:39:49 2013 -0600
+
+    Wrote a deck shuffle function and a random number generator function
+
+commit 9218bde2c423fac86558055455adf68527fa6497
+Author: Marcus Bermel <mbermel7@gmail.com>
+Date:   Sat Oct 19 16:29:47 2013 -0600
+
+    Adjusted some calculations. Namely accounting for 3 cards being pulled from the deck as the solution
+
+commit c3e5a44861b81da0a681f830f1997f8cc256b915
+Author: Marcus Bermel <mbermel7@gmail.com>
+Date:   Sat Oct 19 16:09:50 2013 -0600
+
+    Wrote failing test for duplicate testing.
+
+commit d454ce855420ce736321417e4fef682e32f35b39
+Author: Marcus Bermel <mbermel7@gmail.com>
+Date:   Sat Oct 19 15:42:31 2013 -0600
+
+    Refactored fakeLoadCards used to make testDeckAfterDeal pass to accomodate all 21 cards. testNumberOfPlayerCards now passes.
+
+commit 1ba0995a6977c390a7dc52bf4e4f7d2fbfecc3da
+Author: Marcus Bermel <mbermel7@gmail.com>
+Date:   Sat Oct 19 15:38:31 2013 -0600
+
+    testDeckAfterDeal passes (with help from temporary functions until the loadCards is actually written). Test written for number of cards per player
+
+commit 0743da924e052dec01d7fbf66f381ac4fa08988b
+Author: Marcus Bermel <mbermel7@gmail.com>
+Date:   Sat Oct 19 15:16:57 2013 -0600
+
+    Added testDeckAfterDeal test
+
+commit 92facdc6e7d101311ad75c3c838adba97eb026ef
+Author: Annie Halbert <annie.halbert@gmail.com>
+Date:   Sat Oct 19 13:46:56 2013 -0600
+
+    Added proper number of players and starting locations.
+
+commit 2943daab8ec0449a848994535b495a8b7b845632
+Author: Annie Halbert <annie.halbert@gmail.com>
+Date:   Sat Oct 19 13:35:09 2013 -0600
+
+    Added a new test for starting positions. All tests pass
+
+commit b3cb680c58e98cafdfe0de7866e38244f4fdf620
+Author: Annie Halbert <annie.halbert@gmail.com>
+Date:   Sat Oct 19 13:08:41 2013 -0600
+
+    testNumberPcPlayers passes
+
+commit 0f8583ad78e725ae69d5c09cd21caadf1cdf0da7
+Author: Annie Halbert <annie.halbert@gmail.com>
+Date:   Sat Oct 19 12:52:55 2013 -0600
+
+    Wrote 3 failing tests for load player
+
+commit 56aeb48bb096a5e5c7139dfa2c5a93b25bc9724f
+Merge: c3e54b6 3ba8bde
+Author: Annie Halbert <annie.halbert@gmail.com>
+Date:   Sat Oct 19 12:17:27 2013 -0600
+
+    Merge branch 'master' of https://github.com/rsinner/Clue
+
+commit c3e54b67e9a676e6e001d0a702d5cbf05ac2ca1f
+Author: Annie Halbert <annie.halbert@gmail.com>
+Date:   Sat Oct 19 12:16:56 2013 -0600
+
+    Implemented classes and stubs for cards/players
+
+commit 3ba8bdefb61090011e1a0e2010aace3f2e7e20a7
+Author: rs <rsinner@mines.edu>
+Date:   Wed Oct 16 23:26:15 2013 -0600
+
+    Added comments to Board.java
+
+commit 7b88fae31f76473c4e6229469d9691858d4bc7cf
+Merge: 821902b 705af43
+Author: rs <rsinner@mines.edu>
+Date:   Wed Oct 16 22:50:46 2013 -0600
+
+    Merge http://github.com/rsinner/Clue
+
+commit 705af4370b425f20a3e0ca094ec6c49dbfa94c0e
+Author: Marcus Bermel <mbermel7@gmail.com>
+Date:   Thu Oct 10 18:03:14 2013 -0600
+
+    One last tweak
+
+commit 11f81e0674741be312ed12ccc8b7241043ccd975
+Author: Marcus Bermel <mbermel7@gmail.com>
+Date:   Thu Oct 10 17:58:41 2013 -0600
+
+    refactored adjacencyLogic to use fewer method calls
+
+commit f966c644d3c7d134c5728d0d3318e4087ccd5d99
+Author: Marcus Bermel <mbermel7@gmail.com>
+Date:   Thu Oct 10 17:41:03 2013 -0600
+
+    Added some eclipse files. Roll back to repo cleanup if this breaks anything
+
+commit 18dd39d378e4fcf114caaac1edd97ba2c94c8e50
+Author: Marcus Bermel <mbermel7@gmail.com>
+Date:   Thu Oct 10 17:38:20 2013 -0600
+
+    Cleaned up repository. Proper file structure now in place.
+
+commit 7212df778356e651b8464caa0cfef468db3ee0f3
+Merge: 4d779a9 3d66055
+Author: rs <rsinner@mines.edu>
+Date:   Thu Oct 10 12:41:58 2013 -0600
+
+    Merge branch 'master' of https://github.com/rsinner/Clue
+
+commit 4d779a9b9869ec8bc9f05817a3495b3f070814cd
+Author: rs <rsinner@mines.edu>
+Date:   Thu Oct 10 12:41:15 2013 -0600
+
+    Adding test files
+
+commit 821902b3e64ae4ded4b636df4defd56c54554243
+Author: rs <rsinner@mines.edu>
+Date:   Thu Oct 10 12:40:11 2013 -0600
+
+    Adding layout and legend files
+
+commit 3d660558f40558fb842bd285f8b80b92c6c00188
+Merge: bd6ee89 7766bd9
+Author: rs <rsinner@mines.edu>
+Date:   Thu Oct 10 11:41:41 2013 -0600
+
+    Merge branch 'master' of http://github.com/rsinner/Clue
+
+commit 3691ded10a27c116ec57b3732bef496a085903c6
+Author: rs <rsinner@mines.edu>
+Date:   Thu Oct 10 10:42:58 2013 -0600
+
+    Final clueGame Board with passing tests (Before Refactoring)
+
+commit e8becd061162d9b8fa0f104ad13af1a457b5e4b9
+Author: rs <rsinner@mines.edu>
+Date:   Fri Oct 4 21:35:26 2013 -0600
+
+    Finished all of part 2
+
+commit c539f861028c4e0395cc4a2169c84926ff299b79
+Author: rs <rsinner@mines.edu>
+Date:   Fri Oct 4 20:55:12 2013 -0600
+
+    All of the tests pass. Working on AdjTests now.
+
+commit 37060b406eeeadf1fd6439f58457031ff00590c1
+Author: rs <rsinner@mines.edu>
+Date:   Fri Oct 4 18:24:12 2013 -0600
+
+    Got CR test to all pass. Now need to get Paulo's to pass
+
+commit a7f7f5dbb5dcbefda19751a3b299b24f5d6c3114
+Author: rs <rsinner@mines.edu>
+Date:   Fri Oct 4 17:55:22 2013 -0600
+
+    Finished implementing everything. Testing now...
+
+commit 5d9f303e2b485f44a9481335ced8eb9a855e30ab
+Author: rs <rsinner@mines.edu>
+Date:   Fri Oct 4 17:35:05 2013 -0600
+
+    Completed loadLayoutFile
+
+commit 0292cf56d0c8a23015bbc7a1f20e017bf182e01a
+Author: rs <rsinner@mines.edu>
+Date:   Fri Oct 4 17:18:08 2013 -0600
+
+    Working on Board class
+
+commit 0f6daedc9ba150d1ca30257966dc2d44e526b6d3
+Author: rs <rsinner@mines.edu>
+Date:   Tue Oct 1 20:19:02 2013 -0600
+
+    Commiting final IntBoard and Tests
+
+commit 7766bd9dd686a0154b64377ec1f51d5d0e685688
+Author: rs <rsinner@mines.edu>
+Date:   Tue Oct 1 20:17:23 2013 -0600
+
+    Adding Clue that has everything
+
+commit 63b3b126f4bff3bc066b2d84f85227b6f77a2ecf
+Merge: 3e1f311 7c5bf0b
+Author: rs <rsinner@mines.edu>
+Date:   Tue Oct 1 20:15:59 2013 -0600
+
+    Merge branch 'master' of https://github.com/rsinner/Clue
+
+commit 3e1f3112a028d1e599f7c1c2567a2219a0756995
+Author: rs <rsinner@mines.edu>
+Date:   Tue Oct 1 20:13:48 2013 -0600
+
+    Adding Clue to repository
+
+commit 7c5bf0ba80f277a1f09641700c48a131df1f8609
+Author: rsinner <rsinner@mines.edu>
+Date:   Tue Oct 1 18:59:17 2013 -0700
+
+    Initial commit
+
+commit ce7cb8e5f771e34a4855ac73829bbf4225a46d0d
+Author: rs <rsinner@mines.edu>
+Date:   Tue Oct 1 12:18:40 2013 -0600
+
+    Adding original files
+
+commit bd6ee89ef4b918ebba1a13a97cf488cd416fea9a
+Author: rs <rsinner@mines.edu>
+Date:   Mon Sep 23 15:41:37 2013 -0600
+
+    Updated ScoreTrakker from Part 3
+
+commit dbb8764a19814b69ecc6abaca34fe8b1f654d836
+Author: rs <rsinner@mines.edu>
+Date:   Mon Sep 23 15:33:46 2013 -0600
+
+    Updated ScoreTrakker from Part 2
+
+commit ebb11043e8cf986ac80d48c812e36072e455678d
+Author: rs <rsinner@mines.edu>
+Date:   Mon Sep 23 15:17:49 2013 -0600
+
+    Adding ScoreTrakker and Student after Part 1
+
+commit 159205dfdbcd1d1ca94e286ca400b5b6e45d8f88
+Author: rs <rsinner@mines.edu>
+Date:   Mon Sep 9 17:34:25 2013 -0600
+
+    Add Stove class; final project
+
+commit 775e523e15340f57bca6e777e1f8da423f0dccc3
+Author: rs <rsinner@mines.edu>
+Date:   Mon Sep 9 17:33:53 2013 -0600
+
+    Adding Burner class; fixed displayStatus
+
+commit 6b2bbd0ca615aa29be29321f76ebe551fb5f2d13
+Author: rs <rsinner@mines.edu>
+Date:   Mon Sep 9 17:31:54 2013 -0600
+
+    Adding Settings again; fixed toString()
+
+commit bfe0813b08a9084fc6e4c8274fd8baa5e42f50c1
+Author: rs <rsinner@mines.edu>
+Date:   Mon Sep 9 17:10:04 2013 -0600
+
+    Add Burner class
+
+commit 0e51461eb85c2b159dba71bdf3b7b9babb49d4b2
+Author: rs <rsinner@mines.edu>
+Date:   Mon Sep 9 16:42:55 2013 -0600
+
+    Add Settings (contains enumerator Setting)
