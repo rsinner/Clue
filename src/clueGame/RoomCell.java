@@ -1,5 +1,10 @@
 package clueGame;
 
+import java.awt.Color;
+import java.awt.Graphics;
+
+import javax.naming.Context;
+
 public class RoomCell extends BoardCell {
 	public static enum DoorDirection {
 		NONE(0,0),UP(-1,0),DOWN(1,0),LEFT(0,-1),RIGHT(0,1);
@@ -60,5 +65,14 @@ public class RoomCell extends BoardCell {
 	public DoorDirection getDoorDirection() {
 		return doorDirection;
 	}
+
+	@Override
+	public void draw(Graphics g, BoardCell c) {
+		// TODO Auto-generated method stub
+		g.setColor(Color.gray);
+		g.drawRect(c.getColumn()*36, c.getRow()*36, c.getDimension(), c.getDimension());
+	}
+
+	
 
 }

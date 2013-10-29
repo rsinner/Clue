@@ -11,9 +11,11 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
+import javax.swing.JPanel;
+
 import clueGame.RoomCell.DoorDirection;
 
-public class Board {
+public class Board extends JPanel {
 	public ArrayList<BoardCell> cells;
 	private Map<Character, String> rooms;
 	private Map<Integer, LinkedList<Integer>> adjLists;
@@ -37,6 +39,12 @@ public class Board {
 			logger = new PrintWriter("errorLog.txt");
 		} catch (FileNotFoundException e) {
 			System.out.println(e.getMessage());
+		}
+	}
+	
+	public void paintComponent() {
+		for(BoardCell cell : cells) {
+			cell.draw();
 		}
 	}
 	
@@ -134,6 +142,8 @@ public class Board {
 				// creates a new boardcell at that row and col with the string s that contains
 				// either a room character, a walkway character, or a doorway
 				cells.add(createBoardCell(row,col,s));
+				cells.get(calcIndex(row, col)).setRow(row);
+				cells.get(calcIndex(row, col)).setCol(col);
 				col++;
 			}
 			// Throws an error if the columns are not all the same size
