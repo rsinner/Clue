@@ -1,5 +1,6 @@
 package clueGame;
 
+import java.awt.Graphics;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.PrintWriter;
@@ -42,9 +43,9 @@ public class Board extends JPanel {
 		}
 	}
 	
-	public void paintComponent() {
+	public void paintComponent(Graphics g) {
 		for(BoardCell cell : cells) {
-			cell.draw();
+			cell.draw(g, this);
 		}
 	}
 	

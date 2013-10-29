@@ -10,11 +10,14 @@ import java.util.Iterator;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
+
+import javax.swing.JFrame;
+
 import org.junit.runner.Computer;
 
 import clueGame.Card.CardType;
 
-public class ClueGame {
+public class ClueGame extends JFrame{
 	private ArrayList<Card> deck;
 	private ArrayList<Card> listOfCards;
 	private ArrayList<ComputerPlayer> computerPlayers;
