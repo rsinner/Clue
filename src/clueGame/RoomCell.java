@@ -67,11 +67,15 @@ public class RoomCell extends BoardCell {
 	}
 
 	@Override
-	public void draw(Graphics g, Board c) {
+	public void draw(Graphics g, Board c, boolean drawName) {
 		// Set room color to gray
 		g.setColor(Color.gray);
 		// Since 1 inch ~ 72 units, each is 36x36 units.
 		g.drawRect(getColumn()*36, getRow()*36,getDimension(), getDimension());
+		// If we're supposed to draw the name, draw the name.
+		if(drawName){
+			g.drawString(c.getRooms().get(getInitial()), getColumn()*72, getRow()*72);
+		}
 	}
 
 	

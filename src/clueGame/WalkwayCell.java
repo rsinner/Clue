@@ -17,13 +17,16 @@ public class WalkwayCell extends BoardCell {
 	}
 
 	@Override
-	public void draw(Graphics g, Board c) {
+	public void draw(Graphics g, Board c, boolean drawName) {
+		// Set walkway color to yellow
 		g.setColor(Color.yellow);
 		g.drawRect(getColumn()*36,getRow()*36, getDimension(),getDimension());
 		
+		// Do nothing with draw name.
+		
 	}
 
-	
-	
+
+
 
 }

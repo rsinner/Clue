@@ -36,7 +36,7 @@ public abstract class BoardCell {
 		this.column = column;
 	}
 
-	public abstract void draw(Graphics g, Board board);
+	public abstract void draw(Graphics g, Board board, boolean drawName);
 
 	public int getDimension() {
 		return dimension;
