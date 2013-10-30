@@ -20,7 +20,7 @@ public class BoardGUI extends JFrame {
 	JMenuItem close;
 	
 	public BoardGUI() {
-		setSize(new Dimension(800, 800));
+		setSize(new Dimension(600, 600));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Clue Game");
 		menuBar = new JMenuBar();
@@ -29,8 +29,5 @@ public class BoardGUI extends JFrame {
 		
 	}
 	
-	public static void main(String[] args) {
-		ControlGUI gui = new ControlGUI();
-		gui.setVisible(true);
-	}
+
 }

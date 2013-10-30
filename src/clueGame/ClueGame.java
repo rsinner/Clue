@@ -328,6 +328,10 @@ public class ClueGame extends JFrame{
 	public static void main(String[] args){
 		ClueGame gui = new ClueGame();
 		gui.setVisible(true);
+		ControlGUI controlGui = new ControlGUI();
+		controlGui.setVisible(true);
+		DetectiveNotesDialogue dialogue = new DetectiveNotesDialogue();
+		dialogue.setVisible(true);
 	}
 	
 }

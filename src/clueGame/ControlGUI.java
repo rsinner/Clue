@@ -15,8 +15,5 @@ public class ControlGUI extends JFrame {
 		add(buttonPanel, BorderLayout.SOUTH);
 		
 	}
-	public static void main(String[] args) {
-		ControlGUI gui = new ControlGUI();
-		gui.setVisible(true);
-	}
+
 }
