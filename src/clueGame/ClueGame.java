@@ -45,6 +45,8 @@ public class ClueGame extends JFrame{
 		board = new Board("Clue_Layout.csv", "legend.txt");
 		board.loadConfigFiles();
 		add(board, BorderLayout.CENTER);
+		loadPlayers("players.txt");
+		board.updatePlayers(computerPlayers, human);
 	}
 
 	public void loadPlayers(String fileName) {
@@ -61,13 +63,16 @@ public class ClueGame extends JFrame{
 					human.setName(rows[0]);
 					human.setStartingLocation(Integer.parseInt(rows[1]));
 					human.setColor(rows[2]);
+					human.initializePlayer();
 				}
 				else {
 					ComputerPlayer cp = new ComputerPlayer();
 					cp.setName(rows[0]);
 					cp.setStartingLocation(Integer.parseInt(rows[1]));
 					cp.setColor(rows[2]);
+					cp.initializePlayer();
 					computerPlayers.add(cp);
+					
 				}
 			}
 		} catch (FileNotFoundException e) {

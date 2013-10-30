@@ -14,6 +14,8 @@ import java.util.Set;
 
 import javax.swing.JPanel;
 
+import sun.rmi.transport.proxy.CGIHandler;
+
 import clueGame.RoomCell.DoorDirection;
 
 public class Board extends JPanel {
@@ -27,7 +29,8 @@ public class Board extends JPanel {
 	private String legend;
 	private String layout;
 	private PrintWriter logger;
-
+	private ArrayList<Player> players;
+	
 	// Board constructor that sets up the ArrayList, HashMap, and
 	// gets the legend and layout files through user input
 	public Board() {
@@ -45,8 +48,8 @@ public class Board extends JPanel {
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		boolean firstCell = true;
-		BoardCell previous = null;
+		
+		// This whole loop is responsible for painting room names only once.
 		ArrayList<Character> roomsPainted = new ArrayList<Character>();
 		for(int i = 0; i < cells.size(); i ++){
 			if(cells.get(i) instanceof RoomCell){
@@ -61,9 +64,18 @@ public class Board extends JPanel {
 			}
 			else{
 				cells.get(i).draw(g, this, false);
-			}
-			
+			}			
 		}
+		
+		// This whole loop is responsible for drawing the players
+		for(Player p : players){
+			p.draw(g, this);
+		}
+	}
+	
+	public void updatePlayers(ArrayList<ComputerPlayer> computerPlayers, HumanPlayer hp){
+		players = (ArrayList<Player>) computerPlayers.clone();
+		players.add(hp);
 	}
 	
 	// Board constructor that sets up the ArrayList, HashMap, and

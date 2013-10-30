@@ -1,6 +1,6 @@
 Colonel Mustard,5,Red
-Professor Plum,114,Green
-Violet,355,Blue
+Professor Plum,95,Green
+Violet,336,Blue
 Miss Scarlett,13,Orange
-Mr. Green,349,Yellow
+Mr. Green,330,Yellow
 Human,10,Purple
