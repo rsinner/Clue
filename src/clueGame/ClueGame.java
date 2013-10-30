@@ -1,5 +1,6 @@
 package clueGame;
 
+import java.awt.BorderLayout;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -37,9 +38,13 @@ public class ClueGame extends JFrame{
 	
 	public ClueGame() {
 		super();
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setTitle("Clue Game");
+		setSize(1000, 1000);
 		this.seenCards = new HashSet<Card>();
 		board = new Board("Clue_Layout.csv", "legend.txt");
 		board.loadConfigFiles();
+		add(board, BorderLayout.CENTER);
 	}
 
 	public void loadPlayers(String fileName) {
@@ -320,5 +325,9 @@ public class ClueGame extends JFrame{
 		return currentPlayer;
 	}
 	
+	public static void main(String[] args){
+		ClueGame gui = new ClueGame();
+		gui.setVisible(true);
+	}
 	
 }

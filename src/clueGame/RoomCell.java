@@ -70,8 +70,10 @@ public class RoomCell extends BoardCell {
 	public void draw(Graphics g, Board c, boolean drawName) {
 		// Set room color to gray
 		g.setColor(Color.gray);
+		// The commented line below will fill the grid with color. Makes it hard to count cells.
+		//g.fillRect(getColumn()*CELL_SIZE, getRow()*CELL_SIZE, getDimension(), getDimension());
 		// Since 1 inch ~ 72 units, each is 36x36 units.
-		g.drawRect(getColumn()*36, getRow()*36,getDimension(), getDimension());
+		g.drawRect(getColumn()*CELL_SIZE, (getRow())*CELL_SIZE,getDimension(), getDimension());
 		// If we're supposed to draw the name, draw the name.
 		if(drawName){
 			g.drawString(c.getRooms().get(getInitial()), getColumn()*72, getRow()*72);

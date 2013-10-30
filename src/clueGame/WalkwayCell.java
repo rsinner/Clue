@@ -20,7 +20,10 @@ public class WalkwayCell extends BoardCell {
 	public void draw(Graphics g, Board c, boolean drawName) {
 		// Set walkway color to yellow
 		g.setColor(Color.yellow);
-		g.drawRect(getColumn()*36,getRow()*36, getDimension(),getDimension());
+		g.fillRect(getColumn()*CELL_SIZE, getRow()*CELL_SIZE, getDimension(), getDimension());
+		
+		g.drawRect(getColumn()*CELL_SIZE,getRow()*CELL_SIZE, getDimension(),getDimension());
+		
 		
 		// Do nothing with draw name.
 		

@@ -44,27 +44,11 @@ public class Board extends JPanel {
 	}
 	
 	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
 		boolean firstCell = true;
 		BoardCell previous = null;
-		for(BoardCell cell : cells) {
-			if(firstCell){
-				// First cell being read. Set  a previous.
-				previous = cell;
-			}
-			if(previous instanceof RoomCell && cell instanceof RoomCell){
-				RoomCell p = (RoomCell) previous;
-				RoomCell c = (RoomCell) cell;
-				if(p.getInitial() == c.getInitial()){
-					// If current cell and previous cell have same name,
-					// tell the draw function to draw the name.
-					cell.draw(g, this, true);
-				}
-			}
-			else{
-				// Doesn't meet conditions necessary to paint room name, so don't paint room name.
-				cell.draw(g, this, false);
-			}
-			
+		for(int i = 0; i < cells.size(); i ++){
+			cells.get(i).draw(g, this, false);
 		}
 	}
 	
@@ -161,9 +145,13 @@ public class Board extends JPanel {
 				}
 				// creates a new boardcell at that row and col with the string s that contains
 				// either a room character, a walkway character, or a doorway
-				cells.add(createBoardCell(row,col,s));
-				cells.get(calcIndex(row, col)).setRow(row);
-				cells.get(calcIndex(row, col)).setCol(col);
+				BoardCell temp = createBoardCell(row,col,s);
+				temp.setRow(row);
+				temp.setCol(col);
+				cells.add(temp);
+//				cells.add(createBoardCell(row,col,s));
+//				cells.get(calcIndex(row, col)).setRow(row);
+//				cells.get(calcIndex(row, col)).setCol(col);
 				col++;
 			}
 			// Throws an error if the columns are not all the same size

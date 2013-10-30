@@ -9,6 +9,7 @@ public abstract class BoardCell {
 	private int column;
 	// Corresponds to half an inch
 	private int dimension = 36;
+	protected final int CELL_SIZE = 36;
 	
 	public void setRow(int row) {
 		this.row = row;
