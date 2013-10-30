@@ -47,8 +47,22 @@ public class Board extends JPanel {
 		super.paintComponent(g);
 		boolean firstCell = true;
 		BoardCell previous = null;
+		ArrayList<Character> roomsPainted = new ArrayList<Character>();
 		for(int i = 0; i < cells.size(); i ++){
-			cells.get(i).draw(g, this, false);
+			if(cells.get(i) instanceof RoomCell){
+				RoomCell r = (RoomCell) cells.get(i);
+				if(!roomsPainted.contains(r.getInitial())){
+					r.draw(g, this, true);
+					roomsPainted.add(r.getInitial());
+				}
+				else{
+					cells.get(i).draw(g, this, false);
+				}
+			}
+			else{
+				cells.get(i).draw(g, this, false);
+			}
+			
 		}
 	}
 	

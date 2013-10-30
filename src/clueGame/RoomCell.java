@@ -76,7 +76,8 @@ public class RoomCell extends BoardCell {
 		g.drawRect(getColumn()*CELL_SIZE, (getRow())*CELL_SIZE,getDimension(), getDimension());
 		// If we're supposed to draw the name, draw the name.
 		if(drawName){
-			g.drawString(c.getRooms().get(getInitial()), getColumn()*72, getRow()*72);
+			g.drawString(c.getRooms().get(getInitial()), getColumn()*CELL_SIZE, getRow()*CELL_SIZE+(int)(.5*CELL_SIZE));
+			
 		}
 	}
 
