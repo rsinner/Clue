@@ -79,6 +79,34 @@ public class RoomCell extends BoardCell {
 			g.drawString(c.getRooms().get(getInitial()), getColumn()*CELL_SIZE, getRow()*CELL_SIZE+(int)(.5*CELL_SIZE));
 			
 		}
+		if(doorDirection == DoorDirection.UP){
+			g.setColor(Color.BLUE);
+			//g.drawRect(getColumn()*CELL_SIZE, (getRow())*CELL_SIZE,getDimension(), getDimension());
+			g.fillRect(getColumn()*CELL_SIZE, getRow()*CELL_SIZE, CELL_SIZE, CELL_SIZE/4);
+			g.setColor(Color.gray);
+			g.drawRect(getColumn()*CELL_SIZE, (getRow())*CELL_SIZE,getDimension(), getDimension());
+		}
+		else if(doorDirection == DoorDirection.DOWN){
+			g.setColor(Color.BLUE);
+			//g.drawRect(getColumn()*CELL_SIZE, (getRow())*CELL_SIZE,getDimension(), getDimension());
+			g.fillRect(getColumn()*CELL_SIZE, (getRow()+1)*CELL_SIZE-10, CELL_SIZE, CELL_SIZE/4);
+			g.setColor(Color.gray);
+			g.drawRect(getColumn()*CELL_SIZE, (getRow())*CELL_SIZE,getDimension(), getDimension());
+		}
+		else if(doorDirection == DoorDirection.LEFT){
+			g.setColor(Color.BLUE);
+			//g.drawRect(getColumn()*CELL_SIZE, (getRow())*CELL_SIZE,getDimension(), getDimension());
+			g.fillRect(getColumn()*CELL_SIZE, (getRow())*CELL_SIZE, CELL_SIZE/4, CELL_SIZE);
+			g.setColor(Color.gray);
+			g.drawRect(getColumn()*CELL_SIZE, (getRow())*CELL_SIZE,getDimension(), getDimension());
+		}
+		else if(doorDirection == DoorDirection.RIGHT){
+			g.setColor(Color.BLUE);
+			//g.drawRect(getColumn()*CELL_SIZE, (getRow())*CELL_SIZE,getDimension(), getDimension());
+			g.fillRect(getColumn()*CELL_SIZE+CELL_SIZE - 10, (getRow())*CELL_SIZE, CELL_SIZE/4, CELL_SIZE);
+			g.setColor(Color.gray);
+			g.drawRect(getColumn()*CELL_SIZE, (getRow())*CELL_SIZE,getDimension(), getDimension());
+		}
 	}
 
 	
