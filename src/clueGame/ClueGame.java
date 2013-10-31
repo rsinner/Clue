@@ -81,7 +81,8 @@ public class ClueGame extends JFrame{
 		loadCards("cards.txt");
 		board.updatePlayers(computerPlayers, human);
 		
-		
+		ControlGUI control = new ControlGUI();
+		add(control, BorderLayout.SOUTH);
 		
 		
 	}
@@ -387,8 +388,7 @@ public class ClueGame extends JFrame{
 	public static void main(String[] args){
 		ClueGame gui = new ClueGame();
 		gui.setVisible(true);
-		ControlGUI controlGui = new ControlGUI();
-		controlGui.setVisible(true);
+		
 		
 	}
 	
