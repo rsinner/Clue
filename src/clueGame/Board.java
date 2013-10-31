@@ -12,6 +12,9 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 import sun.rmi.transport.proxy.CGIHandler;
@@ -30,10 +33,15 @@ public class Board extends JPanel {
 	private String layout;
 	private PrintWriter logger;
 	private ArrayList<Player> players;
+	JMenuBar menuBar;
+	JMenu menu;
+	JMenuItem notes, close;
 	
 	// Board constructor that sets up the ArrayList, HashMap, and
 	// gets the legend and layout files through user input
 	public Board() {
+		
+		
 		cells = new ArrayList<BoardCell>();
 		rooms = new HashMap<Character, String>();
 		this.legend = getLegendFile();

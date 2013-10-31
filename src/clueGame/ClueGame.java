@@ -1,6 +1,9 @@
 package clueGame;
 
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -13,6 +16,9 @@ import java.util.Scanner;
 import java.util.Set;
 
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
 import org.junit.runner.Computer;
 
@@ -28,8 +34,12 @@ public class ClueGame extends JFrame{
 	private ArrayList<Card> solution;
 	private Set<Card> seenCards;
 	private Board board;
-	
-	
+	private static ArrayList<String> playerNames = new ArrayList<String>();
+	private static ArrayList<String> weaponNames = new ArrayList<String>();
+	private static ArrayList<String> roomNames = new ArrayList<String>();
+	JMenuBar menuBar;
+	JMenu menu;
+	JMenuItem notes, close;
 	
 	// WE NEED A WAY TO INCREMENT CURRENT PLAYER, CONSISTENTLY, AFTER EACH TURN. Specifically for
 	// createSuggestion to function.
@@ -37,16 +47,43 @@ public class ClueGame extends JFrame{
 	// take turn function or something.
 	
 	public ClueGame() {
-		super();
+		super();		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Clue Game");
-		setSize(1000, 1000);
+		setSize(700, 710);
 		this.seenCards = new HashSet<Card>();
 		board = new Board("Clue_Layout.csv", "legend.txt");
+		
+		menuBar = new JMenuBar();
+		menu = new JMenu("File");
+		menuBar.add(menu);
+		notes = new JMenuItem("Detective Notes");
+		notes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DetectiveNotesDialogue dialogue = new DetectiveNotesDialogue(playerNames, roomNames, weaponNames);
+				dialogue.setVisible(true);
+			}
+		});
+		menu.add(notes);
+		close = new JMenuItem("Close");
+		close.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		menu.add(close);
+		menu.setSize(800, 50);
+		add(menuBar, BorderLayout.NORTH);
+		
 		board.loadConfigFiles();
 		add(board, BorderLayout.CENTER);
 		loadPlayers("players.txt");
+		loadCards("cards.txt");
 		board.updatePlayers(computerPlayers, human);
+		
+		
+		
+		
 	}
 
 	public void loadPlayers(String fileName) {
@@ -60,6 +97,7 @@ public class ClueGame extends JFrame{
 				//Human player is at the bottom of the text file. If no next line, human
 				if(!scan.hasNextLine()) {
 					human = new HumanPlayer();
+	//				playerNames.add(rows[0]);
 					human.setName(rows[0]);
 					human.setStartingLocation(Integer.parseInt(rows[1]));
 					human.setColor(rows[2]);
@@ -67,6 +105,7 @@ public class ClueGame extends JFrame{
 				}
 				else {
 					ComputerPlayer cp = new ComputerPlayer();
+	//				playerNames.add(rows[0]);
 					cp.setName(rows[0]);
 					cp.setStartingLocation(Integer.parseInt(rows[1]));
 					cp.setColor(rows[2]);
@@ -80,6 +119,18 @@ public class ClueGame extends JFrame{
 		}
 	}
 	
+	public ArrayList<String> getPlayerNames() {
+		return playerNames;
+	}
+
+	public ArrayList<String> getWeaponNames() {
+		return weaponNames;
+	}
+
+	public ArrayList<String> getRoomNames() {
+		return roomNames;
+	}
+
 	public void loadCards(String fileName) {
 		deck = new ArrayList<Card>();
 		listOfCards = new ArrayList<Card>();
@@ -94,10 +145,13 @@ public class ClueGame extends JFrame{
 					card.setName(rows[0]);
 					String type = rows[1];
 					if(type.equals("PLAYER")) {
+						playerNames.add(rows[0]);
 						card.setType(CardType.PERSON);
 					} else if(type.equals("ROOM")) {
+						roomNames.add(rows[0]);
 						card.setType(CardType.ROOM);
 					} else if(type.equals("WEAPON")) {
+						weaponNames.add(rows[0]);
 						card.setType(CardType.WEAPON);
 					}
 				deck.add(card);
@@ -335,8 +389,7 @@ public class ClueGame extends JFrame{
 		gui.setVisible(true);
 		ControlGUI controlGui = new ControlGUI();
 		controlGui.setVisible(true);
-		DetectiveNotesDialogue dialogue = new DetectiveNotesDialogue();
-		dialogue.setVisible(true);
+		
 	}
 	
 }

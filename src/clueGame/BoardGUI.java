@@ -26,6 +26,7 @@ public class BoardGUI extends JFrame {
 		menuBar = new JMenuBar();
 		menu = new JMenu("File");
 		menuBar.add(menu);
+		add(menuBar);
 		
 	}
 	
