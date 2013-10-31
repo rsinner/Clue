@@ -13,7 +13,7 @@ public class Player {
 	private char previousRoom;
 	private char currentRoom;
 	protected Color c;
-	private static final int CIRCLE_DIMENSION = 36;
+	private static final int CIRCLE_DIMENSION = 28;
 
 	
 	public Player() {

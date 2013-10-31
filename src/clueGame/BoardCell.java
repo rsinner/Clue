@@ -8,8 +8,8 @@ public abstract class BoardCell {
 	private int row;
 	private int column;
 	// Corresponds to half an inch
-	private int dimension = 36;
-	protected final int CELL_SIZE = 36;
+	private int dimension = 28;
+	protected final int CELL_SIZE = 28;
 	
 	public void setRow(int row) {
 		this.row = row;
