@@ -66,11 +66,12 @@ public class Board extends JPanel {
 		
 		// This whole loop is responsible for painting room names only once.
 		ArrayList<Character> roomsPainted = new ArrayList<Character>();
+		ArrayList<RoomCell> paintLast = new ArrayList<RoomCell>();
 		for(int i = 0; i < cells.size(); i ++){
 			if(cells.get(i) instanceof RoomCell){
 				RoomCell r = (RoomCell) cells.get(i);
 				if(!roomsPainted.contains(r.getInitial())){
-					r.draw(g, this, true);
+					paintLast.add(r);
 					roomsPainted.add(r.getInitial());
 				}
 				else{
@@ -80,6 +81,10 @@ public class Board extends JPanel {
 			else{
 				cells.get(i).draw(g, this, false);
 			}			
+		}
+		for (RoomCell r : paintLast) {
+			r.draw(g, this, true);
+			
 		}
 		
 		// This whole loop is responsible for drawing the players

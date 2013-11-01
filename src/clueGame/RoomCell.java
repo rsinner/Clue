@@ -1,6 +1,7 @@
 package clueGame;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 
 import javax.naming.Context;
@@ -108,8 +109,9 @@ public class RoomCell extends BoardCell {
 			g.setColor(Color.gray);
 			g.drawRect(getColumn()*CELL_SIZE, (getRow())*CELL_SIZE,getDimension(), getDimension());
 		}
-
+		g.setColor(Color.WHITE);
 		if(drawName){
+			g.setFont(new Font("Felix Titling", Font.BOLD, 10));
 			g.drawString(c.getRooms().get(getInitial()), getColumn()*CELL_SIZE, getRow()*CELL_SIZE+(int)(.5*CELL_SIZE));
 		}
 	}
