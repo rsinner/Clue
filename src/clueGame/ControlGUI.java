@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 
 public class ControlGUI extends JPanel {
 	public ControlGUI() {
-		setLayout(new GridLayout(1,6));
+		setLayout(new GridLayout(2,1));
 		LogisticsPanel logPanel = new LogisticsPanel();
 		add(logPanel);
 		ButtonsPanel buttonPanel = new ButtonsPanel();

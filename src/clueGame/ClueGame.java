@@ -57,7 +57,7 @@ public class ClueGame extends JFrame{
 		setTitle("Clue Game");
 		this.seenCards = new HashSet<Card>();
 		board = new Board("Clue_Layout.csv", "legend.txt");
-		setSize(650,650);
+		setSize(680,680);
 		
 		menuBar = new JMenuBar();
 		menu = new JMenu("File");
