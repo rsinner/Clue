@@ -8,10 +8,10 @@ public class ComputerPlayer extends Player {
 		for(BoardCell bc : targets){
 			if (bc.isDoorway()) {
 				// If it's a room cell, check to see if it was most recently visited
-				if(bc.equals(getPreviousRoom())){
+				RoomCell rc = (RoomCell) bc;
+				if(rc.getInitial() == getPreviousRoom()){
 					continue;
 				} else {
-					RoomCell rc = (RoomCell) bc;
 					setPreviousRoom(rc.getInitial());
 					return bc;
 				}
