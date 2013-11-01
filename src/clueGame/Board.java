@@ -41,7 +41,6 @@ public class Board extends JPanel {
 	// gets the legend and layout files through user input
 	public Board() {
 		
-		
 		cells = new ArrayList<BoardCell>();
 		rooms = new HashMap<Character, String>();
 		this.legend = getLegendFile();
