@@ -15,11 +15,15 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
 
+import javax.swing.BorderFactory;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import org.junit.runner.Computer;
 
@@ -51,9 +55,9 @@ public class ClueGame extends JFrame{
 		super();		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Clue Game");
-		setSize(700, 710);
 		this.seenCards = new HashSet<Card>();
 		board = new Board("Clue_Layout.csv", "legend.txt");
+		setSize(650,650);
 		
 		menuBar = new JMenuBar();
 		menu = new JMenu("File");
@@ -73,17 +77,31 @@ public class ClueGame extends JFrame{
 			}
 		});
 		menu.add(close);
-		menu.setSize(800, 50);
-		add(menuBar, BorderLayout.NORTH);
+		add(menuBar, BorderLayout.PAGE_START);
 		
 		board.loadConfigFiles();
 		add(board, BorderLayout.CENTER);
 		loadPlayers("players.txt");
 		loadCards("cards.txt");
+		dealCards();
+		
+		JPanel humanCards = new JPanel();
+		
+		
+		humanCards.setLayout(new GridLayout(3,1));
+		for(Card c : human.getCards()) {
+			JTextField addCard = new JTextField();
+			addCard.setSize(100,50);
+			addCard.setEditable(false);
+			addCard.setText(c.getName());
+			humanCards.add(addCard);
+		}
+		humanCards.setBorder(BorderFactory.createTitledBorder("My Cards"));
+		add(humanCards, BorderLayout.LINE_END);
 		board.updatePlayers(computerPlayers, human);
 		
 		ControlGUI control = new ControlGUI();
-		add(control, BorderLayout.SOUTH);
+		add(control, BorderLayout.PAGE_END);
 		
 		JOptionPane.showMessageDialog(board, "You are the Human player. Press Next Player to begin!", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
 		
