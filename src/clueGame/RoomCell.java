@@ -75,10 +75,7 @@ public class RoomCell extends BoardCell {
 		g.drawRect(getColumn()*CELL_SIZE, (getRow())*CELL_SIZE,getDimension(), getDimension());
 		// If we're supposed to draw the name, draw the name.
 		g.setColor(Color.WHITE);
-		if(drawName){
-			g.drawString(c.getRooms().get(getInitial()), getColumn()*CELL_SIZE, getRow()*CELL_SIZE+(int)(.5*CELL_SIZE));
-			
-		}
+		
 		if(doorDirection == DoorDirection.UP){
 			g.setColor(Color.BLUE);
 			//g.drawRect(getColumn()*CELL_SIZE, (getRow())*CELL_SIZE,getDimension(), getDimension());
@@ -106,6 +103,10 @@ public class RoomCell extends BoardCell {
 			g.fillRect(getColumn()*CELL_SIZE+CELL_SIZE - 10, (getRow())*CELL_SIZE, CELL_SIZE/4, CELL_SIZE);
 			g.setColor(Color.gray);
 			g.drawRect(getColumn()*CELL_SIZE, (getRow())*CELL_SIZE,getDimension(), getDimension());
+		}
+		
+		if(drawName){
+			g.drawString(c.getRooms().get(getInitial()), getColumn()*CELL_SIZE, getRow()*CELL_SIZE+(int)(.5*CELL_SIZE));
 		}
 	}
 
