@@ -1,6 +1,7 @@
 package clueGame;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,6 +17,7 @@ import java.util.Scanner;
 import java.util.Set;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -87,22 +89,39 @@ public class ClueGame extends JFrame{
 		dealCards();
 		
 		JPanel humanCards = new JPanel();
-		
+		JPanel players = new JPanel();
+		JPanel weapons = new JPanel();
+		JPanel rooms = new JPanel();
 		
 		humanCards.setLayout(new GridLayout(3,1));
+		players.setLayout(new BoxLayout(players, BoxLayout.Y_AXIS));
+		weapons.setLayout(new BoxLayout(weapons, BoxLayout.Y_AXIS));
+		rooms.setLayout(new BoxLayout(rooms, BoxLayout.Y_AXIS));
+		humanCards.setMinimumSize(new Dimension(150,50));
 		for(Card c : human.getCards()) {
 			JTextField addCard = new JTextField();
-			addCard.setSize(100,50);
+			addCard.setSize(150,50);
 			addCard.setEditable(false);
 			addCard.setText(c.getName());
-			humanCards.add(addCard);
+			if (c.getType() == CardType.PERSON)
+				players.add(addCard);
+			else if (c.getType() == CardType.WEAPON)
+				weapons.add(addCard);
+			else if (c.getType() == CardType.ROOM)
+				rooms.add(addCard);
 		}
+		humanCards.add(players);
+		humanCards.add(weapons);
+		humanCards.add(rooms);
+		players.setBorder(BorderFactory.createTitledBorder("Players"));
+		weapons.setBorder(BorderFactory.createTitledBorder("Weapons"));
+		rooms.setBorder(BorderFactory.createTitledBorder("Rooms"));
 		humanCards.setBorder(BorderFactory.createTitledBorder("My Cards"));
 		add(humanCards, BorderLayout.LINE_END);
 		board.updatePlayers(computerPlayers, human);
 		
 		ControlGUI control = new ControlGUI();
-		JButton next = control.getNext();
+		//JButton next = control.getNext();
 		add(control, BorderLayout.PAGE_END);
 		
 		JOptionPane.showMessageDialog(board, "You are the Human player. Press Next Player to begin!", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);

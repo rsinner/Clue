@@ -3,4 +3,4 @@ Professor Plum,95,Green
 Violet,336,Blue
 Miss Scarlett,13,Orange
 Mr. Green,330,Yellow
-Human,10,Purple
+Mrs. Peacock,10,Purple

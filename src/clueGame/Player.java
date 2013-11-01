@@ -37,7 +37,7 @@ public class Player {
 		else if(name.equals("Mr. Green")){
 			this.c = Color.green;
 		}
-		else if(name.equals("Human")){
+		else if(name.equals("Mrs. Peacock")){
 			this.c = Color.black;
 		}
 	}

@@ -26,12 +26,12 @@ public class ComputerPlayer extends Player {
 		//return null;
 	}
 	
-	public void makeMove(Set<BoardCell> targets) {
+	public void makeMove(Set<BoardCell> targets, Board b) {
 		BoardCell move = pickLocation(targets);
-		int row = move.getColumn();
-		int column = move.getRow();
+		int column = move.getColumn();
+		int row = move.getRow();
 		int location = move.calcIndex(row, column);
 		setStartingLocation(location);
-		
+		b.repaint();
 	}
 }
