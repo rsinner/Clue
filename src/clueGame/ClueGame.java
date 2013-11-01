@@ -19,6 +19,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 import org.junit.runner.Computer;
 
@@ -83,6 +84,8 @@ public class ClueGame extends JFrame{
 		
 		ControlGUI control = new ControlGUI();
 		add(control, BorderLayout.SOUTH);
+		
+		JOptionPane.showMessageDialog(board, "You are the Human player. Press Next Player to begin!", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
 		
 		
 	}
