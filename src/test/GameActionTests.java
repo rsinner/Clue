@@ -375,8 +375,9 @@ public class GameActionTests {
 		board.calcTargets(15, 6, 1);
 		Set<BoardCell> targets = board.getTargets();
 		for(int i = 0; i < 100; i++){
+			cg.getComputerPlayers().get(i%5).setPreviousRoom('D');
 			BoardCell expected = board.getCellAt(board.calcIndex(15, 5));
-			BoardCell actual = cg.pickLocation(targets);
+			BoardCell actual = cg.getComputerPlayers().get(i%5).pickLocation(targets);
 			Assert.assertEquals(expected, actual);
 		}
 		
@@ -390,9 +391,7 @@ public class GameActionTests {
 		int currentPlayer =cg.getCurrentPlayer();
 		if(currentPlayer<5){
 			cg.getComputerPlayers().get(currentPlayer).setPreviousRoom('A');
-		}
-		else{
-			cg.getHuman().setPreviousRoom('A');
+			System.out.println(cg.getComputerPlayers().get(currentPlayer).getPreviousRoom());
 		}
 		
 		board.calcTargets(15, 6, 1);
@@ -405,7 +404,7 @@ public class GameActionTests {
 		// Call pickLocation on this same set of targets 100 times
 		// Check to see that each is being chosen a sufficient number of times.
 		for(int i = 0; i < 100; i++){
-			BoardCell locationPicked = cg.pickLocation(targets);
+			BoardCell locationPicked = cg.getComputerPlayers().get(currentPlayer).pickLocation(targets);
 			// Count the number of times each cell is chosen
 			if(locationPicked.equals(board.getCellAt(board.calcIndex(14, 6)))){
 				chooseUp++;
@@ -421,6 +420,7 @@ public class GameActionTests {
 			}
 		}
 		// If each cell has been chosen 10 or more times, that's sufficiently random.
+		System.out.println("UP: " + chooseUp + ":: DOWN: "+chooseDown+":: ROOM: "+chooseRoom+":: RIGHT: "+chooseRight);
 		Assert.assertTrue(chooseUp >= 10);
 		Assert.assertTrue(chooseDown >= 10);
 		Assert.assertTrue(chooseRoom >= 10);
@@ -441,7 +441,7 @@ public class GameActionTests {
 		// Call pickLocation on this same set of targets 100 times
 		// Check to see that each is being chosen a sufficient number of times.
 		for(int i = 0; i < 100; i++){
-			BoardCell locationPicked = cg.pickLocation(targets);
+			BoardCell locationPicked = cg.getComputerPlayers().get(i%5).pickLocation(targets);
 			// Count the number of times each cell is chosen
 			if(locationPicked.equals(board.getCellAt(board.calcIndex(11, 10)))){
 				chooseDown++;

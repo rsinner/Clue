@@ -14,7 +14,6 @@ public class Player {
 	private char currentRoom;
 	protected Color c;
 	private static final int CIRCLE_DIMENSION = 28;
-
 	
 	public Player() {
 		super();
