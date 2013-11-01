@@ -11,7 +11,16 @@ public abstract class BoardCell {
 	private int dimension = 28;
 	protected final int CELL_SIZE = 28;
 	private int numColumns = 19;
+	private boolean isHighlighted = false;
 	
+	public boolean isHighlighted() {
+		return isHighlighted;
+	}
+
+	public void setHighlighted(boolean isHighlighted) {
+		this.isHighlighted = isHighlighted;
+	}
+
 	public void setRow(int row) {
 		this.row = row;
 	}
@@ -36,6 +45,7 @@ public abstract class BoardCell {
 		super();
 		this.row = row;
 		this.column = column;
+		isHighlighted = false;
 	}
 
 	public abstract void draw(Graphics g, Board board, boolean drawName);

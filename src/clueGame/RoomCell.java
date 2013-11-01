@@ -68,14 +68,18 @@ public class RoomCell extends BoardCell {
 
 	@Override
 	public void draw(Graphics g, Board c, boolean drawName) {
-		// Set room color to gray
-		g.setColor(Color.gray);
+		// Checks to see if it is a target and highlights it
+		if (isHighlighted())
+			g.setColor(Color.CYAN);
+		else
+			// Set room color to gray
+			g.setColor(Color.gray);
 		g.fillRect(getColumn()*CELL_SIZE, getRow()*CELL_SIZE, getDimension(), getDimension());
 		// Since 1 inch ~ 72 units, each is 36x36 units.
 		g.drawRect(getColumn()*CELL_SIZE, (getRow())*CELL_SIZE,getDimension(), getDimension());
 		// If we're supposed to draw the name, draw the name.
 		g.setColor(Color.WHITE);
-		
+
 		if(doorDirection == DoorDirection.UP){
 			g.setColor(Color.BLUE);
 			//g.drawRect(getColumn()*CELL_SIZE, (getRow())*CELL_SIZE,getDimension(), getDimension());
@@ -104,12 +108,12 @@ public class RoomCell extends BoardCell {
 			g.setColor(Color.gray);
 			g.drawRect(getColumn()*CELL_SIZE, (getRow())*CELL_SIZE,getDimension(), getDimension());
 		}
-		
+
 		if(drawName){
 			g.drawString(c.getRooms().get(getInitial()), getColumn()*CELL_SIZE, getRow()*CELL_SIZE+(int)(.5*CELL_SIZE));
 		}
 	}
 
-	
+
 
 }

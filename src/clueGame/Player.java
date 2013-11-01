@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Set;
 
 public class Player {
 	private String name;
@@ -37,7 +38,7 @@ public class Player {
 		else if(name.equals("Mr. Green")){
 			this.c = Color.green;
 		}
-		else if(name.equals("Mrs. Peacock")){
+		else if(name.equals("Human")){
 			this.c = Color.black;
 		}
 	}
@@ -106,6 +107,10 @@ public class Player {
 
 	public void setColor(String color) {
 		this.color = color;
+	}
+	
+	public void makeMove(Set<BoardCell> targets, Board b) {
+		
 	}
 	
 	public void draw(Graphics g, Board c) {

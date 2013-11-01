@@ -1,6 +1,10 @@
 package clueGame;
 
 import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.PrintWriter;
@@ -15,10 +19,10 @@ import java.util.Set;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import sun.rmi.transport.proxy.CGIHandler;
-
 import clueGame.RoomCell.DoorDirection;
 
 public class Board extends JPanel {
@@ -33,6 +37,8 @@ public class Board extends JPanel {
 	private String layout;
 	private PrintWriter logger;
 	private ArrayList<Player> players;
+	private boolean humanMustFinish;
+	private MouseListener mouseListener;
 	JMenuBar menuBar;
 	JMenu menu;
 	JMenuItem notes, close;
@@ -51,6 +57,7 @@ public class Board extends JPanel {
 		} catch (FileNotFoundException e) {
 			System.out.println(e.getMessage());
 		}
+		mouseListener = new HumanMouseListener();
 	}
 	
 	public void paintComponent(Graphics g) {
@@ -80,6 +87,21 @@ public class Board extends JPanel {
 		}
 	}
 	
+	public BoardCell getCellFromMousePosition(Point p) {
+		int CELL_SIZE = 28;
+		int column = (int) p.getX()/CELL_SIZE;
+		int row = (int) p.getY()/CELL_SIZE;
+		BoardCell cell = this.getCellAt(calcIndex(row, column));
+		return cell;
+	}
+	
+	public void highlightTargets(Set<BoardCell> targets, boolean highlight) {
+		for (BoardCell c : targets) {
+			c.setHighlighted(highlight);
+		}
+		repaint();
+	}
+	
 	public void updatePlayers(ArrayList<ComputerPlayer> computerPlayers, HumanPlayer hp){
 		players = (ArrayList<Player>) computerPlayers.clone();
 		players.add(hp);
@@ -99,6 +121,8 @@ public class Board extends JPanel {
 		} catch (FileNotFoundException e) {
 			System.out.println(e.getMessage());
 		}
+		mouseListener = new HumanMouseListener();
+		this.addMouseListener(mouseListener);
 	}
 	
 	// Loads the layout and legend files by calling other methods
@@ -359,5 +383,14 @@ public class Board extends JPanel {
 	
 	public int calcCol(int cell) {
 		return cell % numColumns;
+	}
+	
+	private class HumanMouseListener extends MouseAdapter {
+
+		@Override
+		public void mouseReleased(MouseEvent a) {
+			JOptionPane.showMessageDialog(null, getCellFromMousePosition(a.getPoint()));
+		}
+		
 	}
 }
