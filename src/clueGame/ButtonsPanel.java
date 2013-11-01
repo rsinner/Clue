@@ -1,6 +1,8 @@
 package clueGame;
 
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -17,5 +19,9 @@ public class ButtonsPanel extends JPanel{
 		accuse.setText("Make an accusation");
 		add(next);
 		add(accuse);
+	}
+
+	public JButton getNext() {
+		return next;
 	}
 }

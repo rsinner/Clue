@@ -16,6 +16,7 @@ import java.util.Scanner;
 import java.util.Set;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -101,6 +102,7 @@ public class ClueGame extends JFrame{
 		board.updatePlayers(computerPlayers, human);
 		
 		ControlGUI control = new ControlGUI();
+		JButton next = control.getNext();
 		add(control, BorderLayout.PAGE_END);
 		
 		JOptionPane.showMessageDialog(board, "You are the Human player. Press Next Player to begin!", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
@@ -406,11 +408,18 @@ public class ClueGame extends JFrame{
 		return currentPlayer;
 	}
 	
+	public void nextPlayerClicked() {
+		
+		
+	}
+	
 	public static void main(String[] args){
 		ClueGame gui = new ClueGame();
 		gui.setVisible(true);
 		
 		
 	}
+
+	
 	
 }
