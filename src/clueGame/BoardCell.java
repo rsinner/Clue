@@ -10,6 +10,7 @@ public abstract class BoardCell {
 	// Corresponds to half an inch
 	private int dimension = 28;
 	protected final int CELL_SIZE = 28;
+	private int numColumns = 19;
 	
 	public void setRow(int row) {
 		this.row = row;
@@ -54,6 +55,9 @@ public abstract class BoardCell {
 	public int getRow() {
 		return row;
 	}
-
+	
+	public int calcIndex(int row, int column) {
+		return numColumns*row + column;
+	}
 	
 }

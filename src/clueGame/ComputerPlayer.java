@@ -25,4 +25,13 @@ public class ComputerPlayer extends Player {
 		return (BoardCell) targArray[randomRoom];
 		//return null;
 	}
+	
+	public void makeMove(Set<BoardCell> targets) {
+		BoardCell move = pickLocation(targets);
+		int row = move.getColumn();
+		int column = move.getRow();
+		int location = move.calcIndex(row, column);
+		setStartingLocation(location);
+		
+	}
 }
