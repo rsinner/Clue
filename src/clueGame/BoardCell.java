@@ -9,7 +9,7 @@ public abstract class BoardCell {
 	private int column;
 	// Corresponds to half an inch
 	private int dimension = 28;
-	protected final int CELL_SIZE = 28;
+	public static final int CELL_SIZE = 28;
 	private int numColumns = 19;
 	private boolean isHighlighted = false;
 	

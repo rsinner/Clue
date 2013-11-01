@@ -39,6 +39,7 @@ public class Board extends JPanel {
 	private ArrayList<Player> players;
 	private boolean humanMustFinish;
 	private MouseListener mouseListener;
+	private ClueGame game;
 	JMenuBar menuBar;
 	JMenu menu;
 	JMenuItem notes, close;
@@ -88,11 +89,14 @@ public class Board extends JPanel {
 	}
 	
 	public BoardCell getCellFromMousePosition(Point p) {
-		int CELL_SIZE = 28;
-		int column = (int) p.getX()/CELL_SIZE;
-		int row = (int) p.getY()/CELL_SIZE;
-		BoardCell cell = this.getCellAt(calcIndex(row, column));
-		return cell;
+		int column = (int) p.getX()/BoardCell.CELL_SIZE;
+		int row = (int) p.getY()/BoardCell.CELL_SIZE;
+		int index = calcIndex(row, column);
+		if (index < cells.size() && index >= 0) {
+			BoardCell cell = this.getCellAt(index);
+			return cell;
+		}
+		return null;
 	}
 	
 	public void highlightTargets(Set<BoardCell> targets, boolean highlight) {
@@ -110,7 +114,7 @@ public class Board extends JPanel {
 	// Board constructor that sets up the ArrayList, HashMap, and
 	// sets the legend and layout file to what was input into
 	// the constructor
-	public Board(String layout, String legend) {
+	public Board(String layout, String legend, ClueGame c) {
 		cells = new ArrayList<BoardCell>();
 		rooms = new HashMap<Character, String>();
 		this.legend = legend;
@@ -123,6 +127,11 @@ public class Board extends JPanel {
 		}
 		mouseListener = new HumanMouseListener();
 		this.addMouseListener(mouseListener);
+		game = c;
+	}
+	
+	public Board(String layout, String legend) {
+		this(layout, legend, null);
 	}
 	
 	// Loads the layout and legend files by calling other methods
@@ -389,7 +398,19 @@ public class Board extends JPanel {
 
 		@Override
 		public void mouseReleased(MouseEvent a) {
-			JOptionPane.showMessageDialog(null, getCellFromMousePosition(a.getPoint()));
+			if (game.getCurrentPlayer() == 0) {
+				BoardCell clicked = getCellFromMousePosition(a.getPoint());
+				if (clicked == null)
+					return;
+				for (BoardCell c : targets) {
+					if (c.equals(clicked)) {
+						game.setCurrentPlayerLocation(c.calcIndex(c.getRow(), c.getColumn()));
+						humanMustFinish = false;
+						return;
+					}
+				}
+				JOptionPane.showMessageDialog(Board.this, null, "Not a valid location!", JOptionPane.OK_CANCEL_OPTION);
+			}
 		}
 		
 	}

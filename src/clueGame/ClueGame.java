@@ -1,6 +1,7 @@
 package clueGame;
 
 import java.awt.BorderLayout;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -59,7 +60,7 @@ public class ClueGame extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Clue Game");
 		this.seenCards = new HashSet<Card>();
-		board = new Board("Clue_Layout.csv", "legend.txt");
+		board = new Board("Clue_Layout.csv", "legend.txt",  this);
 		setSize(680,680);
 		
 		menuBar = new JMenuBar();
@@ -93,11 +94,14 @@ public class ClueGame extends JFrame{
 		JPanel weapons = new JPanel();
 		JPanel rooms = new JPanel();
 		
-		humanCards.setLayout(new GridLayout(3,1));
+		humanCards.setLayout(new GridLayout(3,1){
+			public Dimension preferredLayoutSize(Container parent) {
+				return new Dimension(125, 5);
+			}
+		});
 		players.setLayout(new BoxLayout(players, BoxLayout.Y_AXIS));
 		weapons.setLayout(new BoxLayout(weapons, BoxLayout.Y_AXIS));
 		rooms.setLayout(new BoxLayout(rooms, BoxLayout.Y_AXIS));
-		humanCards.setMinimumSize(new Dimension(150,50));
 		for(Card c : human.getCards()) {
 			JTextField addCard = new JTextField();
 			addCard.setSize(150,50);
@@ -403,6 +407,13 @@ public class ClueGame extends JFrame{
 	// For Testing
 	public int getCurrentPlayer() {
 		return currentPlayer;
+	}
+	
+	public void setCurrentPlayerLocation(int location) {
+		if (currentPlayer == 0)
+			human.setStartingLocation(location);
+		else
+			computerPlayers.get(currentPlayer).setStartingLocation(location);
 	}
 	
 	public void nextPlayerClicked() {
