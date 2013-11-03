@@ -47,4 +47,12 @@ public class ControlGUI extends JPanel {
 		
 	}
 
+	public JButton getNext() {
+		return next;
+	}
+
+	public JTextField getTurn() {
+		return turn;
+	}
+
 }

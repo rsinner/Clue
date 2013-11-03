@@ -123,6 +123,18 @@ public class ClueGame extends JFrame{
 		//JButton next = control.getNext();
 		add(control, BorderLayout.SOUTH);
 		
+		JButton next = control.getNext();
+		final JTextField turn = control.getTurn();
+		turn.setText(human.getName());
+		next.addActionListener( new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+
+					nextPlayerClicked();
+					getCurrentPlayerName(currentPlayer, turn);
+				}
+				
+			});
+		
 		JOptionPane.showMessageDialog(board, "You are the Human player. Press Next Player to begin!", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
 		
 		
@@ -418,7 +430,15 @@ public class ClueGame extends JFrame{
 		else {
 			currentPlayer = 0;
 		}
-		
+	}
+	
+	public void getCurrentPlayerName(int current, JTextField field) {
+		if(current == 0) {
+			field.setText(human.getName());
+		} else {
+			Player currentPlayer = computerPlayers.get(current-1);
+			field.setText(currentPlayer.getName());
+		}
 	}
 	
 	public static void main(String[] args){

@@ -407,6 +407,7 @@ public class Board extends JPanel {
 				BoardCell clicked = getCellFromMousePosition(a.getPoint());
 				if (clicked == null)
 					return;
+				//threw a null pointer exception
 				for (BoardCell c : targets) {
 					if (c.equals(clicked)) {
 						game.setCurrentPlayerLocation(c.calcIndex(c.getRow(), c.getColumn()));
@@ -418,5 +419,9 @@ public class Board extends JPanel {
 			}
 		}
 		
+	}
+
+	public boolean getHumanMustFinish() {
+		return humanMustFinish;
 	}
 }
