@@ -50,11 +50,6 @@ public class ClueGame extends JFrame{
 	JMenu menu;
 	JMenuItem notes, close;
 	
-	// WE NEED A WAY TO INCREMENT CURRENT PLAYER, CONSISTENTLY, AFTER EACH TURN. Specifically for
-	// createSuggestion to function.
-	// I'm hoping that during the progression of programming this, we'll be forced to write a 
-	// take turn function or something.
-	
 	public ClueGame() {
 		super();		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -126,7 +121,7 @@ public class ClueGame extends JFrame{
 		
 		ControlGUI control = new ControlGUI();
 		//JButton next = control.getNext();
-		add(control, BorderLayout.PAGE_END);
+		add(control, BorderLayout.SOUTH);
 		
 		JOptionPane.showMessageDialog(board, "You are the Human player. Press Next Player to begin!", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
 		
@@ -417,7 +412,12 @@ public class ClueGame extends JFrame{
 	}
 	
 	public void nextPlayerClicked() {
-		
+		if(currentPlayer < 5) {
+			currentPlayer+=1;
+		}
+		else {
+			currentPlayer = 0;
+		}
 		
 	}
 	
