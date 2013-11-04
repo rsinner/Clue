@@ -443,12 +443,28 @@ public class ClueGame extends JFrame{
 	}
 	
 	public void nextPlayer() {
-		incrementPlayer();
-		int current = getCurrentPlayer();
-		String paintName = getCurrentPlayerName(current);
-		control.setNextText(paintName);
-		currentRoll = rollDie();
-		control.setRollText(currentRoll);
+		if(board.getHumanMustFinish() && currentPlayer == 0) {
+			JOptionPane.showMessageDialog(board, null, "Please pick a valid location!", JOptionPane.OK_CANCEL_OPTION);
+		} else {
+			incrementPlayer();
+			int current = getCurrentPlayer();
+			String paintName = getCurrentPlayerName(current);
+			control.setNextText(paintName);
+			currentRoll = rollDie();
+			control.setRollText(currentRoll);
+			if(currentPlayer == 0) {
+//				human.makeMove(targets, true);
+			}
+			else {
+				Player currentComputer = computerPlayers.get(currentPlayer);
+				
+//				currentComputer.makeMove(board.calcTargets(row, column, steps), false);
+			}
+		
+			
+		
+		}
+		
 		
 	}	
 

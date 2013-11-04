@@ -37,7 +37,7 @@ public class Board extends JPanel {
 	private String layout;
 	private PrintWriter logger;
 	private ArrayList<Player> players;
-	private boolean humanMustFinish;
+	private boolean humanMustFinish = true;
 	private MouseListener mouseListener;
 	private ClueGame game;
 	JMenuBar menuBar;
@@ -395,6 +395,10 @@ public class Board extends JPanel {
 		return cell / numColumns;
 	}
 	
+	public void setHumanMustFinish(boolean humanMustFinish) {
+		this.humanMustFinish = humanMustFinish;
+	}
+
 	public int calcCol(int cell) {
 		return cell % numColumns;
 	}

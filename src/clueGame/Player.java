@@ -33,7 +33,7 @@ public class Player {
 			this.c = Color.pink;
 		}
 		else if(name.equals("Miss Scarlett")){
-			this.c = Color.CYAN;
+			this.c = Color.RED;
 		}
 		else if(name.equals("Mr. Green")){
 			this.c = Color.green;
