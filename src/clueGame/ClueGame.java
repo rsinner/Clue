@@ -51,6 +51,7 @@ public class ClueGame extends JFrame{
 	JMenuBar menuBar;
 	JMenu menu;
 	JMenuItem notes, close;
+	private int currentRoll;
 	
 	public ClueGame() {
 		super();		
@@ -126,8 +127,8 @@ public class ClueGame extends JFrame{
 		add(control, BorderLayout.SOUTH);
 		
 		JButton next = control.getNext();
-		final JTextField turn = control.getTurn();
-		turn.setText(human.getName());
+		control.setNextText(human.getName());
+		control.setRollText(rollDie());
 		
 		next.addActionListener( new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -446,10 +447,16 @@ public class ClueGame extends JFrame{
 		int current = getCurrentPlayer();
 		String paintName = getCurrentPlayerName(current);
 		control.setNextText(paintName);
+		currentRoll = rollDie();
+		control.setRollText(currentRoll);
 		
 	}	
 
 	
+	private int rollDie() {
+		return (int)(Math.random()*6 + 1);		
+	}
+
 	public static void main(String[] args){
 		ClueGame gui = new ClueGame();
 		gui.setVisible(true);

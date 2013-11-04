@@ -67,4 +67,8 @@ public class ControlGUI extends JPanel {
 	public void setNextText(String s) {
 		turn.setText(s);
 	}
+	
+	public void setRollText(int currentRoll){
+		roll.setText(String.valueOf(currentRoll));
+	}
 }
