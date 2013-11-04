@@ -38,7 +38,7 @@ public class ClueGame extends JFrame{
 	private ArrayList<Card> listOfCards;
 	private ArrayList<ComputerPlayer> computerPlayers;
 	private HumanPlayer human;
-	private static int currentPlayer = 0;
+	private int currentPlayer = 0;
 	private static final int NUM_CARDS = 21;
 	private ArrayList<Card> solution;
 	private Set<Card> seenCards;
@@ -46,6 +46,8 @@ public class ClueGame extends JFrame{
 	private static ArrayList<String> playerNames = new ArrayList<String>();
 	private static ArrayList<String> weaponNames = new ArrayList<String>();
 	private static ArrayList<String> roomNames = new ArrayList<String>();
+	private String paintName;
+	ControlGUI control;
 	JMenuBar menuBar;
 	JMenu menu;
 	JMenuItem notes, close;
@@ -119,7 +121,7 @@ public class ClueGame extends JFrame{
 		add(humanCards, BorderLayout.LINE_END);
 		board.updatePlayers(computerPlayers, human);
 		
-		ControlGUI control = new ControlGUI();
+		control = new ControlGUI();
 		//JButton next = control.getNext();
 		add(control, BorderLayout.SOUTH);
 		
@@ -127,7 +129,11 @@ public class ClueGame extends JFrame{
 		final JTextField turn = control.getTurn();
 		turn.setText(human.getName());
 		
-		
+		next.addActionListener( new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				nextPlayer();		
+				}
+		});
 		
 		JOptionPane.showMessageDialog(board, "You are the Human player. Press Next Player to begin!", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
 		
@@ -406,7 +412,7 @@ public class ClueGame extends JFrame{
 	}
 	
 	// For Testing
-	public static int getCurrentPlayer() {
+	public int getCurrentPlayer() {
 		return currentPlayer;
 	}
 	
@@ -435,7 +441,13 @@ public class ClueGame extends JFrame{
 		}
 	}
 	
-	
+	public void nextPlayer() {
+		incrementPlayer();
+		int current = getCurrentPlayer();
+		String paintName = getCurrentPlayerName(current);
+		control.setNextText(paintName);
+		
+	}	
 
 	
 	public static void main(String[] args){
@@ -444,6 +456,8 @@ public class ClueGame extends JFrame{
 		
 		
 	}
+
+	
 
 
 	

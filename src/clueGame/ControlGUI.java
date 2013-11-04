@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class ControlGUI extends JPanel {
-	JTextField turn, guess, guessResult, roll;
+	private JTextField turn, guess, guessResult, roll;
 	private JButton next, accuse;
 	
 	public ControlGUI() {
@@ -51,14 +51,7 @@ public class ControlGUI extends JPanel {
 		//call appropriate player to make a move CLUEGAME
 		//roll die, update the display CLUEGAME??
 		//determine targets and if human, should be highlighted 
-		next.addActionListener( new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int current = ClueGame.getCurrentPlayer();
-//				String nextPlayerName = ClueGame.getCurrentPlayerName(current);
-//				turn.setText(nextPlayerName);			
-				}
-			
-		});
+		
 	}
 	
 	
@@ -71,5 +64,7 @@ public class ControlGUI extends JPanel {
 		return turn;
 	}
 	
-
+	public void setNextText(String s) {
+		turn.setText(s);
+	}
 }
