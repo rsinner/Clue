@@ -3,6 +3,8 @@ package clueGame;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -44,8 +46,22 @@ public class ControlGUI extends JPanel {
 		
 		add(secondRow);
 	
-		
+		//Determine which player is next CLUEGAME
+		//update game control panel CONTROLPANEL
+		//call appropriate player to make a move CLUEGAME
+		//roll die, update the display CLUEGAME??
+		//determine targets and if human, should be highlighted 
+		next.addActionListener( new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int current = ClueGame.getCurrentPlayer();
+//				String nextPlayerName = ClueGame.getCurrentPlayerName(current);
+//				turn.setText(nextPlayerName);			
+				}
+			
+		});
 	}
+	
+	
 
 	public JButton getNext() {
 		return next;
@@ -54,5 +70,6 @@ public class ControlGUI extends JPanel {
 	public JTextField getTurn() {
 		return turn;
 	}
+	
 
 }

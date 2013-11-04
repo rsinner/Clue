@@ -38,7 +38,7 @@ public class ClueGame extends JFrame{
 	private ArrayList<Card> listOfCards;
 	private ArrayList<ComputerPlayer> computerPlayers;
 	private HumanPlayer human;
-	private int currentPlayer = 0;
+	private static int currentPlayer = 0;
 	private static final int NUM_CARDS = 21;
 	private ArrayList<Card> solution;
 	private Set<Card> seenCards;
@@ -126,14 +126,8 @@ public class ClueGame extends JFrame{
 		JButton next = control.getNext();
 		final JTextField turn = control.getTurn();
 		turn.setText(human.getName());
-		next.addActionListener( new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-
-					nextPlayerClicked();
-					getCurrentPlayerName(currentPlayer, turn);
-				}
-				
-			});
+		
+		
 		
 		JOptionPane.showMessageDialog(board, "You are the Human player. Press Next Player to begin!", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
 		
@@ -412,7 +406,7 @@ public class ClueGame extends JFrame{
 	}
 	
 	// For Testing
-	public int getCurrentPlayer() {
+	public static int getCurrentPlayer() {
 		return currentPlayer;
 	}
 	
@@ -423,7 +417,7 @@ public class ClueGame extends JFrame{
 			computerPlayers.get(currentPlayer).setStartingLocation(location);
 	}
 	
-	public void nextPlayerClicked() {
+	public void incrementPlayer() {
 		if(currentPlayer < 5) {
 			currentPlayer+=1;
 		}
@@ -432,14 +426,17 @@ public class ClueGame extends JFrame{
 		}
 	}
 	
-	public void getCurrentPlayerName(int current, JTextField field) {
-		if(current == 0) {
-			field.setText(human.getName());
+	public String getCurrentPlayerName(int current) {
+		if(currentPlayer == 0) {
+			return human.getName();
 		} else {
 			Player currentPlayer = computerPlayers.get(current-1);
-			field.setText(currentPlayer.getName());
+			return currentPlayer.getName();
 		}
 	}
+	
+	
+
 	
 	public static void main(String[] args){
 		ClueGame gui = new ClueGame();
@@ -447,6 +444,7 @@ public class ClueGame extends JFrame{
 		
 		
 	}
+
 
 	
 	
