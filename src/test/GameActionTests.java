@@ -17,6 +17,7 @@ import clueGame.Board;
 import clueGame.ClueGame;
 import clueGame.ComputerPlayer;
 import clueGame.HumanPlayer;
+import clueGame.Player;
 
 public class GameActionTests {
 	private ArrayList<clueGame.Card> solution;
@@ -25,14 +26,14 @@ public class GameActionTests {
 	private clueGame.Card person;
 	private clueGame.Card room;
 	private ArrayList<Card> premadeCards;
-	
+
 	private static final Card MUSTARD_CARD = new Card("Colonel Mustard", Card.CardType.PERSON);
 	private static final Card GREEN_CARD = new Card("Mr. Green", Card.CardType.PERSON);
 	private static final Card VIOLET_CARD = new Card("Violet", Card.CardType.PERSON);
 	private static final Card PLUM_CARD = new Card("Plum", Card.CardType.PERSON);
 	private static final Card SCARLETT_CARD = new Card("Miss Scarlett", Card.CardType.PERSON);
 	private static final Card HUMAN_CARD = new Card("Human", Card.CardType.PERSON);
-	
+
 	private static final Card KITCHEN_CARD = new Card("Kitchen", Card.CardType.ROOM);
 	private static final Card BALLROOM_CARD = new Card("Ballroom", Card.CardType.ROOM);
 	private static final Card WALKWAY_CARD = new Card("Walkway", Card.CardType.ROOM);
@@ -43,15 +44,15 @@ public class GameActionTests {
 	private static final Card DINING_CARD = new Card("Dining Room", Card.CardType.ROOM);
 	private static final Card LOUNGE_CARD = new Card("Lounge", Card.CardType.ROOM);
 	private static final Card HALL_CARD = new Card("Hall", Card.CardType.ROOM);
-	
+
 	private static final Card KNIFE_CARD = new Card("Knife", Card.CardType.WEAPON);
 	private static final Card CROWBAR_CARD = new Card("Crowbar", Card.CardType.WEAPON);
 	private static final Card ROPE_CARD = new Card("Rope", Card.CardType.WEAPON);
 	private static final Card CANDLE_CARD = new Card("Candlestick", Card.CardType.WEAPON);
 	private static final Card PISTOL_CARD = new Card("Pistol", Card.CardType.WEAPON);
 	private static final Card MACE_CARD = new Card("Mace", Card.CardType.WEAPON);
-	
-	
+
+
 	@Before
 	public void setUp(){
 		// Set up a clue game to run
@@ -73,7 +74,7 @@ public class GameActionTests {
 
 		cg.loadPlayers("players.txt");
 		cg.loadCards("cards.txt");
-		
+
 		premadeCards = new ArrayList<Card>() {{
 			add(MUSTARD_CARD);
 			add(GREEN_CARD);
@@ -82,8 +83,8 @@ public class GameActionTests {
 			add(CROWBAR_CARD);
 			add(ROPE_CARD);
 		}};
-		
-		
+
+
 	}
 
 	@Test
@@ -185,16 +186,17 @@ public class GameActionTests {
 
 	@Test
 	public void testAddCardToSeen(){
-		cg.addCardToSeen(weapon);
+		cg.getComputerPlayers().get(3).updateSeen(weapon);
 		// Test to make sure the data structure contains the 'seen' card.
-		Assert.assertTrue(cg.getSeenCards().contains(weapon));
+		Assert.assertTrue(cg.getComputerPlayers().get(3).getSeen().contains(weapon));
 		// Test to make sure the card is only added once
-		cg.addCardToSeen(weapon);
-		Assert.assertEquals(1, cg.getSeenCards().size());
+		cg.getComputerPlayers().get(3).updateSeen(weapon);
+		Assert.assertEquals(1, cg.getComputerPlayers().get(3).getSeen().size());
 	}
 
 	@Test
 	public void testCreateSuggestion(){
+		cg.setCurrentPlayer(2);
 		ArrayList<clueGame.Card> sugg = cg.createSuggestion(weapon, person);
 		// Make sure the suggestion has 3 cards
 		Assert.assertEquals(3, sugg.size());
@@ -211,15 +213,18 @@ public class GameActionTests {
 	@Test
 	public void testGoodSuggestion(){
 		//cg.updateSeenCards();
-		
+
 		// Make a suggestion
+		cg.setCurrentPlayer(2);
 		ArrayList<clueGame.Card> sugg = cg.cpuMakeSuggestion();
 		// Make check to see if suggestion is informative. 
 		for(clueGame.Card c : sugg){
-			Assert.assertFalse(cg.getSeenCards().contains(c));
+			for (int i = 0; i < cg.getComputerPlayers().size(); i++) {
+				Assert.assertFalse(cg.getComputerPlayers().get(i).getSeen().contains(c));
+			}
 		}
 	}
-	
+
 	@Test
 	public void testDisproveSuggestionOneCard(){
 		ComputerPlayer cp = cg.getComputerPlayers().get(0);
@@ -227,6 +232,7 @@ public class GameActionTests {
 		ArrayList<Card> sugg;
 		Card result;
 		//correct person is returned
+		cg.setCurrentPlayer(2);
 		sugg = cg.createSuggestion(CANDLE_CARD, GREEN_CARD);
 		result = cg.setupDisproveSuggestion(sugg, null);
 		Assert.assertEquals(GREEN_CARD, result);
@@ -247,9 +253,9 @@ public class GameActionTests {
 		sugg = cg.createSuggestion(CROWBAR_CARD, VIOLET_CARD);
 		result = cg.setupDisproveSuggestion(sugg, null);
 		Assert.assertEquals(WALKWAY_CARD, result);
-		
+
 	}
-	
+
 	@Test
 	public void testDisproveSuggestionTwoCards(){
 		ComputerPlayer cp = cg.getComputerPlayers().get(0);
@@ -258,10 +264,11 @@ public class GameActionTests {
 			add(CANDLE_CARD);
 			add(GREEN_CARD);
 		}});
-		
+
 		ArrayList<Card> sugg;
 		Card result;
 		int candleCounter = 0, greenCounter = 0, walkwayCounter = 0;
+		cg.setCurrentPlayer(2);
 		sugg = cg.createSuggestion(CANDLE_CARD, GREEN_CARD);
 		//make sure that each result comes up more than once so it really is random
 		for(int i = 0; i<50; i++) {
@@ -277,7 +284,7 @@ public class GameActionTests {
 		Assert.assertTrue(greenCounter>0);
 		Assert.assertTrue(walkwayCounter>0);
 	}
-	
+
 	@Test
 	public void testPlayersQueriedInOrder() {
 		//SOLUTION: CANDLE, GREEN, WALKWAY for testing purposes only
@@ -318,6 +325,7 @@ public class GameActionTests {
 			add(STUDY_CARD);
 			add(KNIFE_CARD);
 		}});
+		cg.setCurrentPlayer(2);
 		sugg = cg.createSuggestion(CANDLE_CARD, GREEN_CARD);
 		//ok to put null to check to make sure no one returns anything
 		Card result = cg.setupDisproveSuggestion(sugg, null);
@@ -339,19 +347,20 @@ public class GameActionTests {
 		sugg = cg.createSuggestion(PISTOL_CARD, GREEN_CARD);
 		result = cg.setupDisproveSuggestion(sugg, cp1);
 		Assert.assertEquals(PISTOL_CARD, result);
-		
+
 	}
-	
+
 	@Test
 	public void testHumanDisprove() {
 		//Make sure humans can disprove
 		HumanPlayer h = cg.getHuman();
 		h.setCards(premadeCards);
+		cg.setCurrentPlayer(2);
 		ArrayList<Card> sugg = cg.createSuggestion(CROWBAR_CARD, VIOLET_CARD);
 		Card result = cg.setupDisproveSuggestion(sugg, null);
 		Assert.assertEquals(CROWBAR_CARD, result);
 	}
-	
+
 	@Test
 	public void testCurrentPlayerNoCardReturn() {
 		//set so player has specific card. Should return null
@@ -361,12 +370,13 @@ public class GameActionTests {
 			add(CANDLE_CARD);
 			add(GREEN_CARD);
 		}});
+		cg.setCurrentPlayer(2);
 		ArrayList<Card> sugg = cg.createSuggestion(CANDLE_CARD, GREEN_CARD);
 		Card result = cg.setupDisproveSuggestion(sugg, cp);
 		Assert.assertTrue(result == null);
-		
+
 	}
-	
+
 	@Test
 	public void testPickLocationWithRoomNotLastVisited(){
 		Board board = new Board("Clue_Layout.csv", "legend.txt");
@@ -380,9 +390,9 @@ public class GameActionTests {
 			BoardCell actual = cg.getComputerPlayers().get(i%5).pickLocation(targets);
 			Assert.assertEquals(expected, actual);
 		}
-		
+
 	}
-	
+
 	@Test
 	public void testPickLocationWithRoomLastVisited(){
 		Board board = new Board("Clue_Layout.csv", "legend.txt");
@@ -393,14 +403,14 @@ public class GameActionTests {
 			cg.getComputerPlayers().get(currentPlayer).setPreviousRoom('A');
 			System.out.println(cg.getComputerPlayers().get(currentPlayer).getPreviousRoom());
 		}
-		
+
 		board.calcTargets(15, 6, 1);
 		Set<BoardCell> targets = board.getTargets();
 		int chooseUp = 0;
 		int chooseDown = 0;
 		int chooseRoom = 0;
 		int chooseRight = 0;
-		
+
 		// Call pickLocation on this same set of targets 100 times
 		// Check to see that each is being chosen a sufficient number of times.
 		for(int i = 0; i < 100; i++){
@@ -423,10 +433,10 @@ public class GameActionTests {
 		System.out.println("UP: " + chooseUp + ":: DOWN: "+chooseDown+":: ROOM: "+chooseRoom+":: RIGHT: "+chooseRight);
 		Assert.assertTrue(chooseUp >= 10);
 		Assert.assertTrue(chooseDown >= 10);
-		Assert.assertTrue(chooseRoom >= 10);
+		Assert.assertTrue(chooseRoom == 0);
 		Assert.assertTrue(chooseRight >= 10);
 	}
-	
+
 	@Test
 	public void testPickLocationNoRoom(){
 		Board board = new Board("Clue_Layout.csv", "legend.txt");
@@ -437,7 +447,7 @@ public class GameActionTests {
 		int chooseDown = 0;
 		int chooseLeft = 0;
 		int chooseRight = 0;
-		
+
 		// Call pickLocation on this same set of targets 100 times
 		// Check to see that each is being chosen a sufficient number of times.
 		for(int i = 0; i < 100; i++){
@@ -457,6 +467,6 @@ public class GameActionTests {
 		Assert.assertTrue(chooseDown >= 10);
 		Assert.assertTrue(chooseLeft >= 10);
 		Assert.assertTrue(chooseRight >= 10);
-		
+
 	}
 }

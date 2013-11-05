@@ -41,7 +41,6 @@ public class ClueGame extends JFrame{
 	private int currentPlayer = 0;
 	private static final int NUM_CARDS = 21;
 	private ArrayList<Card> solution;
-	private Set<Card> seenCards;
 	private Board board;
 	private static ArrayList<String> playerNames = new ArrayList<String>();
 	private static ArrayList<String> weaponNames = new ArrayList<String>();
@@ -59,7 +58,6 @@ public class ClueGame extends JFrame{
 		super();		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Clue Game");
-		this.seenCards = new HashSet<Card>();
 		board = new Board("Clue_Layout.csv", "legend.txt",  this);
 		setSize(680,680);
 
@@ -342,12 +340,6 @@ public class ClueGame extends JFrame{
 		return true;
 	}
 
-	public void addCardToSeen(Card seenCard){
-		seenCards.add(seenCard);
-	}
-
-
-
 	public ArrayList<Card> createSuggestion(Card weaponCard, Card personCard) {
 		suggestion = new ArrayList<Card>();
 		Card roomCard = new Card();
@@ -357,11 +349,17 @@ public class ClueGame extends JFrame{
 			ComputerPlayer cp = computerPlayers.get(currentPlayer-1);
 			index = cp.getCurrentLocation();
 			currentCell = board.getRoomCellAt(board.calcRow(index), board.calcCol(index));
-			char room = currentCell.getInitial();
-			String roomName = board.getRooms().get(room);
-			roomCard.setName(roomName);
-			roomCard.setType(clueGame.Card.CardType.ROOM);
-			suggestion.add(roomCard);
+			if (currentCell != null) {
+				char room = currentCell.getInitial();
+				String roomName = board.getRooms().get(room);
+				roomCard.setName(roomName);
+				roomCard.setType(clueGame.Card.CardType.ROOM);
+				suggestion.add(roomCard);
+			} else {
+				roomCard.setName("Walkway");
+				roomCard.setType(clueGame.Card.CardType.ROOM);
+				suggestion.add(roomCard);
+			}
 		}
 		else{
 			HumanPlayer hp = human;
@@ -378,23 +376,23 @@ public class ClueGame extends JFrame{
 	}
 
 	public ArrayList<Card> cpuMakeSuggestion() {
-		Card weapon = new Card();
+		ArrayList<Player> allPlayers = (ArrayList<Player>) computerPlayers.clone();
+		allPlayers.add(human);Card weapon = new Card();
 		Card person = new Card();
-		for(Card c : listOfCards){
-			if(c.getType() == clueGame.Card.CardType.WEAPON){
-				if(!seenCards.contains(c)){
-					weapon = c;
+		for (Player p : allPlayers) {
+			for(Card c : listOfCards){
+				if(c.getType() == clueGame.Card.CardType.WEAPON){
+					if(!p.getSeen().contains(c)){
+						weapon = c;
+					}
 				}
-			}
-			else if(c.getType() == clueGame.Card.CardType.PERSON){
-				if(!seenCards.contains(c)){
-					person = c;
+				else if(c.getType() == clueGame.Card.CardType.PERSON){
+					if(!p.getSeen().contains(c)){
+						person = c;
+					}
 				}
 			}
 		}
-
-		ArrayList<Player> allPlayers = (ArrayList<Player>) computerPlayers.clone();
-		allPlayers.add(human);
 		for(Player p : allPlayers) {
 			if(p.getName().equalsIgnoreCase(person.getName())) {
 				System.out.println(p.getCurrentLocation());
@@ -406,21 +404,25 @@ public class ClueGame extends JFrame{
 		return createSuggestion(weapon, person);
 	}
 
-	public Card setupDisproveSuggestion(ArrayList<Card> suggestion, Player currentPlayer) {
+	public Card setupDisproveSuggestion(ArrayList<Card> suggestion, Player suggestingPlayer) {
 		//make a list of all players. remove current player. Iterate
 		ArrayList<Player> allPlayers = (ArrayList<Player>) computerPlayers.clone();
 		allPlayers.add(human);
-		allPlayers.remove(currentPlayer);
+		allPlayers.remove(suggestingPlayer);
 		Card result = null;
 		for(Player p : allPlayers) {
 			//Only returns one card, handles in disproveSuggestion
 			result = p.disproveSuggestion(suggestion);
-			if(result != null)
+			if(result != null) {
 				break;
+			}
 		}
-		control.setGuessResultText(result.getName());
 		if(result == null) {
 			nextAccusation = true;
+		} else {
+			if (suggestingPlayer != null)
+				suggestingPlayer.updateSeen(result);
+			control.setGuessResultText(result.getName());
 		}
 		return result;
 	}
@@ -432,10 +434,6 @@ public class ClueGame extends JFrame{
 	// for testing
 	public ArrayList<Card> getSolution() {
 		return solution;
-	}
-	// for testing
-	public Set<Card> getSeenCards() {
-		return seenCards;
 	}
 
 	public void setCurrentPlayer(int currentPlayer) {
@@ -497,13 +495,13 @@ public class ClueGame extends JFrame{
 				if(nextAccusation == true) {
 					if(checkAccusation(suggestion))
 						JOptionPane.showMessageDialog(board, currentComputer.getName() + " wins!", "Hooray!", JOptionPane.OK_CANCEL_OPTION);
-						//game over
+					//game over
 					else {
 						//other things
 						nextAccusation = false;
 					}
 				} else {
-					
+
 					int row = board.calcRow(currentComputer.getCurrentLocation());
 					int col = board.calcCol(currentComputer.getCurrentLocation());
 					board.calcTargets(row, col, currentRoll);

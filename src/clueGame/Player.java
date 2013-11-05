@@ -9,6 +9,7 @@ import java.util.Set;
 public class Player {
 	private String name;
 	private ArrayList<Card> cards;
+	private ArrayList<Card> seen;
 	private int currentLocation;
 	private String color;
 	private char previousRoom;
@@ -19,6 +20,7 @@ public class Player {
 	public Player() {
 		super();
 		cards = new ArrayList<Card>();	
+		seen = new ArrayList<Card>();
 		previousRoom = currentRoom = 'W';
 	}
 	
@@ -58,6 +60,15 @@ public class Player {
 		if(result.size() > 0) {
 				return result.get(generateRandomNumber(result.size()));
 		} else return null;
+	}
+	
+	public void updateSeen(Card newCard) {
+		if(!seen.contains(newCard))
+			seen.add(newCard);
+	}
+
+	public ArrayList<Card> getSeen() {
+		return seen;
 	}
 
 	// For Testing purposes
