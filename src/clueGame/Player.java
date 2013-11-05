@@ -65,7 +65,6 @@ public class Player {
 	public void updateSeen(Card newCard) {
 		if(!seen.contains(newCard))
 			seen.add(newCard);
-		System.out.println(getName() + "::" + seen.toString());
 	}
 
 	public ArrayList<Card> getSeen() {

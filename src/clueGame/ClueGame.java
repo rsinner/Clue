@@ -400,9 +400,7 @@ public class ClueGame extends JFrame{
 		}
 		for(Player p : allPlayers) {
 			if(p.getName().equalsIgnoreCase(person.getName())) {
-				System.out.println(p.getCurrentLocation());
 				p.setCurrentLocation(allPlayers.get(currentPlayer-1).getCurrentLocation());
-				System.out.println(p.getCurrentLocation());
 				repaint();
 			}
 		}

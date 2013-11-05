@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -20,7 +21,7 @@ public class ControlGUI extends JPanel {
 		setLayout(new GridLayout(2,1));
 		
 		JPanel firstRow = new JPanel();
-		firstRow.setLayout(new GridLayout(1,4));
+		firstRow.setLayout(new BoxLayout(firstRow, BoxLayout.X_AXIS));
 		turn = new JTextField();
 		turn.setBorder(BorderFactory.createTitledBorder("Who's turn?"));
 		guess = new JTextField();
@@ -29,6 +30,11 @@ public class ControlGUI extends JPanel {
 		guessResult.setBorder(BorderFactory.createTitledBorder("Guess Result"));
 		roll = new JTextField();
 		roll.setBorder(BorderFactory.createTitledBorder("Roll"));
+		roll.setPreferredSize(new Dimension(50, roll.getPreferredSize().height));
+		roll.setMaximumSize(new Dimension(50, roll.getPreferredSize().height));
+		roll.setHorizontalAlignment(JTextField.CENTER);
+		turn.setPreferredSize(new Dimension(150, turn.getPreferredSize().height));
+		turn.setMaximumSize(new Dimension(150, turn.getPreferredSize().height));
 		
 		firstRow.add(roll);
 		firstRow.add(turn);
