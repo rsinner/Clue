@@ -53,7 +53,8 @@ public class ClueGame extends JFrame{
 	private JMenuItem notes, close;
 	private int currentRoll; 
 	private ArrayList<Card> suggestion;
-	
+	private boolean nextAccusation = false;
+
 	public ClueGame() {
 		super();		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -61,27 +62,27 @@ public class ClueGame extends JFrame{
 		this.seenCards = new HashSet<Card>();
 		board = new Board("Clue_Layout.csv", "legend.txt",  this);
 		setSize(680,680);
-		
+
 		menuBar = new JMenuBar();
 		menu = new JMenu("File");
 		menuBar.add(menu);
-		
+
 		board.loadConfigFiles();
 		add(board, BorderLayout.CENTER);
 		loadPlayers("players.txt");
 		loadCards("cards.txt");
 		dealCards();
-		
+
 		notes = new JMenuItem("Detective Notes");
 		final DetectiveNotesDialogue dialogue = new DetectiveNotesDialogue(playerNames, roomNames, weaponNames);
 		dialogue.setVisible(false);
-		
+
 		notes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dialogue.setVisible(true);
 			}
 		});
-		
+
 		menu.add(notes);
 		close = new JMenuItem("Close");
 		close.addActionListener(new ActionListener() {
@@ -91,18 +92,18 @@ public class ClueGame extends JFrame{
 		});
 		menu.add(close);
 		add(menuBar, BorderLayout.PAGE_START);
-		
+
 		JPanel humanCards = new JPanel();
 		JPanel players = new JPanel();
 		JPanel weapons = new JPanel();
 		JPanel rooms = new JPanel();
-		
+
 		humanCards.setLayout(new GridLayout(3,1){
 			public Dimension preferredLayoutSize(Container parent) {
 				return new Dimension(125, 5);
 			}
 		});
-		
+
 		players.setLayout(new BoxLayout(players, BoxLayout.Y_AXIS));
 		weapons.setLayout(new BoxLayout(weapons, BoxLayout.Y_AXIS));
 		rooms.setLayout(new BoxLayout(rooms, BoxLayout.Y_AXIS));
@@ -127,29 +128,29 @@ public class ClueGame extends JFrame{
 		humanCards.setBorder(BorderFactory.createTitledBorder("My Cards"));
 		add(humanCards, BorderLayout.LINE_END);
 		board.updatePlayers(computerPlayers, human);
-		
+
 		control = new ControlGUI();
 		//JButton next = control.getNext();
 		add(control, BorderLayout.SOUTH);
-		
+
 		JButton next = control.getNext();
 		control.setNextText(human.getName());
 		control.setRollText(rollDie());
-		
+
 		next.addActionListener( new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				nextPlayer();		
-				}
+			}
 		});
-		
+
 		JOptionPane.showMessageDialog(board, "You are the Human player. Press Next Player to begin!", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
-		
+
 		int row = board.calcRow(human.getCurrentLocation());
 		int col = board.calcCol(human.getCurrentLocation());
 		board.calcTargets(row, col, currentRoll);
 		Set<BoardCell> t = board.getTargets();
 		human.makeMove(t, board);
-		
+
 	}
 
 	public void loadPlayers(String fileName) {
@@ -163,7 +164,7 @@ public class ClueGame extends JFrame{
 				//Human player is at the bottom of the text file. If no next line, human
 				if(!scan.hasNextLine()) {
 					human = new HumanPlayer();
-	//				playerNames.add(rows[0]);
+					//				playerNames.add(rows[0]);
 					human.setName(rows[0]);
 					human.setCurrentLocation(Integer.parseInt(rows[1]));
 					human.setColor(rows[2]);
@@ -171,20 +172,20 @@ public class ClueGame extends JFrame{
 				}
 				else {
 					ComputerPlayer cp = new ComputerPlayer();
-	//				playerNames.add(rows[0]);
+					//				playerNames.add(rows[0]);
 					cp.setName(rows[0]);
 					cp.setCurrentLocation(Integer.parseInt(rows[1]));
 					cp.setColor(rows[2]);
 					cp.initializePlayer();
 					computerPlayers.add(cp);
-					
+
 				}
 			}
 		} catch (FileNotFoundException e) {
 			System.out.println(e.getMessage());
 		}
 	}
-	
+
 	public ArrayList<String> getPlayerNames() {
 		return playerNames;
 	}
@@ -207,32 +208,32 @@ public class ClueGame extends JFrame{
 				String temp = scan.nextLine();
 				String[] rows = temp.split(",");
 				//Human player is at the bottom of the text file. If no next line, human
-					Card card = new Card();
-					card.setName(rows[0]);
-					String type = rows[1];
-					if(type.equals("PLAYER")) {
-						playerNames.add(rows[0]);
-						card.setType(CardType.PERSON);
-					} else if(type.equals("ROOM")) {
-						roomNames.add(rows[0]);
-						card.setType(CardType.ROOM);
-					} else if(type.equals("WEAPON")) {
-						weaponNames.add(rows[0]);
-						card.setType(CardType.WEAPON);
-					}
-				deck.add(card);
+				Card card = new Card();
+				card.setName(rows[0]);
+				String type = rows[1];
+				if(type.equals("PLAYER")) {
+					playerNames.add(rows[0]);
+					card.setType(CardType.PERSON);
+				} else if(type.equals("ROOM")) {
+					roomNames.add(rows[0]);
+					card.setType(CardType.ROOM);
+				} else if(type.equals("WEAPON")) {
+					weaponNames.add(rows[0]);
+					card.setType(CardType.WEAPON);
 				}
+				deck.add(card);
+			}
 			shuffleCards();
 		} catch (FileNotFoundException e) {
 			System.out.println(e.getMessage());
 		}
-		
+
 	}
-	
+
 	public void shuffleCards(){
 		ArrayList<Card> tempDeck = (ArrayList<Card>) deck.clone();
 		ArrayList<Card> shuffledDeck = new ArrayList<Card>();
-		
+
 		int arraySize = tempDeck.size();
 		for(int i = 0; i<arraySize; i++){
 			int randomIndex = generateRandomNumber(tempDeck.size());
@@ -242,52 +243,52 @@ public class ClueGame extends JFrame{
 		deck = (ArrayList<Card>) shuffledDeck.clone();
 		listOfCards = (ArrayList<Card>) shuffledDeck.clone();
 	}
-	
+
 	public int generateRandomNumber(int i) {
 		Random generator = new Random();
 		return generator.nextInt(i);
 	}
 
 	public void dealCards(){
-		
+
 		// Deal the 3 solution cards first
 		dealSolution();
-	
+
 		// For every deck in the card, deal it to somebody depending on who the current player is.
 		// Created an iterator so we can modify deck WHILE we're iterating through it.
 		Iterator<Card> it = deck.iterator();
 		while(it.hasNext()){
 			switch(currentPlayer){
 			case 0: 
-					computerPlayers.get(0).getCards().add(it.next());
-					it.remove();
-					currentPlayer++;
-					break;
+				computerPlayers.get(0).getCards().add(it.next());
+				it.remove();
+				currentPlayer++;
+				break;
 			case 1: computerPlayers.get(1).getCards().add(it.next());
-					it.remove();
-					currentPlayer++;
-					break;
+			it.remove();
+			currentPlayer++;
+			break;
 			case 2: computerPlayers.get(2).getCards().add(it.next());
-					it.remove();
-					currentPlayer++;
-					break;
+			it.remove();
+			currentPlayer++;
+			break;
 			case 3: computerPlayers.get(3).getCards().add(it.next());
-					it.remove();
-					currentPlayer++;
-					break;
+			it.remove();
+			currentPlayer++;
+			break;
 			case 4: computerPlayers.get(4).getCards().add(it.next());
-					it.remove();
-					currentPlayer++;
-					break;
+			it.remove();
+			currentPlayer++;
+			break;
 			case 5: human.getCards().add(it.next());
-					it.remove();
-					currentPlayer = 0;
-					break;
+			it.remove();
+			currentPlayer = 0;
+			break;
 			}
 		}
 	}
-	
-	
+
+
 
 	public void dealSolution() {
 		solution = new ArrayList<Card>();
@@ -299,7 +300,7 @@ public class ClueGame extends JFrame{
 		boolean havePerson = false;
 		boolean haveRoom = false;
 		while(i.hasNext()){
-			
+
 			Card temp = i.next();
 			if(temp.getType()== Card.CardType.WEAPON && !haveWeapon){
 				solution.add(temp);
@@ -325,7 +326,7 @@ public class ClueGame extends JFrame{
 	public HumanPlayer getHuman() {
 		return human;
 	}
-	
+
 	public ArrayList<Card> getDeck(){
 		return deck;
 	}
@@ -344,7 +345,7 @@ public class ClueGame extends JFrame{
 	public void addCardToSeen(Card seenCard){
 		seenCards.add(seenCard);
 	}
-	
+
 
 
 	public ArrayList<Card> createSuggestion(Card weaponCard, Card personCard) {
@@ -369,7 +370,7 @@ public class ClueGame extends JFrame{
 			roomCard.setType(clueGame.Card.CardType.ROOM);
 			suggestion.add(roomCard);
 		}
-		
+
 		suggestion.add(weaponCard);
 		suggestion.add(personCard);
 		control.setGuessText(personCard.getName() + " " + weaponCard.getName() + " " + roomCard.getName());
@@ -391,7 +392,7 @@ public class ClueGame extends JFrame{
 				}
 			}
 		}
-		
+
 		ArrayList<Player> allPlayers = (ArrayList<Player>) computerPlayers.clone();
 		allPlayers.add(human);
 		for(Player p : allPlayers) {
@@ -404,7 +405,7 @@ public class ClueGame extends JFrame{
 		}
 		return createSuggestion(weapon, person);
 	}
-	
+
 	public Card setupDisproveSuggestion(ArrayList<Card> suggestion, Player currentPlayer) {
 		//make a list of all players. remove current player. Iterate
 		ArrayList<Player> allPlayers = (ArrayList<Player>) computerPlayers.clone();
@@ -418,9 +419,12 @@ public class ClueGame extends JFrame{
 				break;
 		}
 		control.setGuessResultText(result.getName());
+		if(result == null) {
+			nextAccusation = true;
+		}
 		return result;
 	}
-	
+
 	// setter for testing purposes
 	public void setSolution(ArrayList<Card> solution) {
 		this.solution = solution;
@@ -437,19 +441,19 @@ public class ClueGame extends JFrame{
 	public void setCurrentPlayer(int currentPlayer) {
 		this.currentPlayer = currentPlayer;
 	}
-	
+
 	// For Testing
 	public int getCurrentPlayer() {
 		return currentPlayer;
 	}
-	
+
 	public void setCurrentPlayerLocation(int location) {
 		if (currentPlayer == 0)
 			human.setCurrentLocation(location);
 		else
 			computerPlayers.get(currentPlayer).setCurrentLocation(location);
 	}
-	
+
 	public void incrementPlayer() {
 		if(currentPlayer < 5) {
 			currentPlayer+=1;
@@ -458,7 +462,7 @@ public class ClueGame extends JFrame{
 			currentPlayer = 0;
 		}
 	}
-	
+
 	public String getCurrentPlayerName(int current) {
 		if(currentPlayer == 0) {
 			return human.getName();
@@ -467,7 +471,7 @@ public class ClueGame extends JFrame{
 			return currentPlayer.getName();
 		}
 	}
-	
+
 	public void nextPlayer() {
 		control.setGuessText(" ");
 		control.setGuessResultText(" ");
@@ -490,23 +494,34 @@ public class ClueGame extends JFrame{
 			}
 			else {
 				Player currentComputer = computerPlayers.get(currentPlayer-1);
-				int row = board.calcRow(currentComputer.getCurrentLocation());
-				int col = board.calcCol(currentComputer.getCurrentLocation());
-				board.calcTargets(row, col, currentRoll);
-				Set<BoardCell> t = board.getTargets();
-				currentComputer.makeMove(t, board);
-				//check to see if they are in a room
-				int index = currentComputer.getCurrentLocation();
-				RoomCell currentCell = board.getRoomCellAt(board.calcRow(index), board.calcCol(index));
-				if(currentCell != null) {
-					cpuMakeSuggestion();
-					setupDisproveSuggestion(suggestion, currentComputer);
+				if(nextAccusation == true) {
+					if(checkAccusation(suggestion))
+						JOptionPane.showMessageDialog(board, currentComputer.getName() + " wins!", "Hooray!", JOptionPane.OK_CANCEL_OPTION);
+						//game over
+					else {
+						//other things
+						nextAccusation = false;
+					}
+				} else {
+					
+					int row = board.calcRow(currentComputer.getCurrentLocation());
+					int col = board.calcCol(currentComputer.getCurrentLocation());
+					board.calcTargets(row, col, currentRoll);
+					Set<BoardCell> t = board.getTargets();
+					currentComputer.makeMove(t, board);
+					//check to see if they are in a room
+					int index = currentComputer.getCurrentLocation();
+					RoomCell currentCell = board.getRoomCellAt(board.calcRow(index), board.calcCol(index));
+					if(currentCell != null) {
+						cpuMakeSuggestion();
+						setupDisproveSuggestion(suggestion, currentComputer);
+					}
 				}
 			}
 		}
 	}	
 
-	
+
 	private int rollDie() {
 		currentRoll = (int)(Math.random()*6 + 1);
 		return currentRoll;		
@@ -515,13 +530,13 @@ public class ClueGame extends JFrame{
 	public static void main(String[] args){
 		ClueGame gui = new ClueGame();
 		gui.setVisible(true);
-		
-		
+
+
 	}
 
-	
 
 
-	
-	
+
+
+
 }
