@@ -1,6 +1,7 @@
 package clueGame;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 import javax.naming.Context;
 
@@ -50,7 +51,9 @@ public abstract class BoardCell {
 	}
 
 	public abstract void draw(Graphics g, Board board, boolean drawName);
-
+	
+	public abstract void draw(Graphics g, Board board, boolean drawName, int cellSize);
+	
 	public int getDimension() {
 		return dimension;
 	}

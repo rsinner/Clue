@@ -143,4 +143,24 @@ public class Player {
 		g.drawArc(y*CIRCLE_DIMENSION, x*CIRCLE_DIMENSION, CIRCLE_DIMENSION, CIRCLE_DIMENSION, 0, 180);
 		g.fillArc(y*CIRCLE_DIMENSION, x*CIRCLE_DIMENSION, CIRCLE_DIMENSION, CIRCLE_DIMENSION, 0, 180);
 	}
+	
+	public void draw(Graphics g, Board c, int cellSize) {
+		g.setColor(this.c);
+		int x = c.getCellAt(currentLocation).getRow();
+		
+		int y = c.getCellAt(currentLocation).getColumn();
+		
+		g.drawOval(y*cellSize, x*cellSize, cellSize, cellSize);
+		g.fillOval(y*cellSize, x*cellSize, cellSize, cellSize);
+	}
+	
+	public void drawArc(Graphics g, Board c, int cellSize) {
+		g.setColor(this.c);
+		int x = c.getCellAt(currentLocation).getRow();
+		
+		int y = c.getCellAt(currentLocation).getColumn();
+		
+		g.drawArc(y*cellSize, x*cellSize, cellSize, cellSize, 0, 180);
+		g.fillArc(y*cellSize, x*cellSize, cellSize, cellSize, 0, 180);
+	}
 }

@@ -33,7 +33,22 @@ public class WalkwayCell extends BoardCell {
 
 	}
 
+	@Override
+	public void draw(Graphics g, Board c, boolean drawName, int cellSize) {
+		// Checks to see if it is a target and highlights it
+		if (isHighlighted())
+			g.setColor(Color.CYAN);
+		else
+			// Set walkway color to yellow
+			g.setColor(Color.yellow);
+		g.fillRect(getColumn()*cellSize, getRow()*cellSize, cellSize, cellSize);
+		g.setColor(Color.BLACK);
+		g.drawRect(getColumn()*cellSize,getRow()*cellSize, cellSize, cellSize);
 
+
+		// Do nothing with draw name.
+
+	}
 
 
 }

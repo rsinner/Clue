@@ -61,9 +61,13 @@ public class Board extends JPanel {
 		mouseListener = new HumanMouseListener();
 	}
 	
+	public int getCellSize() {
+		return Math.min(getWidth()/19, getHeight()/18);
+	}
+	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		
+		int cellSize = getCellSize();
 		// This whole loop is responsible for painting room names only once.
 		ArrayList<Character> roomsPainted = new ArrayList<Character>();
 		ArrayList<RoomCell> paintLast = new ArrayList<RoomCell>();
@@ -75,15 +79,15 @@ public class Board extends JPanel {
 					roomsPainted.add(r.getInitial());
 				}
 				else{
-					cells.get(i).draw(g, this, false);
+					cells.get(i).draw(g, this, false, cellSize);
 				}
 			}
 			else{
-				cells.get(i).draw(g, this, false);
+				cells.get(i).draw(g, this, false, cellSize);
 			}			
 		}
 		for (RoomCell r : paintLast) {
-			r.draw(g, this, true);
+			r.draw(g, this, true, cellSize);
 			
 		}
 		
@@ -92,14 +96,14 @@ public class Board extends JPanel {
 		for(Player p : players){
 			for (Player y : players) {
 				if (p == arc) {
-					p.drawArc(g, this);
+					p.drawArc(g, this, cellSize);
 					break;
 				}
 				if (p.getCurrentLocation() == y.getCurrentLocation() && p.getName() != y.getName()) {
-					p.draw(g, this);
+					p.draw(g, this, cellSize);
 					arc = y;
 				} else {
-					p.draw(g, this);
+					p.draw(g, this, cellSize);
 				}
 			}
 		}
@@ -110,8 +114,8 @@ public class Board extends JPanel {
 	}
 
 	public BoardCell getCellFromMousePosition(Point p) {
-		int column = (int) p.getX()/BoardCell.CELL_SIZE;
-		int row = (int) p.getY()/BoardCell.CELL_SIZE;
+		int column = (int) p.getX()/getCellSize();
+		int row = (int) p.getY()/getCellSize();
 		int index = calcIndex(row, column);
 		if (index < cells.size() && index >= 0) {
 			BoardCell cell = this.getCellAt(index);
@@ -428,7 +432,6 @@ public class Board extends JPanel {
 				BoardCell clicked = getCellFromMousePosition(a.getPoint());
 				if (clicked == null)
 					return;
-				//threw a null pointer exception
 				for (BoardCell c : targets) {
 					if (c.equals(clicked)) {
 						game.setCurrentPlayerLocation(c.calcIndex(c.getRow(), c.getColumn()));
