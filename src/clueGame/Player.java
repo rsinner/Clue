@@ -114,7 +114,6 @@ public class Player {
 	}
 	
 	public void draw(Graphics g, Board c) {
-		// Set room color to gray
 		g.setColor(this.c);
 		int x = c.getCellAt(startingLocation).getRow();
 		
@@ -122,10 +121,15 @@ public class Player {
 		
 		g.drawOval(y*CIRCLE_DIMENSION, x*CIRCLE_DIMENSION, CIRCLE_DIMENSION, CIRCLE_DIMENSION);
 		g.fillOval(y*CIRCLE_DIMENSION, x*CIRCLE_DIMENSION, CIRCLE_DIMENSION, CIRCLE_DIMENSION);
-		// The commented line below will fill the grid with color. Makes it hard to count cells.
-		//g.fillRect(getColumn()*CELL_SIZE, getRow()*CELL_SIZE, getDimension(), getDimension());
-		// Since 1 inch ~ 72 units, each is 36x36 units.
-		//g.drawRect(getColumn()*CELL_SIZE, (getRow())*CELL_SIZE,getDimension(), getDimension());
 	}
 	
+	public void drawArc(Graphics g, Board c) {
+		g.setColor(this.c);
+		int x = c.getCellAt(startingLocation).getRow();
+		
+		int y = c.getCellAt(startingLocation).getColumn();
+		
+		g.drawArc(y*CIRCLE_DIMENSION, x*CIRCLE_DIMENSION, CIRCLE_DIMENSION, CIRCLE_DIMENSION, 0, 180);
+		g.fillArc(y*CIRCLE_DIMENSION, x*CIRCLE_DIMENSION, CIRCLE_DIMENSION, CIRCLE_DIMENSION, 0, 180);
+	}
 }

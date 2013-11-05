@@ -130,8 +130,6 @@ public class ClueGame extends JFrame{
 		control.setNextText(human.getName());
 		control.setRollText(rollDie());
 		
-		
-		
 		next.addActionListener( new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				nextPlayer();		

@@ -88,11 +88,27 @@ public class Board extends JPanel {
 		}
 		
 		// This whole loop is responsible for drawing the players
+		Player arc = null;
 		for(Player p : players){
-			p.draw(g, this);
+			for (Player y : players) {
+				if (p == arc) {
+					p.drawArc(g, this);
+					break;
+				}
+				if (p.getStartingLocation() == y.getStartingLocation() && p.getName() != y.getName()) {
+					p.draw(g, this);
+					arc = y;
+				} else {
+					p.draw(g, this);
+				}
+			}
 		}
 	}
 	
+	public ArrayList<Player> getPlayers() {
+		return players;
+	}
+
 	public BoardCell getCellFromMousePosition(Point p) {
 		int column = (int) p.getX()/BoardCell.CELL_SIZE;
 		int row = (int) p.getY()/BoardCell.CELL_SIZE;
