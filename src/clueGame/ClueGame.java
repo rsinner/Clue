@@ -284,6 +284,12 @@ public class ClueGame extends JFrame{
 			break;
 			}
 		}
+		for (Player p : computerPlayers) {
+			for(Card c : p.getCards())
+				p.updateSeen(c);
+		}
+		for(Card c : human.getCards())
+			human.updateSeen(c);
 	}
 
 
@@ -377,19 +383,18 @@ public class ClueGame extends JFrame{
 
 	public ArrayList<Card> cpuMakeSuggestion() {
 		ArrayList<Player> allPlayers = (ArrayList<Player>) computerPlayers.clone();
-		allPlayers.add(human);Card weapon = new Card();
+		allPlayers.add(human);
+		Card weapon = new Card();
 		Card person = new Card();
-		for (Player p : allPlayers) {
-			for(Card c : listOfCards){
-				if(c.getType() == clueGame.Card.CardType.WEAPON){
-					if(!p.getSeen().contains(c)){
-						weapon = c;
-					}
+		for(Card c : listOfCards){
+			if(c.getType() == clueGame.Card.CardType.WEAPON){
+				if(!computerPlayers.get(currentPlayer-1).getSeen().contains(c)){
+					weapon = c;
 				}
-				else if(c.getType() == clueGame.Card.CardType.PERSON){
-					if(!p.getSeen().contains(c)){
-						person = c;
-					}
+			}
+			else if(c.getType() == clueGame.Card.CardType.PERSON){
+				if(!computerPlayers.get(currentPlayer-1).getSeen().contains(c)){
+					person = c;
 				}
 			}
 		}
