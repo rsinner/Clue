@@ -1,5 +1,6 @@
 package clueGame;
 
+import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
@@ -38,7 +39,7 @@ public class Board extends JPanel {
 	private PrintWriter logger;
 	private ArrayList<Player> players;
 	private boolean humanMustFinish = true;
-	private MouseListener mouseListener;
+	private MouseAdapter mouseListener;
 	private ClueGame game;
 	JMenuBar menuBar;
 	JMenu menu;
@@ -152,6 +153,7 @@ public class Board extends JPanel {
 		}
 		mouseListener = new HumanMouseListener();
 		this.addMouseListener(mouseListener);
+		this.addMouseMotionListener(mouseListener);
 		game = c;
 	}
 	
@@ -441,6 +443,22 @@ public class Board extends JPanel {
 					}
 				}
 				JOptionPane.showMessageDialog(Board.this, "Not a valid location!", "Error!", JOptionPane.OK_CANCEL_OPTION);
+			}
+		}
+		
+		@Override
+		public void mouseMoved(MouseEvent a) {
+			if (game.getCurrentPlayer() == 0) {
+				BoardCell clicked = getCellFromMousePosition(a.getPoint());
+				if (clicked == null)
+					return;
+				if(clicked.isHighlighted()) {
+					Board.this.getParent().getParent().setCursor(new Cursor(Cursor.HAND_CURSOR));
+				} else {
+					Board.this.getParent().getParent().setCursor(Cursor.getDefaultCursor());
+				}
+			} else {
+				Board.this.getParent().getParent().setCursor(Cursor.getDefaultCursor());
 			}
 		}
 		
