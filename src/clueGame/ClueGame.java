@@ -451,7 +451,7 @@ public class ClueGame extends JFrame{
 	
 	public void nextPlayer() {
 		if(board.getHumanMustFinish() && currentPlayer == 0) {
-			JOptionPane.showMessageDialog(board, null, "Please pick a valid location!", JOptionPane.OK_CANCEL_OPTION);
+			JOptionPane.showMessageDialog(board, "Please pick a valid location!", "Error!", JOptionPane.OK_CANCEL_OPTION);
 		} else {
 			incrementPlayer();
 			int current = getCurrentPlayer();
@@ -460,6 +460,7 @@ public class ClueGame extends JFrame{
 			currentRoll = rollDie();
 			control.setRollText(currentRoll);
 			if(currentPlayer == 0) {
+				board.setHumanMustFinish(true);
 				int row = board.calcRow(human.getStartingLocation());
 				int col = board.calcCol(human.getStartingLocation());
 				board.calcTargets(row, col, currentRoll);
@@ -467,7 +468,7 @@ public class ClueGame extends JFrame{
 				human.makeMove(t, board);
 			}
 			else {
-				Player currentComputer = computerPlayers.get(currentPlayer);
+				Player currentComputer = computerPlayers.get(currentPlayer-1);
 				int row = board.calcRow(currentComputer.getStartingLocation());
 				int col = board.calcCol(currentComputer.getStartingLocation());
 				board.calcTargets(row, col, currentRoll);
@@ -479,7 +480,8 @@ public class ClueGame extends JFrame{
 
 	
 	private int rollDie() {
-		return (int)(Math.random()*6 + 1);		
+		currentRoll = (int)(Math.random()*6 + 1);
+		return currentRoll;		
 	}
 
 	public static void main(String[] args){

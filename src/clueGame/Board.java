@@ -417,10 +417,11 @@ public class Board extends JPanel {
 					if (c.equals(clicked)) {
 						game.setCurrentPlayerLocation(c.calcIndex(c.getRow(), c.getColumn()));
 						humanMustFinish = false;
+						highlightTargets(targets, false);
 						return;
 					}
 				}
-				JOptionPane.showMessageDialog(Board.this, null, "Not a valid location!", JOptionPane.OK_CANCEL_OPTION);
+				JOptionPane.showMessageDialog(Board.this, "Not a valid location!", "Error!", JOptionPane.OK_CANCEL_OPTION);
 			}
 		}
 		
