@@ -69,5 +69,6 @@ public class DetectiveNotesDialogue extends JDialog {
 		weaponGuess.add(drop3);
 		add(weaponGuess);
 		
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 	}
 }

@@ -64,13 +64,23 @@ public class ClueGame extends JFrame{
 		menuBar = new JMenuBar();
 		menu = new JMenu("File");
 		menuBar.add(menu);
+		
+		board.loadConfigFiles();
+		add(board, BorderLayout.CENTER);
+		loadPlayers("players.txt");
+		loadCards("cards.txt");
+		dealCards();
+		
 		notes = new JMenuItem("Detective Notes");
+		final DetectiveNotesDialogue dialogue = new DetectiveNotesDialogue(playerNames, roomNames, weaponNames);
+		dialogue.setVisible(false);
+		
 		notes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				DetectiveNotesDialogue dialogue = new DetectiveNotesDialogue(playerNames, roomNames, weaponNames);
 				dialogue.setVisible(true);
 			}
 		});
+		
 		menu.add(notes);
 		close = new JMenuItem("Close");
 		close.addActionListener(new ActionListener() {
@@ -80,12 +90,6 @@ public class ClueGame extends JFrame{
 		});
 		menu.add(close);
 		add(menuBar, BorderLayout.PAGE_START);
-		
-		board.loadConfigFiles();
-		add(board, BorderLayout.CENTER);
-		loadPlayers("players.txt");
-		loadCards("cards.txt");
-		dealCards();
 		
 		JPanel humanCards = new JPanel();
 		JPanel players = new JPanel();
@@ -97,6 +101,7 @@ public class ClueGame extends JFrame{
 				return new Dimension(125, 5);
 			}
 		});
+		
 		players.setLayout(new BoxLayout(players, BoxLayout.Y_AXIS));
 		weapons.setLayout(new BoxLayout(weapons, BoxLayout.Y_AXIS));
 		rooms.setLayout(new BoxLayout(rooms, BoxLayout.Y_AXIS));
