@@ -130,6 +130,8 @@ public class ClueGame extends JFrame{
 		control.setNextText(human.getName());
 		control.setRollText(rollDie());
 		
+		
+		
 		next.addActionListener( new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				nextPlayer();		
@@ -138,6 +140,11 @@ public class ClueGame extends JFrame{
 		
 		JOptionPane.showMessageDialog(board, "You are the Human player. Press Next Player to begin!", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
 		
+		int row = board.calcRow(human.getStartingLocation());
+		int col = board.calcCol(human.getStartingLocation());
+		board.calcTargets(row, col, currentRoll);
+		Set<BoardCell> t = board.getTargets();
+		human.makeMove(t, board);
 		
 	}
 
@@ -453,19 +460,21 @@ public class ClueGame extends JFrame{
 			currentRoll = rollDie();
 			control.setRollText(currentRoll);
 			if(currentPlayer == 0) {
-//				human.makeMove(targets, true);
+				int row = board.calcRow(human.getStartingLocation());
+				int col = board.calcCol(human.getStartingLocation());
+				board.calcTargets(row, col, currentRoll);
+				Set<BoardCell> t = board.getTargets();
+				human.makeMove(t, board);
 			}
 			else {
 				Player currentComputer = computerPlayers.get(currentPlayer);
-				
-//				currentComputer.makeMove(board.calcTargets(row, column, steps), false);
+				int row = board.calcRow(currentComputer.getStartingLocation());
+				int col = board.calcCol(currentComputer.getStartingLocation());
+				board.calcTargets(row, col, currentRoll);
+				Set<BoardCell> t = board.getTargets();
+				currentComputer.makeMove(t, board);
 			}
-		
-			
-		
 		}
-		
-		
 	}	
 
 	

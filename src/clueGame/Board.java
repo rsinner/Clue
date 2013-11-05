@@ -252,6 +252,7 @@ public class Board extends JPanel {
 		return numColumns*row + column;
 	}
 	
+	
 	public RoomCell getRoomCellAt(int row, int col) {
 		int index = calcIndex(row, col);
 		// if the roomCell at that row and column is a walkway, it will return null
