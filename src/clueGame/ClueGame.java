@@ -351,7 +351,7 @@ public class ClueGame extends JFrame{
 		Card roomCard = new Card();
 		int index;
 		RoomCell currentCell;
-		if(currentPlayer < 5){
+		if(currentPlayer < 6){
 			ComputerPlayer cp = computerPlayers.get(currentPlayer-1);
 			index = cp.getCurrentLocation();
 			currentCell = board.getRoomCellAt(board.calcRow(index), board.calcCol(index));
@@ -457,6 +457,7 @@ public class ClueGame extends JFrame{
 	}
 	
 	public void nextPlayer() {
+		control.setGuessText(" ");
 		if(board.getHumanMustFinish() && currentPlayer == 0) {
 			JOptionPane.showMessageDialog(board, "Please pick a valid location!", "Error!", JOptionPane.OK_CANCEL_OPTION);
 		} else {
