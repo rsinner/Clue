@@ -9,7 +9,7 @@ import java.util.Set;
 public class Player {
 	private String name;
 	private ArrayList<Card> cards;
-	private int startingLocation;
+	private int currentLocation;
 	private String color;
 	private char previousRoom;
 	private char currentRoom;
@@ -77,12 +77,12 @@ public class Player {
 		this.cards = cards;
 	}
 	
-	public void setStartingLocation(int start){
-		this.startingLocation = start;
+	public void setCurrentLocation(int start){
+		this.currentLocation = start;
 	}
 	
-	public int getStartingLocation(){
-		return startingLocation;
+	public int getCurrentLocation(){
+		return currentLocation;
 	}
 	
 	public char getPreviousRoom() {
@@ -115,9 +115,9 @@ public class Player {
 	
 	public void draw(Graphics g, Board c) {
 		g.setColor(this.c);
-		int x = c.getCellAt(startingLocation).getRow();
+		int x = c.getCellAt(currentLocation).getRow();
 		
-		int y = c.getCellAt(startingLocation).getColumn();
+		int y = c.getCellAt(currentLocation).getColumn();
 		
 		g.drawOval(y*CIRCLE_DIMENSION, x*CIRCLE_DIMENSION, CIRCLE_DIMENSION, CIRCLE_DIMENSION);
 		g.fillOval(y*CIRCLE_DIMENSION, x*CIRCLE_DIMENSION, CIRCLE_DIMENSION, CIRCLE_DIMENSION);
@@ -125,9 +125,9 @@ public class Player {
 	
 	public void drawArc(Graphics g, Board c) {
 		g.setColor(this.c);
-		int x = c.getCellAt(startingLocation).getRow();
+		int x = c.getCellAt(currentLocation).getRow();
 		
-		int y = c.getCellAt(startingLocation).getColumn();
+		int y = c.getCellAt(currentLocation).getColumn();
 		
 		g.drawArc(y*CIRCLE_DIMENSION, x*CIRCLE_DIMENSION, CIRCLE_DIMENSION, CIRCLE_DIMENSION, 0, 180);
 		g.fillArc(y*CIRCLE_DIMENSION, x*CIRCLE_DIMENSION, CIRCLE_DIMENSION, CIRCLE_DIMENSION, 0, 180);

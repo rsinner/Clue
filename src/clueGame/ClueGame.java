@@ -47,11 +47,11 @@ public class ClueGame extends JFrame{
 	private static ArrayList<String> weaponNames = new ArrayList<String>();
 	private static ArrayList<String> roomNames = new ArrayList<String>();
 	private String paintName;
-	ControlGUI control;
-	JMenuBar menuBar;
-	JMenu menu;
-	JMenuItem notes, close;
-	private int currentRoll;
+	private ControlGUI control;
+	private JMenuBar menuBar;
+	private JMenu menu;
+	private JMenuItem notes, close;
+	private int currentRoll; 
 	
 	public ClueGame() {
 		super();		
@@ -143,8 +143,8 @@ public class ClueGame extends JFrame{
 		
 		JOptionPane.showMessageDialog(board, "You are the Human player. Press Next Player to begin!", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
 		
-		int row = board.calcRow(human.getStartingLocation());
-		int col = board.calcCol(human.getStartingLocation());
+		int row = board.calcRow(human.getCurrentLocation());
+		int col = board.calcCol(human.getCurrentLocation());
 		board.calcTargets(row, col, currentRoll);
 		Set<BoardCell> t = board.getTargets();
 		human.makeMove(t, board);
@@ -164,7 +164,7 @@ public class ClueGame extends JFrame{
 					human = new HumanPlayer();
 	//				playerNames.add(rows[0]);
 					human.setName(rows[0]);
-					human.setStartingLocation(Integer.parseInt(rows[1]));
+					human.setCurrentLocation(Integer.parseInt(rows[1]));
 					human.setColor(rows[2]);
 					human.initializePlayer();
 				}
@@ -172,7 +172,7 @@ public class ClueGame extends JFrame{
 					ComputerPlayer cp = new ComputerPlayer();
 	//				playerNames.add(rows[0]);
 					cp.setName(rows[0]);
-					cp.setStartingLocation(Integer.parseInt(rows[1]));
+					cp.setCurrentLocation(Integer.parseInt(rows[1]));
 					cp.setColor(rows[2]);
 					cp.initializePlayer();
 					computerPlayers.add(cp);
@@ -348,18 +348,22 @@ public class ClueGame extends JFrame{
 
 	public ArrayList<Card> createSuggestion(Card weaponCard, Card personCard) {
 		ArrayList<Card> suggestion = new ArrayList<Card>();
+		Card roomCard = new Card();
+		int index;
+		RoomCell currentCell;
 		if(currentPlayer < 5){
-			ComputerPlayer cp = computerPlayers.get(currentPlayer);
-			String room = board.getRooms().get(cp.getCurrentRoom());
-			Card roomCard = new Card();
-			roomCard.setName(room);
+			ComputerPlayer cp = computerPlayers.get(currentPlayer-1);
+			index = cp.getCurrentLocation();
+			currentCell = board.getRoomCellAt(board.calcRow(index), board.calcCol(index));
+			char room = currentCell.getInitial();
+			String roomName = board.getRooms().get(room);
+			roomCard.setName(roomName);
 			roomCard.setType(clueGame.Card.CardType.ROOM);
 			suggestion.add(roomCard);
 		}
 		else{
 			HumanPlayer hp = human;
-			String room = board.getRooms().get(human.getCurrentRoom());
-			Card roomCard = new Card();
+			String room = board.getRooms().get(human.getCurrentLocation());
 			roomCard.setName(room);
 			roomCard.setType(clueGame.Card.CardType.ROOM);
 			suggestion.add(roomCard);
@@ -367,7 +371,7 @@ public class ClueGame extends JFrame{
 		
 		suggestion.add(weaponCard);
 		suggestion.add(personCard);
-		
+		control.setGuessText(personCard.getName() + " " + weaponCard.getName() + " " + roomCard.getName());
 		return suggestion;
 	}
 
@@ -429,9 +433,9 @@ public class ClueGame extends JFrame{
 	
 	public void setCurrentPlayerLocation(int location) {
 		if (currentPlayer == 0)
-			human.setStartingLocation(location);
+			human.setCurrentLocation(location);
 		else
-			computerPlayers.get(currentPlayer).setStartingLocation(location);
+			computerPlayers.get(currentPlayer).setCurrentLocation(location);
 	}
 	
 	public void incrementPlayer() {
@@ -464,19 +468,25 @@ public class ClueGame extends JFrame{
 			control.setRollText(currentRoll);
 			if(currentPlayer == 0) {
 				board.setHumanMustFinish(true);
-				int row = board.calcRow(human.getStartingLocation());
-				int col = board.calcCol(human.getStartingLocation());
+				int row = board.calcRow(human.getCurrentLocation());
+				int col = board.calcCol(human.getCurrentLocation());
 				board.calcTargets(row, col, currentRoll);
 				Set<BoardCell> t = board.getTargets();
 				human.makeMove(t, board);
 			}
 			else {
 				Player currentComputer = computerPlayers.get(currentPlayer-1);
-				int row = board.calcRow(currentComputer.getStartingLocation());
-				int col = board.calcCol(currentComputer.getStartingLocation());
+				int row = board.calcRow(currentComputer.getCurrentLocation());
+				int col = board.calcCol(currentComputer.getCurrentLocation());
 				board.calcTargets(row, col, currentRoll);
 				Set<BoardCell> t = board.getTargets();
 				currentComputer.makeMove(t, board);
+				//check to see if they are in a room
+				int index = currentComputer.getCurrentLocation();
+				RoomCell currentCell = board.getRoomCellAt(board.calcRow(index), board.calcCol(index));
+				if(currentCell != null) {
+					cpuMakeSuggestion();
+				}
 			}
 		}
 	}	

@@ -45,12 +45,6 @@ public class ControlGUI extends JPanel {
 		secondRow.add(accuse);
 		
 		add(secondRow);
-	
-		//Determine which player is next CLUEGAME
-		//update game control panel CONTROLPANEL
-		//call appropriate player to make a move CLUEGAME
-		//roll die, update the display CLUEGAME??
-		//determine targets and if human, should be highlighted 
 		
 	}
 	
@@ -70,5 +64,13 @@ public class ControlGUI extends JPanel {
 	
 	public void setRollText(int currentRoll){
 		roll.setText(String.valueOf(currentRoll));
+	}
+	
+	public void setGuessText(String s) {
+		guess.setText(s);
+	}
+	
+	public void setGuessResultText(String s){
+		guessResult.setText(s);
 	}
 }

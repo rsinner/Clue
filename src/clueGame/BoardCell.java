@@ -13,6 +13,7 @@ public abstract class BoardCell {
 	private int numColumns = 19;
 	private boolean isHighlighted = false;
 	
+	
 	public boolean isHighlighted() {
 		return isHighlighted;
 	}
@@ -69,5 +70,6 @@ public abstract class BoardCell {
 	public int calcIndex(int row, int column) {
 		return numColumns*row + column;
 	}
+
 	
 }

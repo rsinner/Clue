@@ -35,7 +35,7 @@ public class ComputerPlayer extends Player {
 		int column = move.getColumn();
 		int row = move.getRow();
 		int location = move.calcIndex(row, column);
-		setStartingLocation(location);
+		setCurrentLocation(location);
 		b.repaint();
 	}
 }

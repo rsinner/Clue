@@ -95,7 +95,7 @@ public class Board extends JPanel {
 					p.drawArc(g, this);
 					break;
 				}
-				if (p.getStartingLocation() == y.getStartingLocation() && p.getName() != y.getName()) {
+				if (p.getCurrentLocation() == y.getCurrentLocation() && p.getName() != y.getName()) {
 					p.draw(g, this);
 					arc = y;
 				} else {
@@ -271,7 +271,7 @@ public class Board extends JPanel {
 	
 	public RoomCell getRoomCellAt(int row, int col) {
 		int index = calcIndex(row, col);
-		// if the roomCell at that row and column is a walkway, it will return null
+		//if the roomCell at that row and column is a walkway, it will return null
 		if (cells.get(index) instanceof WalkwayCell)
 			return null;
 		return (RoomCell) cells.get(index);
