@@ -52,6 +52,7 @@ public class ClueGame extends JFrame{
 	private JMenu menu;
 	private JMenuItem notes, close;
 	private int currentRoll; 
+	private ArrayList<Card> suggestion;
 	
 	public ClueGame() {
 		super();		
@@ -347,7 +348,7 @@ public class ClueGame extends JFrame{
 
 
 	public ArrayList<Card> createSuggestion(Card weaponCard, Card personCard) {
-		ArrayList<Card> suggestion = new ArrayList<Card>();
+		suggestion = new ArrayList<Card>();
 		Card roomCard = new Card();
 		int index;
 		RoomCell currentCell;
@@ -390,8 +391,18 @@ public class ClueGame extends JFrame{
 				}
 			}
 		}
-		return createSuggestion(weapon, person);
 		
+		ArrayList<Player> allPlayers = (ArrayList<Player>) computerPlayers.clone();
+		allPlayers.add(human);
+		for(Player p : allPlayers) {
+			if(p.getName().equalsIgnoreCase(person.getName())) {
+				System.out.println(p.getCurrentLocation());
+				p.setCurrentLocation(allPlayers.get(currentPlayer-1).getCurrentLocation());
+				System.out.println(p.getCurrentLocation());
+				repaint();
+			}
+		}
+		return createSuggestion(weapon, person);
 	}
 	
 	public Card setupDisproveSuggestion(ArrayList<Card> suggestion, Player currentPlayer) {
@@ -406,6 +417,7 @@ public class ClueGame extends JFrame{
 			if(result != null)
 				break;
 		}
+		control.setGuessResultText(result.getName());
 		return result;
 	}
 	
@@ -458,6 +470,7 @@ public class ClueGame extends JFrame{
 	
 	public void nextPlayer() {
 		control.setGuessText(" ");
+		control.setGuessResultText(" ");
 		if(board.getHumanMustFinish() && currentPlayer == 0) {
 			JOptionPane.showMessageDialog(board, "Please pick a valid location!", "Error!", JOptionPane.OK_CANCEL_OPTION);
 		} else {
@@ -487,6 +500,7 @@ public class ClueGame extends JFrame{
 				RoomCell currentCell = board.getRoomCellAt(board.calcRow(index), board.calcCol(index));
 				if(currentCell != null) {
 					cpuMakeSuggestion();
+					setupDisproveSuggestion(suggestion, currentComputer);
 				}
 			}
 		}
