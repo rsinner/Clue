@@ -143,9 +143,19 @@ public class ClueGame extends JFrame{
 		});
 		
 		humanGuess = new HumanGuessGUI(board, this, roomNames, playerNames, weaponNames);
+		
 		JButton submit = humanGuess.getSubmit();
+		JButton cancel = humanGuess.getCancel();
+		
+		cancel.addActionListener( new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				humanGuess.setVisible(false);
+			}
+		});
+		
 		submit.addActionListener( new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				humanGuess.setVisible(false);
 				// Checks the human's suggestion
 				Card room = new Card(humanGuess.getRoom(), Card.CardType.ROOM);
 				Card person = new Card(humanGuess.getPerson(), Card.CardType.PERSON);
