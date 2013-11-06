@@ -60,6 +60,9 @@ public class ControlGUI extends JPanel {
 		return next;
 	}
 
+	public JButton getAccuse() {
+		return accuse;
+	}
 	public JTextField getTurn() {
 		return turn;
 	}

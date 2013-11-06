@@ -4,15 +4,15 @@ Mr. Green,PLAYER
 Violet,PLAYER
 Miss Scarlett,PLAYER
 Human,PLAYER
-Conservatory,ROOM
+Indoor Pool,ROOM
 Kitchen,ROOM
-Ballroom,ROOM
-Billiard Room,ROOM
-Library,ROOM
-Study,ROOM
-Dining Room,ROOM
-Lounge,ROOM
 Hall,ROOM
+Laundry Room,ROOM
+Lounge,ROOM
+Dance Floor,ROOM
+Dining Room,ROOM
+Video Game Room,ROOM
+Billiard Room,ROOM
 Knife,WEAPON
 Crowbar,WEAPON
 Candlestick,WEAPON

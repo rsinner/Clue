@@ -53,6 +53,7 @@ public class ClueGame extends JFrame{
 	private int currentRoll; 
 	private ArrayList<Card> suggestion;
 	private boolean nextAccusation = false;
+	private HumanGuessGUI humanGuess;
 
 	public ClueGame() {
 		super();		
@@ -60,7 +61,7 @@ public class ClueGame extends JFrame{
 		setTitle("Clue Game");
 		board = new Board("Clue_Layout.csv", "legend.txt",  this);
 		setSize(680,680);
-
+		
 		menuBar = new JMenuBar();
 		menu = new JMenu("File");
 		menuBar.add(menu);
@@ -140,7 +141,24 @@ public class ClueGame extends JFrame{
 				nextPlayer();		
 			}
 		});
-
+		
+		humanGuess = new HumanGuessGUI(board, this, roomNames, playerNames, weaponNames);
+		JButton submit = humanGuess.getSubmit();
+		submit.addActionListener( new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// Checks the human's suggestion
+				Card room = new Card(humanGuess.getRoom(), Card.CardType.ROOM);
+				Card person = new Card(humanGuess.getPerson(), Card.CardType.PERSON);
+				Card weapon = new Card(humanGuess.getWeapon(), Card.CardType.WEAPON);
+				ArrayList<Card> suggestionCards = new ArrayList<Card>();
+				suggestionCards.add(room);
+				suggestionCards.add(person);
+				suggestionCards.add(weapon);
+				System.out.println(suggestionCards);
+				setupDisproveSuggestion(suggestionCards, human);
+			}
+		});
+			
 		JOptionPane.showMessageDialog(board, "You are the Human player. Press Next Player to begin!", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
 
 		int row = board.calcRow(human.getCurrentLocation());
@@ -148,6 +166,13 @@ public class ClueGame extends JFrame{
 		board.calcTargets(row, col, currentRoll);
 		Set<BoardCell> t = board.getTargets();
 		human.makeMove(t, board);
+
+		JButton accuse = control.getAccuse();
+		accuse.addActionListener( new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				humanGuess.setVisible(true);		
+			}
+		});
 
 	}
 
@@ -449,8 +474,14 @@ public class ClueGame extends JFrame{
 	}
 
 	public void setCurrentPlayerLocation(int location) {
-		if (currentPlayer == 0)
+		if (currentPlayer == 0) {
 			human.setCurrentLocation(location);
+			int row = board.calcRow(human.getCurrentLocation());
+			int col = board.calcCol(human.getCurrentLocation());
+			RoomCell currentRoom = board.getRoomCellAt(row, col); 
+			if (currentRoom != null)
+				humanGuess.setVisible(true);
+		}
 		else
 			computerPlayers.get(currentPlayer).setCurrentLocation(location);
 	}

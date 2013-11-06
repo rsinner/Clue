@@ -14,7 +14,6 @@ public abstract class BoardCell {
 	private int numColumns = 19;
 	private boolean isHighlighted = false;
 	
-	
 	public boolean isHighlighted() {
 		return isHighlighted;
 	}
