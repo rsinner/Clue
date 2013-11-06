@@ -154,7 +154,7 @@ public class ClueGame extends JFrame{
 				suggestionCards.add(room);
 				suggestionCards.add(person);
 				suggestionCards.add(weapon);
-				System.out.println(suggestionCards);
+				control.setGuessText(humanGuess.getPerson() + " " + humanGuess.getWeapon() + " " + humanGuess.getRoom());
 				setupDisproveSuggestion(suggestionCards, human);
 			}
 		});
