@@ -54,6 +54,7 @@ public class ClueGame extends JFrame{
 	private ArrayList<Card> suggestion;
 	private boolean nextAccusation = false;
 	private HumanGuessGUI humanGuess;
+	private boolean humanAccusation = false;
 
 	public ClueGame() {
 		super();		
@@ -61,7 +62,7 @@ public class ClueGame extends JFrame{
 		setTitle("Clue Game");
 		board = new Board("Clue_Layout.csv", "legend.txt",  this);
 		setSize(680,680);
-		
+
 		menuBar = new JMenuBar();
 		menu = new JMenu("File");
 		menuBar.add(menu);
@@ -141,22 +142,23 @@ public class ClueGame extends JFrame{
 				nextPlayer();		
 			}
 		});
-		
+
 		humanGuess = new HumanGuessGUI(board, this, roomNames, playerNames, weaponNames);
-		
+
 		JButton submit = humanGuess.getSubmit();
 		JButton cancel = humanGuess.getCancel();
-		
+
 		cancel.addActionListener( new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				humanGuess.setVisible(false);
 			}
 		});
 		
+		System.out.println(solution.toString());
+		
 		submit.addActionListener( new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				humanGuess.setVisible(false);
-				// Checks the human's suggestion
 				Card room = new Card(humanGuess.getRoom(), Card.CardType.ROOM);
 				Card person = new Card(humanGuess.getPerson(), Card.CardType.PERSON);
 				Card weapon = new Card(humanGuess.getWeapon(), Card.CardType.WEAPON);
@@ -164,11 +166,19 @@ public class ClueGame extends JFrame{
 				suggestionCards.add(room);
 				suggestionCards.add(person);
 				suggestionCards.add(weapon);
-				control.setGuessText(humanGuess.getPerson() + " " + humanGuess.getWeapon() + " " + humanGuess.getRoom());
-				setupDisproveSuggestion(suggestionCards, human);
+				// Checks to see if the human is making a suggestion or an accusation
+				if (humanAccusation) {
+					// Checks the human's accusation
+					//if (checkAccusation(suggestionCards))
+						//JOptionPane.showMessageDialog(board, "You win!", "Hooray!", JOptionPane.OK_CANCEL_OPTION);
+				} else {
+					// Checks the human's suggestion
+					control.setGuessText(humanGuess.getPerson() + " " + humanGuess.getWeapon() + " " + humanGuess.getRoom());
+					setupDisproveSuggestion(suggestionCards, human);
+				}
 			}
 		});
-			
+
 		JOptionPane.showMessageDialog(board, "You are the Human player. Press Next Player to begin!", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
 
 		int row = board.calcRow(human.getCurrentLocation());
@@ -181,6 +191,7 @@ public class ClueGame extends JFrame{
 		accuse.addActionListener( new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				humanGuess.setVisible(true);		
+				humanAccusation = true;
 			}
 		});
 
