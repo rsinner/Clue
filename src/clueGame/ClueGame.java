@@ -153,9 +153,9 @@ public class ClueGame extends JFrame{
 				humanGuess.setVisible(false);
 			}
 		});
-		
+
 		System.out.println(solution.toString());
-		
+
 		submit.addActionListener( new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				humanGuess.setVisible(false);
@@ -198,8 +198,12 @@ public class ClueGame extends JFrame{
 		JButton accuse = control.getAccuse();
 		accuse.addActionListener( new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				humanAccusation = true;
-				humanGuess.setVisible(true);		
+				if (currentPlayer != 0) {
+					JOptionPane.showMessageDialog(board, "It is not your turn!", "Error!", JOptionPane.OK_CANCEL_OPTION);
+				} else {
+					humanAccusation = true;
+					humanGuess.setVisible(true);
+				}
 			}
 		});
 
