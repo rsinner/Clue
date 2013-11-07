@@ -177,8 +177,12 @@ public class ClueGame extends JFrame{
 				// Checks to see if the human is making a suggestion or an accusation
 				if (humanAccusation) {
 					// Checks the human's accusation
-					if (checkAccusation(suggestionCards))
+					if (checkAccusation(suggestionCards)) {
 						JOptionPane.showMessageDialog(board, "You win!", "Hooray!", JOptionPane.OK_CANCEL_OPTION);
+						System.exit(0);
+					}
+						
+						
 				} else {
 					// Checks the human's suggestion
 					control.setGuessText(humanGuess.getPerson() + " " + humanGuess.getWeapon() + " " + humanGuess.getRoom());
