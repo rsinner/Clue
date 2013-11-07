@@ -166,11 +166,19 @@ public class ClueGame extends JFrame{
 				suggestionCards.add(room);
 				suggestionCards.add(person);
 				suggestionCards.add(weapon);
+				ArrayList<Player> allPlayers = (ArrayList<Player>) computerPlayers.clone();
+				allPlayers.add(human);
+				for(Player p : allPlayers) {
+					if(p.getName().equalsIgnoreCase(person.getName())) {
+						p.setCurrentLocation(human.getCurrentLocation());
+						repaint();
+					}
+				}
 				// Checks to see if the human is making a suggestion or an accusation
 				if (humanAccusation) {
 					// Checks the human's accusation
 					//if (checkAccusation(suggestionCards))
-						JOptionPane.showMessageDialog(board, "You win!", "Hooray!", JOptionPane.OK_CANCEL_OPTION);
+						//JOptionPane.showMessageDialog(board, "You win!", "Hooray!", JOptionPane.OK_CANCEL_OPTION);
 				} else {
 					// Checks the human's suggestion
 					control.setGuessText(humanGuess.getPerson() + " " + humanGuess.getWeapon() + " " + humanGuess.getRoom());
