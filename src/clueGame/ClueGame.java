@@ -198,14 +198,13 @@ public class ClueGame extends JFrame{
 		JButton accuse = control.getAccuse();
 		accuse.addActionListener( new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (currentPlayer != 0) {
-					JOptionPane.showMessageDialog(board, "It is not your turn!", "Error!", JOptionPane.OK_CANCEL_OPTION);
+				if (board.getHumanMustFinish() == false) {
+					JOptionPane.showMessageDialog(board, "It is not your turn!", "Error!", JOptionPane.OK_CANCEL_OPTION);		
 				} else {
 					humanAccusation = true;
 					humanGuess.setVisible(true);
 				}
-			}
-		});
+			}});
 
 	}
 
